@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:58:31 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 07:59:42 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 08:59:50 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,74 @@ void	sp_putchar(unsigned char const *ptr)
 		write(1, ".", 1);
 }
 
-void	print_memory(const void *addr, size_t size)
+int		check_line(unsigned char const *addr)
 {
-	size_t i;
-	size_t a;
+	int ret;
+	int	line_val;
+	int i;
+	
+	i = 0;
+	ret = 0;
+	
+	while (i < 16)
+	{
+		ret += addr[i];
+		i++;
+	}
+	return(ret == 0 ? 1 : 0);		
+}
+
+void	print_memory(const void *addr, size_t size, int printable, int location)
+{
+	size_t	ind;
+	size_t	a;
+	int		skip;
+	int		skip_prev;
 	unsigned char const *ptr = addr;
 
-	i = 0;
-	while (i < size)
+	ind = 0;
+	skip_prev = 0;
+	while (ind < size)
 	{
-		a = 0;
-		while (a < 16 && a + i < size)
+		skip = check_line(&(ptr[ind]));
+		if (skip && !skip_prev)
 		{
-			ft_putnbr_hex(*(ptr + i + a), 2);
-			if (a % 2)
+			skip_prev = 1;
+			write(1, "*\n", 2);
+		}
+		else if (!skip)
+		{
+			skip_prev = 0;
+			if (location)
+			{
+				ft_putnbr_hex(ind,7);
 				write(1, " ", 1);
-			a++;
-		}
-		while (a < 16)
-		{
-			write(1, "  ", 2);
-			if (a % 2)
+			}
+			a = 0;
+			while (a < 16 && a + ind < size)
+			{
+				ft_putnbr_hex(*(ptr + ind + a), 2);
 				write(1, " ", 1);
-			a++;
+				a++;
+			}
+			while (a < 16)
+			{
+				write(1, "  ", 2);
+				if (a % 2)
+					write(1, " ", 1);
+				a++;
+			}
+			if (printable)
+			{
+				a = 0;
+				while (a < 16 && a + ind < size)
+				{
+					sp_putchar(ptr + a + ind);
+					a++;
+				}
+			}
+			write(1, "\n", 1);
 		}
-		a = 0;
-		while (a < 16 && a + i < size)
-		{
-			sp_putchar(ptr + a + i);
-			a++;
-		}
-		write(1, "\n", 1);
-		i += 16;
+		ind += 16;
 	}
 }

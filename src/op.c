@@ -6,11 +6,11 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/09/06 07:10:03 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 10:06:14 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "../includes/vm.h"
 /*
 typedef struct		s_op
 {
@@ -48,27 +48,27 @@ static t_op	op_tab[17] =
 	{0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-void	set_op_tab(t_asm *asm_data)
+void	set_op_tab(t_vm *vm_data)
 {
 	int	i;
 	
 	i = 0;
 	while (i < 17)
 	{
-		asm_data->op_table[i] = op_tab[i];
+		vm_data->op_table[i] = op_tab[i];
 		i++;
 	}
 }
 
-// int		get_id_by_name(t_asm *asm_data, char *name)
+// int		get_id_by_name(t_vm *vm_data, char *name)
 // {
 // 	int		i;
 
 // 	i = 0;
 // 	while (i < 17)
 // 	{
-// 		if (!ft_strcmp(name, asm_data->op_table[i].name))
-// 			return (asm_data->op_table[i].id);
+// 		if (!ft_strcmp(name, vm_data->op_table[i].name))
+// 			return (vm_data->op_table[i].id);
 // 		i++;
 // 	}
 // 	return (i);

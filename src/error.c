@@ -6,11 +6,24 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:43:10 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/05 08:56:52 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 10:17:01 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "../includes/vm.h"
+
+void	exit_errnostr(char *str)
+{
+	ft_putstr(str);
+	ft_putendl(strerror(errno));
+	exit (0);
+}
+
+void	exit_errno(void)
+{
+	ft_putendl(strerror(errno));
+	exit(0);
+}
 
 void	exit_str(char *str)
 {
