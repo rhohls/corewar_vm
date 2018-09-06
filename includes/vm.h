@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 12:03:52 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 14:20:44 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_asm
 {
 	t_op		op_table[17];
 	t_list		*file_lines;
+	t_stack		*cursor_stack;
 }				t_vm;
 
 typedef struct	s_player
@@ -34,8 +35,16 @@ typedef struct	s_player
 	char		name[PROG_NAME_LENGTH + 1];
 	char		*program;
 	int			player_num;
+	u_int		program_size;
 	
 }				t_player;
+
+typedef struct	s_cursor
+{
+	int			pc;
+	char		reg[REG_NUMBER];
+	int			curr_cycle;
+}				t_cursor;
 
 void		exit_str(char *str);
 void		exit_errno(void);

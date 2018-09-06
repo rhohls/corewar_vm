@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 12:44:14 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 13:14:03 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_player	*make_player(char *file_name, int player_num)
 	}
 	ret_player->program = program;
 	ret_player->player_num = player_num;
+	ret_player->program_size = prog_size;
 	
 	return (ret_player);
 }
