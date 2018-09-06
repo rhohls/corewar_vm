@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 12:34:35 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 12:45:06 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,29 @@ void init_vm(t_vm *vm_data)
 
 int main(int argc, char **argv)
 {
-	t_vm	vm_data;
-	
-	
+	t_vm		vm_data;
+	t_stack		player_list;
+	t_player	*new_player;
+	t_list		*node;
+	int			i;
+		
 	/* load info */
 	init_vm(&vm_data);
+	player_list.length = 0;
+	player_list.start = NULL;
 	if (argc < 2)
 	{
 		ft_putstr("usage!!, needs a file\n");
 		exit(0);
 	}
-	else //for each file loop
+	i = 0;
+	while(i < argc)
 	{
 		init_vm(&vm_data);
-		make_player(argv[1], 1);
-		reassign_player_live();
-		// add_player to list of players
+		new_player = make_player(argv[i], i);
+		reassign_player_live(new_player);
+		node = ft_lstnew(NULL, 0);
+		ft_stackpush(&player_list, node);
 	}
 	
 	// make vm space
