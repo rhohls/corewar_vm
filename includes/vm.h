@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 14:20:44 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/06 14:38:37 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 
 # define  u_int unsigned int
 
-typedef struct	s_asm
+typedef struct	s_vm
 {
 	t_op		op_table[17];
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
+	
 }				t_vm;
 
 typedef struct	s_player
