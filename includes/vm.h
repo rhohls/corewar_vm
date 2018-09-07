@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 14:38:37 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/07 07:42:31 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_vm
 	t_op		op_table[17];
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
+	int			current_cycle;
 	
 }				t_vm;
 
@@ -45,6 +46,7 @@ typedef struct	s_cursor
 	int			pc;
 	char		reg[REG_NUMBER];
 	int			curr_cycle;
+	int			carry;
 }				t_cursor;
 
 void		exit_str(char *str);
@@ -54,5 +56,6 @@ void		exit_errnostr(char *str);
 t_player	*make_player(char *file_name, int player_num);
 void		set_op_tab(t_vm *vm_data);
 void		print_memory(const void *addr, size_t size, int printable, int location);
+void		swap_bits(int *num);
 
 #endif

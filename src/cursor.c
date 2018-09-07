@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 14:30:20 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/07 06:50:29 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cursor *init_cursor(t_player player, int pc)
 	return (cursor);
 }
 
-void excute_instruction(t_cursor *cursor)
+void excute_instruction(t_cursor *cursor, t_vm *vm)
 {
 		
 }
@@ -38,7 +38,7 @@ void	incr_cursor(t_vm *vm)
 		cursor = cursor_node->content;
 		cursor->curr_cycle--;
 		if (cursor->curr_cycle < 1)
-			excute_instruction(cursor);
+			excute_instruction(cursor, vm);
 		cursor_node = cursor_node->next;
 	}
 }

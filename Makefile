@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/06 12:09:27 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/07 08:13:39 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_FILE =	op.c	\
 			print.c	\
 			read_file.c	\
 			error.c	\
+			swapbits.c	\
 
 OBJ_FILE = $(SRC_FILE:%.c=%.o)
 

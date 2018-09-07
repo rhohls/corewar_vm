@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 13:14:03 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/07 08:16:11 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,24 @@
 #define HEADER_SIZE 2192
 #include <unistd.h>
 
+int			get_magic_number(char *header)
+{
+	int	ret;
+	int	i;
+	
+	ret = *((int *)header);
+	
+	swap_bits(&ret);
+	return (ret);	
+}
+
+
 u_int		get_prog_size(char *header_at_size)
 {
 	u_int	ret;
-	int	i;
-	
-	ret = 0;
-	i = 0;
-	while (i < 4)
-	{
-		ret += header_at_size[i];
-		i++;
-	}
+		
+	ret = *((u_int *)header_at_size);
+	swap_bits((int *)&ret);
 	
 	return (ret);
 }
@@ -53,6 +59,8 @@ t_player	*make_player(char *file_name, int player_num)
 	print_memory(header, HEADER_SIZE, 0, 1);
 	prog_size = get_prog_size(&header[136]);
 	
+	// printf("progam size is %d\n", prog_size);
+	
 	program = (char *)ft_memalloc(prog_size);
 	read_ret = read(fd, program, prog_size);
 	if (read_ret < 1)
@@ -74,6 +82,15 @@ t_player	*make_player(char *file_name, int player_num)
 	ret_player->program = program;
 	ret_player->player_num = player_num;
 	ret_player->program_size = prog_size;
+	
+	
+	int magic_number = get_magic_number(header);
+	if (magic_number != COREWAR_EXEC_MAGIC)
+		exit_str("Error: Magic numbers don't match\n");
+	
+
+	printf("magic number is %d\n", magic_number);
+	
 	
 	return (ret_player);
 }
