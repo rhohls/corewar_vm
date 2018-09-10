@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cursor.c                                           :+:      :+:    :+:   */
+/*   vm_cycle.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 07:33:52 by rhohls           ###   ########.fr       */
+/*   Created: 2018/09/10 07:30:54 by rhohls            #+#    #+#             */
+/*   Updated: 2018/09/10 07:33:57 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-t_cursor *init_cursor(t_player player, int pc)
+void	display_winner(t_vm *vm)
 {
-	t_cursor *cursor;
 	
-	cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
-	cursor->pc = pc;
-	
-	return (cursor);
 }
 
-void	incr_cursor(t_vm *vm)
+int		cycle_death(t_vm *vm)
 {
-	t_list		*cursor_node;
-	t_cursor	*cursor;
-		
-	cursor_node = vm->cursor_stack->start;
-	while (cursor_node)
-	{
-		cursor = cursor_node->content;
-		cursor->curr_cycle--;
-		if (cursor->curr_cycle < 1)
-			excute_instruction(cursor, vm);
-		cursor_node = cursor_node->next;
-	}
+	int	stop;
+	
+	stop = 0;
+	return (stop);
 }
+
+void	vm_loop(t_vm *vm)
+{
+	while(1)
+	{
+		incr_cursor(vm);
+		if (cycle_death(vm))
+			break ;
+	}
+	display_winner(vm);
+	// free everything?
+}
+

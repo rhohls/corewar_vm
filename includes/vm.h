@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/07 07:42:31 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/10 07:33:44 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ t_player	*make_player(char *file_name, int player_num);
 void		set_op_tab(t_vm *vm_data);
 void		print_memory(const void *addr, size_t size, int printable, int location);
 void		swap_bits(int *num);
+
+void		incr_cursor(t_vm *vm);
+void		excute_instruction(t_cursor *cursor, t_vm *vm);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/06 14:17:39 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/10 07:34:33 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int main(int argc, char **argv)
 		exit(0);
 	}
 	i = 1;
+	
 	while(i < argc)
 	{
-		init_vm(&vm_data);
 		new_player = make_player(argv[i], i);
 		// reassign_player_live(new_player);
 		node = ft_lstnew(NULL, 0);
