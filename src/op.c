@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/09/07 08:12:56 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/10 08:29:07 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_op
 
 static t_op	op_tab[17] =
 {
+	{0, 0, 0, 0, 0, 0, 0, 0},
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
 	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0},
@@ -44,8 +45,7 @@ static t_op	op_tab[17] =
 	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0},
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50, "long load index", 1, 1},
 	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
-	{"aff", 1, {T_REG}, 16, 2, "print", 1, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0}
+	{"aff", 1, {T_REG}, 16, 2, "print", 1, 0}
 };
 
 void	set_op_tab(t_vm *vm_data)
@@ -63,7 +63,7 @@ void	set_op_tab(t_vm *vm_data)
 // int		get_id_by_name(t_vm *vm_data, char *name)
 // {
 // 	int		i;
-
+//  
 // 	i = 0;
 // 	while (i < 17)
 // 	{

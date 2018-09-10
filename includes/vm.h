@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 07:33:44 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/10 13:31:26 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,27 @@ void		swap_bits(int *num);
 
 void		incr_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
+
+/*
+** Functions
+*/
+
+void		cw_null(t_vm *vm, t_cursor *cursor);
+void		cw_live(t_vm *vm, t_cursor *cursor);
+void		cw_ld(t_vm *vm, t_cursor *cursor);
+void		cw_st(t_vm *vm, t_cursor *cursor);
+void		cw_add(t_vm *vm, t_cursor *cursor);
+void		cw_sub(t_vm *vm, t_cursor *cursor);
+void		cw_and(t_vm *vm, t_cursor *cursor);
+void		cw_or(t_vm *vm, t_cursor *cursor);
+void		cw_xor(t_vm *vm, t_cursor *cursor);
+void		cw_zjmp(t_vm *vm, t_cursor *cursor);
+void		cw_ldi(t_vm *vm, t_cursor *cursor);
+void		cw_sti(t_vm *vm, t_cursor *cursor);
+void		cw_fork(t_vm *vm, t_cursor *cursor);
+void		cw_lld(t_vm *vm, t_cursor *cursor);
+void		cw_lldi(t_vm *vm, t_cursor *cursor);
+void		cw_lfork(t_vm *vm, t_cursor *cursor);
+void		cw_aff(t_vm *vm, t_cursor *cursor);
 
 #endif
