@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 13:31:26 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/11 14:27:46 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,31 @@
 
 # define  u_int unsigned int
 
+# define RRR 0b01010100 //84	54		
+# define RIR 0b01110100 //116	74		
+# define RDR 0b01100100 //100	64		
+# define IRR 0b11010100 //212	d4		
+# define IIR 0b11110100 //224	e0		
+# define IDR 0b11100100 //228	e4		
+# define DRR 0b10010100 //148	94		
+# define DIR 0b10110100 //180	b4		
+# define DDR 0b10100100 //164	a4
+# define RRD 0b01011000 //88 	58
+# define RDD 0b01101000 //104	68
+# define RID 0b01111000 //120	78
+# define IR 0b11010000	//208	90		
+# define DR 0b10010000	//144	d0	
+
 typedef struct	s_vm
 {
+	char		*mem_board;
 	t_op		op_table[17];
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
-	int			current_cycle;
+	int			curr_cycle;
+	int			cycle_death;
+	int			nbr_dead;
+	t_stack		*player_list;
 	
 }				t_vm;
 
@@ -38,12 +57,14 @@ typedef struct	s_player
 	char		*program;
 	int			player_num;
 	u_int		program_size;
-	
+	int			nbr_lives;
+	int			alive;
 }				t_player;
 
 typedef struct	s_cursor
 {
 	int			pc;
+	int			op_code;
 	char		reg[REG_NUMBER];
 	int			curr_cycle;
 	int			carry;
@@ -60,6 +81,7 @@ void		swap_bits(int *num);
 
 void		incr_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
+int			cycle_death(t_vm *vm);
 
 /*
 ** Functions

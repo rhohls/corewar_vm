@@ -6,19 +6,27 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/07 07:18:01 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/11 12:42:34 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/vm.h"
 
+static char g_strings[4][10] = {"test", "str2", "fsef", "\0"};
 
 int main()
 {
-	// int num;
+	char *str;
+	int i;
 	
-	printf("24U %d \n",24U);
+	i = 0;		
+	str = strings[0];
 	
+	while (i < 4)
+	{
+		printf("%s \n", strings[i]);
+		i++;
+	}
 	
 	return (0);	
 	

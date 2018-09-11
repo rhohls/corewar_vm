@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 14:07:46 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/11 07:03:14 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #define HEADER_SIZE 2192
 #include <unistd.h>
 
-int			get_magic_number(char *header)
+int			get_int(char *pointer_to_int)
 {
 	int	ret;
 	int	i;
 	
-	ret = *((int *)header);
+	ret = *((int *)pointer_to_int);
 	
 	swap_bits(&ret);
 	return (ret);	
@@ -84,7 +84,7 @@ t_player	*make_player(char *file_name, int player_num)
 	ret_player->program_size = prog_size;
 	
 	
-	int magic_number = get_magic_number(header);
+	int magic_number = get_int(header);
 	if (magic_number != COREWAR_EXEC_MAGIC)
 		exit_str("Error: Magic numbers don't match\n");
 	

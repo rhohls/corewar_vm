@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 07:33:52 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/11 14:04:08 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	incr_cursor(t_vm *vm)
 	{
 		cursor = cursor_node->content;
 		cursor->curr_cycle--;
-		if (cursor->curr_cycle < 1)
+		if (cursor->curr_cycle <= 0)
 			excute_instruction(cursor, vm);
 		cursor_node = cursor_node->next;
 	}

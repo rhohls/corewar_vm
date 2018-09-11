@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_cycle.c                                         :+:      :+:    :+:   */
+/*   death_cycle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/10 07:30:54 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/11 14:03:31 by rhohls           ###   ########.fr       */
+/*   Created: 2018/09/11 12:46:13 by rhohls            #+#    #+#             */
+/*   Updated: 2018/09/11 14:02:33 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-void	display_winner(t_vm *vm)
+void		kill_players(t_vm *vm)
 {
 	t_player	*player;
 	t_list		*node;
@@ -21,25 +21,19 @@ void	display_winner(t_vm *vm)
 	while(node)
 	{
 		player = node->content;
-		if (player->alive == 1)
+		
+		if (player->nbr_lives < NBR_LIVE)
 		{
-			ft_printf("The winer is ...\n %s - %d\n", player->name,
-						player->player_num);
+			player->alive = 0;
+			vm->nbr_dead++;
 		}
-	}	
-}
-
-void	vm_loop(t_vm *vm)
-{
-	while(1)
-	{
-		incr_cursor(vm);
-		vm->curr_cycle++;
-		if (vm->curr_cycle == vm->cycle_death)
-			if (cycle_death(vm))
-				break ;
 	}
-	display_winner(vm);
-	// free everything?
 }
 
+int		cycle_death(t_vm *vm)
+{
+	kill_players(vm);
+	if (vm->nbr_dead <= (int)vm->player_list->length - 1)
+		return (1);
+	return (0);
+}
