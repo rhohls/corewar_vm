@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:32:25 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/11 14:47:25 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 07:06:02 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void kill_cursor(t_cursor *cursor, t_vm *vm)
 
 int get_op_code(t_cursor *cursor, t_vm *vm)
 {
-	// do it
-	return (0);
+	int op_code;
+	
+	op_code = vm->mem_board[cursor->pc];
+	
+	return (op_code);
 }
 
 void update_cursor(t_cursor *cursor, t_vm *vm)
@@ -36,6 +39,7 @@ void update_cursor(t_cursor *cursor, t_vm *vm)
 	// assign new opcode and cycle from PC
 	
 	cursor->op_code = get_op_code(cursor, vm);
+	cursor->encoding = vm->mem_board[cursor->pc + 1];
 	if (cursor->op_code >= 16) // or more errors
 		kill_cursor(cursor, vm);
 	else

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/11 14:27:46 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 07:54:07 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <errno.h>
 
 # define  u_int unsigned int
+
+# define BYTE(x)	(x & 0xFF)
 
 # define RRR 0b01010100 //84	54		
 # define RIR 0b01110100 //116	74		
@@ -65,6 +67,7 @@ typedef struct	s_cursor
 {
 	int			pc;
 	int			op_code;
+	int			encoding;
 	char		reg[REG_NUMBER];
 	int			curr_cycle;
 	int			carry;
@@ -82,6 +85,7 @@ void		swap_bits(int *num);
 void		incr_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
+int			get_int(char *pointer_to_int);
 
 /*
 ** Functions

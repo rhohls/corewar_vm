@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:30:54 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/11 14:03:31 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 07:17:31 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	display_winner(t_vm *vm)
 			ft_printf("The winer is ...\n %s - %d\n", player->name,
 						player->player_num);
 		}
+		node = node->next;
 	}	
 }
 

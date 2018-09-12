@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 13:30:45 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 07:56:05 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 void	cw_sti(t_vm *vm, t_cursor *cursor)
 {
-	
+	if (BYTE(cursor->encoding) == RRR)
+	{
+		
+	}
 }
