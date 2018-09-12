@@ -6,13 +6,13 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/10 13:30:15 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 14:31:47 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-void	cw_lfork(t_vm *vm, t_cursor *cursor)
+int	cw_lfork(t_vm *vm, t_cursor *cursor)
 {
 	
 }

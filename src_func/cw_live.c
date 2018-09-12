@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 07:25:45 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 14:31:47 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void apply_life(t_vm *vm, int player_num)
 		player->nbr_lives++;
 }
 
-void	cw_live(t_vm *vm, t_cursor *cursor)
+int	cw_live(t_vm *vm, t_cursor *cursor)
 {
 	int player_num;
 	

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 07:54:07 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 14:32:12 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 
 # define BYTE(x)	(x & 0xFF)
 
+#define REG_BYTE	1
+#define DIR_BYTE	4
+#define IND_BYTE	2
+
 # define RRR 0b01010100 //84	54		
 # define RIR 0b01110100 //116	74		
 # define RDR 0b01100100 //100	64		
@@ -38,11 +42,12 @@
 # define RDD 0b01101000 //104	68
 # define RID 0b01111000 //120	78
 # define IR 0b11010000	//208	90		
-# define DR 0b10010000	//144	d0	
+# define DR 0b10010000	//144	d0
+# define R 0b01000000
 
 typedef struct	s_vm
 {
-	char		*mem_board;
+	char		mem_board[MEM_SIZE];
 	t_op		op_table[17];
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
@@ -68,7 +73,7 @@ typedef struct	s_cursor
 	int			pc;
 	int			op_code;
 	int			encoding;
-	char		reg[REG_NUMBER];
+	char		reg[REG_NUMBER][REG_SIZE];
 	int			curr_cycle;
 	int			carry;
 }				t_cursor;
@@ -86,27 +91,31 @@ void		incr_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
 int			get_int(char *pointer_to_int);
+int			get_half_int(char *pointer_to_int);
+int			get_byte_int(char *pointer_to_int);
+char		*get_reg_info(t_cursor *cursor, int reg_num);
+void	swap_bits(int *num);
 
 /*
 ** Functions
 */
 
-void		cw_null(t_vm *vm, t_cursor *cursor);
-void		cw_live(t_vm *vm, t_cursor *cursor);
-void		cw_ld(t_vm *vm, t_cursor *cursor);
-void		cw_st(t_vm *vm, t_cursor *cursor);
-void		cw_add(t_vm *vm, t_cursor *cursor);
-void		cw_sub(t_vm *vm, t_cursor *cursor);
-void		cw_and(t_vm *vm, t_cursor *cursor);
-void		cw_or(t_vm *vm, t_cursor *cursor);
-void		cw_xor(t_vm *vm, t_cursor *cursor);
-void		cw_zjmp(t_vm *vm, t_cursor *cursor);
-void		cw_ldi(t_vm *vm, t_cursor *cursor);
-void		cw_sti(t_vm *vm, t_cursor *cursor);
-void		cw_fork(t_vm *vm, t_cursor *cursor);
-void		cw_lld(t_vm *vm, t_cursor *cursor);
-void		cw_lldi(t_vm *vm, t_cursor *cursor);
-void		cw_lfork(t_vm *vm, t_cursor *cursor);
-void		cw_aff(t_vm *vm, t_cursor *cursor);
+int		cw_null(t_vm *vm, t_cursor *cursor);
+int		cw_live(t_vm *vm, t_cursor *cursor);
+int		cw_ld(t_vm *vm, t_cursor *cursor);
+int		cw_st(t_vm *vm, t_cursor *cursor);
+int		cw_add(t_vm *vm, t_cursor *cursor);
+int		cw_sub(t_vm *vm, t_cursor *cursor);
+int		cw_and(t_vm *vm, t_cursor *cursor);
+int		cw_or(t_vm *vm, t_cursor *cursor);
+int		cw_xor(t_vm *vm, t_cursor *cursor);
+int		cw_zjmp(t_vm *vm, t_cursor *cursor);
+int		cw_ldi(t_vm *vm, t_cursor *cursor);
+int		cw_sti(t_vm *vm, t_cursor *cursor);
+int		cw_fork(t_vm *vm, t_cursor *cursor);
+int		cw_lld(t_vm *vm, t_cursor *cursor);
+int		cw_lldi(t_vm *vm, t_cursor *cursor);
+int		cw_lfork(t_vm *vm, t_cursor *cursor);
+int		cw_aff(t_vm *vm, t_cursor *cursor);
 
 #endif

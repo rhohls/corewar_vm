@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/11 07:03:14 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 13:25:11 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 
 #define HEADER_SIZE 2192
 #include <unistd.h>
-
-int			get_int(char *pointer_to_int)
-{
-	int	ret;
-	int	i;
-	
-	ret = *((int *)pointer_to_int);
-	
-	swap_bits(&ret);
-	return (ret);	
-}
 
 
 u_int		get_prog_size(char *header_at_size)
@@ -92,5 +81,15 @@ t_player	*make_player(char *file_name, int player_num)
 	printf("magic number is %d\n", magic_number);
 	
 	
+	int st;
+	char *add = &program[0];
+	st = get_int(add);
+	printf("\nnum is %d\n", st);
+	print_memory(add, 4, 0, 1);
+	st = get_half_int(add);
+	printf("half num is %d\n", st);
+	// st = get_byte_int(add);
+	st = program[0];
+	printf("byte num is %d\n", st);
 	return (ret_player);
 }

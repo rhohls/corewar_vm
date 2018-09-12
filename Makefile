@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/07 08:13:39 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/12 13:17:38 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC_FILE =	op.c	\
 			print.c	\
 			read_file.c	\
 			error.c	\
-			swapbits.c	\
+			get_int.c	\
 
 OBJ_FILE = $(SRC_FILE:%.c=%.o)
 
@@ -55,6 +55,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 test: $(OBJ) $(TEST)
 	@make -C./libft/
 	@$(CC) -o $@ $(OBJ) $(TEST) $(LIBF)
+	@./test
 
 clean: 
 	@/bin/rm -rf $(OBJ)

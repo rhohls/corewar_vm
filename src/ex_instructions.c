@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:32:25 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 07:06:02 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/12 12:02:28 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void update_cursor(t_cursor *cursor, t_vm *vm)
 
 void	excute_instruction(t_cursor *cursor, t_vm *vm)
 {
-	(*g_func_ptr[cursor->op_code])(vm,cursor);
+	(*(g_func_ptr[cursor->op_code]))(vm,cursor);
 	update_cursor(cursor, vm);
 }
 
