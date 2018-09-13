@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 14:31:47 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/13 11:56:27 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	cw_live(t_vm *vm, t_cursor *cursor)
 {
 	int player_num;
 	
-	player_num = get_int(&(vm->mem_board[cursor->pc + 2]));
+	player_num = get_int(&(vm->core[cursor->pc + 2]));
 	apply_life(vm, player_num);	
 	cursor->pc += 5;
 }

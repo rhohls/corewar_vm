@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 14:32:12 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/13 12:10:55 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 # include <errno.h>
 
 # define  u_int unsigned int
-
-# define BYTE(x)	(x & 0xFF)
+# define EBYTE(x)	(x & 0xFF)
 
 #define REG_BYTE	1
 #define DIR_BYTE	4
@@ -45,9 +44,12 @@
 # define DR 0b10010000	//144	d0
 # define R 0b01000000
 
+# define WRAP(x)		(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
+# define CURS_CORE(y)	(cursor, vm->core[WRAP(cursor->pc + y)])
+
 typedef struct	s_vm
 {
-	char		mem_board[MEM_SIZE];
+	char		core[MEM_SIZE];
 	t_op		op_table[17];
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
@@ -94,7 +96,8 @@ int			get_int(char *pointer_to_int);
 int			get_half_int(char *pointer_to_int);
 int			get_byte_int(char *pointer_to_int);
 char		*get_reg_info(t_cursor *cursor, int reg_num);
-void	swap_bits(int *num);
+void		swap_bits(int *num);
+int			reg_check(t_cursor *cursor, int reg_num);
 
 /*
 ** Functions
