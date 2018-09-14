@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:30:54 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 10:04:15 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 10:35:28 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	display_winner(t_vm *vm)
 		player = node->content;
 		if (player->alive == 1)
 		{
-			ft_printf("The winer is ...\n %s - %d\n", player->name,
+			ft_printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
 						player->player_num);
+			break ;
 		}
 		node = node->next;
 	}	

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 10:05:01 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 12:58:59 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,20 @@ void	init_players(int argc, char **argv, t_vm *vm)
 	}
 }
 
+void marco_saftey(void)
+{
+	if (REG_SIZE < 4)
+		exit_str("REG_SIZE cant be less than 4\n");
+}
+
 int main(int argc, char **argv)
 {
 	t_vm		vm;
-
 	int			i;
 		
 	/* load info */
 	init_vm(&vm);
+	marco_saftey();
 
 	if (argc < 2)
 	{

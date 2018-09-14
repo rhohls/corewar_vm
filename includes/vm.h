@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 10:04:18 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 12:46:28 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@
 # define DR 0b10010000	//144	d0
 # define R 0b01000000
 
-# define WRAP(x)		(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
-# define CURS_CORE(y)	(cursor, vm->core[WRAP(cursor->pc + y)])
+// #negative????
+# define WRAP(x)			(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
+# define CORE_PC_PLUS(y)	vm->core[WRAP(cursor->pc + y)]
 
 typedef struct	s_vm
 {
@@ -84,6 +85,11 @@ void		exit_str(char *str);
 void		exit_errno(void);
 void		exit_errnostr(char *str);
 
+int			get_point_int(char *pointer_to_int);
+int			get_half_p_int(char *pointer_to_int);
+int			get_core_int(int start_of_int, t_vm *vm);
+int			get_half_m_int(int start_of_int, t_vm *vm);
+
 t_player	*make_player(char *file_name, int player_num);
 void		set_op_tab(t_vm *vm_data);
 void		print_memory(const void *addr, size_t size, int printable, int location);
@@ -96,9 +102,6 @@ void		init_vm(t_vm *vm);
 void		incr_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
-int			get_int(char *pointer_to_int);
-int			get_half_int(char *pointer_to_int);
-int			get_byte_int(char *pointer_to_int);
 char		*get_reg_info(t_cursor *cursor, int reg_num);
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);

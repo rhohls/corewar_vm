@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 08:57:14 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 12:46:08 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_player	*make_player(char *file_name, int player_num)
 	if (read(fd, program, prog_size) < 1)
 		exit_errnostr("Error reading file\n");
 		
-	if (get_int(header) != COREWAR_EXEC_MAGIC) 
+	if (get_point_int(header) != COREWAR_EXEC_MAGIC) 
 		exit_str("Error: Magic numbers don't match\n");	
 	
 	t_player	*ret_player;
