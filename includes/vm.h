@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/13 12:10:55 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 08:30:56 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ t_player	*make_player(char *file_name, int player_num);
 void		set_op_tab(t_vm *vm_data);
 void		print_memory(const void *addr, size_t size, int printable, int location);
 void		swap_bits(int *num);
+void		load_players(char *board, t_list *players);
 
+void		init_vm(t_vm *vm);
 void		incr_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
@@ -98,7 +100,8 @@ int			get_byte_int(char *pointer_to_int);
 char		*get_reg_info(t_cursor *cursor, int reg_num);
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);
-
+void		print_game_state(t_vm *vm);
+void update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump);
 /*
 ** Functions
 */

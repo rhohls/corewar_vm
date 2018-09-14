@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/13 13:49:09 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/14 08:00:35 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_FILE =	op.c	\
 			read_file.c	\
 			error.c	\
 			get_int.c	\
+			init_vm.c	\
 
 FUNC_FILE = cw_sti.c \
 

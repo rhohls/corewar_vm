@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   init_vm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppreez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:35 by ppreez            #+#    #+#             */
-/*   Updated: 2018/09/06 12:50:41 by ppreez           ###   ########.fr       */
+/*   Updated: 2018/09/14 08:24:10 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
+
+void init_vm(t_vm *vm)
+{
+	set_op_tab(vm);// whyyyyyy!??!
+	vm->file_lines = NULL;
+	vm->cursor_stack = ft_stacknew();
+	vm->curr_cycle = 0;
+	vm->nbr_dead = 0;
+	vm->player_list = ft_stacknew();
+	vm->cycle_death = CYCLE_TO_DIE;
+}
 
 static void		size_balance(char *board, t_list *players, unsigned int size)
 {
@@ -36,8 +47,8 @@ static void		size_balance(char *board, t_list *players, unsigned int size)
 	}
 	players = start;
 }
-
-void		*charge_players(char *board, t_list *players)
+// also need to load players cursors @ location
+void		load_players(char *board, t_list *players)
 {
 	unsigned int	size;
 	t_list 			*start;
@@ -51,5 +62,4 @@ void		*charge_players(char *board, t_list *players)
 	}
 	players = start;
 	size_balance(board, players, size);
-	return (board);
 }

@@ -6,11 +6,12 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:58:31 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 09:33:22 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 08:25:01 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "../includes/vm.h"
 
 
 void	ft_putnbr_hex(int octet, int rem)
@@ -35,7 +36,6 @@ void	sp_putchar(unsigned char const *ptr)
 int		check_line(unsigned char const *addr)
 {
 	int ret;
-	int	line_val;
 	int i;
 	
 	i = 0;
@@ -102,4 +102,76 @@ void	print_memory(const void *addr, size_t size, int printable, int location)
 		}
 		ind += 16;
 	}
+}
+
+void	print_board(unsigned char const *core, size_t size)
+{
+	size_t	ind;
+	size_t	a;
+	size_t	stop;
+	
+	stop = 64; // 4096 ^ 0.5
+	ind = 0;
+	while (ind < size)
+	{
+		a = 0;
+		while (a < stop && a + ind < size)
+		{
+			ft_putnbr_hex(*(core + ind + a), 2);
+			write(1, " ", 1);
+			a++;
+		}
+		write(1, "\n", 1);
+		ind += stop;
+	}
+}
+
+void	print_player_live(t_vm *vm)
+{
+	t_list		*node;
+	t_player	*player;
+
+	node = vm->player_list->start;
+	while (node)
+	{
+		player = node->content;
+		ft_printf("Player: \"%s\" number: %i ", player->name, player->player_num);
+		if (player->alive == 0)
+			ft_printf("is dead\n");
+		else
+			ft_printf("has %d lives\n", player->nbr_lives);		
+		node = node->next;
+	}
+}
+
+void	print_cycle_info(t_vm *vm)
+{
+	ft_printf("Current cycle: %d\t", vm->curr_cycle);
+	ft_printf("Cycle to die: %d\t", vm->cycle_death);
+	ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
+}
+
+void	print_cursor_location(t_vm *vm)
+{
+	t_list		*node;
+	t_cursor	*cursor;
+	int			i;
+	
+	i = 0;
+	node = vm->cursor_stack->start;
+	while (node)
+	{
+		cursor = node->content;
+		ft_printf("Cursor no. %i is at |%d|\n", i, cursor->pc);
+		node = node->next;
+		i++;
+	}
+}
+
+void	print_game_state(t_vm *vm)
+{
+	print_board((unsigned const char *)(&(vm->core[0])), MEM_SIZE);
+	print_player_live(vm);
+	print_cycle_info(vm);
+	print_cursor_location(vm);
 }

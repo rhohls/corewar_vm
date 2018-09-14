@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 13:25:11 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 08:43:40 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,24 @@ t_player	*make_player(char *file_name, int player_num)
 	ret_player->program = program;
 	ret_player->player_num = player_num;
 	ret_player->program_size = prog_size;
+	ret_player->alive = 1;
+	// ret_player->nbr_lives = 0;
 	
 	
 	int magic_number = get_int(header);
 	if (magic_number != COREWAR_EXEC_MAGIC)
 		exit_str("Error: Magic numbers don't match\n");
+	// printf("magic number is %d\n", magic_number);
 	
-
-	printf("magic number is %d\n", magic_number);
-	
-	
-	int st;
-	char *add = &program[0];
-	st = get_int(add);
-	printf("\nnum is %d\n", st);
-	print_memory(add, 4, 0, 1);
-	st = get_half_int(add);
-	printf("half num is %d\n", st);
-	// st = get_byte_int(add);
-	st = program[0];
-	printf("byte num is %d\n", st);
+	// int st;
+	// char *add = &program[0];
+	// st = get_int(add);
+	// printf("\nnum is %d\n", st);
+	// print_memory(add, 4, 0, 1);
+	// st = get_half_int(add);
+	// printf("half num is %d\n", st);
+	// // st = get_byte_int(add);
+	// st = program[0];
+	// printf("byte num is %d\n", st);
 	return (ret_player);
 }
