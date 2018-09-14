@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 08:23:26 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 10:05:01 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int main(int argc, char **argv)
 	
 
 	ft_bzero(vm.core, MEM_SIZE);
-	load_players(vm.core, vm.player_list->start);
+	load_players(&vm, vm.core, vm.player_list->start);
 	printf("\n~~~~~~~\n");
-	
+	vm_loop(&vm);
 	print_game_state(&vm);
 	
 	// make vm space

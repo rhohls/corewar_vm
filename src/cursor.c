@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 08:37:03 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 09:51:48 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ t_cursor *create_cursor(t_vm *vm, int pc)
 	update_cursor(cursor, vm, 0);
 	
 	return (cursor);
+}
+
+void	add_cursor_pc(t_vm *vm, int pc)
+{
+	t_list *node;
+	node = ft_lstnew(0, 0);
+	node->content = create_cursor(vm, 29);
+	ft_stackpush(vm->cursor_stack, node);
 }
 
 void	incr_cursor(t_vm *vm)

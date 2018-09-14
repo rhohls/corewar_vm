@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/14 08:00:35 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/14 10:09:36 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,11 @@ SRC_FILE =	op.c	\
 			error.c	\
 			get_int.c	\
 			init_vm.c	\
+			vm_cycle.c	\
+			cursor.c	\
+			death_cycle.c	\
+			ex_instructions.c	\
+			get_info.c	\
 
 FUNC_FILE = cw_sti.c \
 

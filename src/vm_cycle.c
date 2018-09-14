@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:30:54 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 07:48:22 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 10:04:15 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	display_winner(t_vm *vm)
 
 void	vm_loop(t_vm *vm)
 {
-	while(1)
+	int i = 0;
+	while(i < 10)
 	{
 		incr_cursor(vm);
 		vm->curr_cycle++;
@@ -40,6 +41,7 @@ void	vm_loop(t_vm *vm)
 			if (cycle_death(vm))
 				break ;
 		print_game_state(vm);
+		i++;
 	}
 	display_winner(vm);
 	// free everything?

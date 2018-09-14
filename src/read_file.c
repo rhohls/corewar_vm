@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 08:43:40 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 08:57:14 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,60 @@ u_int		get_prog_size(char *header_at_size)
 	return (ret);
 }
 
-t_player	*make_player(char *file_name, int player_num)
+int			open_file(char *file_name)
 {
-	int		fd;
-	
+	int fd;
 	fd = open(file_name, O_RDONLY);
 	if (fd < 3)
 	{
 		ft_printf("Error: There was an error opening file \"%s\"\nReason: ", file_name);
 		exit_errno();
 	}
-	
+	return (fd);
+}
+
+void		read_header(int fd, u_int *prog_size, char	**program)
+{
 	char	header[HEADER_SIZE];
-	int		read_ret;
+	
+	if (read(fd, header, HEADER_SIZE) < 1)
+		exit_errnostr("Error reading file\n");
+	*prog_size = get_prog_size(&header[136]);
+	
+	// print_memory(header, HEADER_SIZE, 0, 1);
+	// printf("progam size is %d\n", prog_size);
+	
+	*program = (char *)ft_memalloc(*prog_size);
+	if (read(fd, program, *prog_size) < 1)
+		exit_errnostr("Error reading file\n");
+		
+	// print_memory(program, prog_size, 0, 1);	
+}
+
+t_player	*make_player(char *file_name, int player_num)
+{
+	int		fd;
 	u_int	prog_size;
 	char	*program;
 	
-	read_ret = read(fd, header, HEADER_SIZE);
-	if (read_ret < 1)
+	fd = open_file(file_name);
+	// read_header(fd, &prog_size, &program);
+	char	header[HEADER_SIZE];	
+	if (read(fd, header, HEADER_SIZE) < 1)
 		exit_errnostr("Error reading file\n");
-	print_memory(header, HEADER_SIZE, 0, 1);
 	prog_size = get_prog_size(&header[136]);
-	
-	// printf("progam size is %d\n", prog_size);
-	
 	program = (char *)ft_memalloc(prog_size);
-	read_ret = read(fd, program, prog_size);
-	if (read_ret < 1)
+	if (read(fd, program, prog_size) < 1)
 		exit_errnostr("Error reading file\n");
-	print_memory(program, prog_size, 0, 1);
-	
+		
+	if (get_int(header) != COREWAR_EXEC_MAGIC) 
+		exit_str("Error: Magic numbers don't match\n");	
 	
 	t_player	*ret_player;
 	int			i;
 	
 	ret_player = ft_memalloc(sizeof(t_player));
 	i = 0;
-	
 	while (header[i + 4])
 	{
 		ret_player->name[i] = header[i + 4];
@@ -75,20 +92,7 @@ t_player	*make_player(char *file_name, int player_num)
 	// ret_player->nbr_lives = 0;
 	
 	
-	int magic_number = get_int(header);
-	if (magic_number != COREWAR_EXEC_MAGIC)
-		exit_str("Error: Magic numbers don't match\n");
-	// printf("magic number is %d\n", magic_number);
 	
-	// int st;
-	// char *add = &program[0];
-	// st = get_int(add);
-	// printf("\nnum is %d\n", st);
-	// print_memory(add, 4, 0, 1);
-	// st = get_half_int(add);
-	// printf("half num is %d\n", st);
-	// // st = get_byte_int(add);
-	// st = program[0];
-	// printf("byte num is %d\n", st);
+
 	return (ret_player);
 }
