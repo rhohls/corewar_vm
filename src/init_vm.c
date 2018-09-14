@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_vm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:35 by ppreez            #+#    #+#             */
-/*   Updated: 2018/09/14 10:16:06 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 15:59:31 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@ void init_vm(t_vm *vm)
 	vm->cycle_death = CYCLE_TO_DIE;
 }
 
-static void		size_balance(char *board, t_list *players, unsigned int size)
+static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int count)
 {
 	t_list			*start;
 	u_int			offset;
 	int				i;
 	int				x;
 
-	offset = (MEM_SIZE - size) / MAX_PLAYERS;
+	offset = (MEM_SIZE - size) / count;
 	start = players;
 	x = 0;
 	while (players)
 	{
 		i = 0;
-		while (((t_player *)(players->content))->program[i])
+		//create_cursor(vm, x);//Save pointer to where?
+		while (i < ((t_player *)(players->content))->program_size)
 		{
-			board[x] = ((t_player *)(players->content))->program[i];
+			vm->core[x] = ((t_player *)(players->content))->program[i];
 			x++;
 			i++;
 		}
@@ -52,16 +53,19 @@ static void		size_balance(char *board, t_list *players, unsigned int size)
 void		load_players(t_vm *vm, char *board, t_list *players)
 {
 	unsigned int	size;
+	int				count;
 	t_list 			*start;
 	
 	size = 0;
+	count = 0;
 	start = players;
 	while (players)
 	{
 		size += ((t_player *)(players->content))->program_size;
+		count++;
 		players = players->next;
 	}
 	players = start;
-	size_balance(board, players, size);
+	size_balance(vm, players, size, count);
 	
 }
