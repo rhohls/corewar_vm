@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/12 14:31:47 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/14 10:15:05 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	cw_add(t_vm *vm, t_cursor *cursor)
 	if ((cursor->encoding & RRR) == RRR)
 	{
 		
-	}
+	return(0);}
 	
 	cursor->pc += 5;
-}
+return(0);}

@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/14 10:09:36 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/14 10:18:40 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,23 @@ SRC_FILE =	op.c	\
 			ex_instructions.c	\
 			get_info.c	\
 
-FUNC_FILE = cw_sti.c \
+FUNC_FILE = cw_add.c	\
+			cw_aff.c	\
+			cw_and.c	\
+			cw_fork.c	\
+			cw_ld.c		\
+			cw_ldi.c	\
+			cw_lfork.c	\
+			cw_live.c	\
+			cw_lld.c	\
+			cw_lldi.c	\
+			cw_null.c	\
+			cw_or.c		\
+			cw_st.c		\
+			cw_sti.c	\
+			cw_sub.c	\
+			cw_xor.c	\
+			cw_zjmp.c	\
 
 # Manipulate
 OBJ_FILE = $(SRC_FILE:%.c=%.o)
@@ -58,7 +74,7 @@ all: $(COREWAR)
 
 $(COREWAR): $(OBJ) $(FUNC_OBJ) $(COREWAR_MAIN)
 	@make -C $(LIB_PATH)
-	@$(CC) -o $@ $(LIBF) $(OBJ) $(COREWAR_MAIN)
+	@$(CC) -o $@ $(LIBF) $(OBJ) $(FUNC_OBJ) $(COREWAR_MAIN)
 	@echo "\x1b[32m"Finished making $@"\x1b[0m"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
