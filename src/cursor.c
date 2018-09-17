@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
+/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 09:31:36 by ppreez           ###   ########.fr       */
+/*   Updated: 2018/09/17 15:08:40 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,16 @@ t_cursor *create_cursor(t_vm *vm, int pc)
 		ft_bzero(cursor->reg[i], REG_SIZE);
 		i++;
 	}
-	printf("updating cusor\n");
 	update_cursor(cursor, vm, 0);
-	
 	return (cursor);
+}
+
+void	add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor)
+{
+	t_list *node;
+	node = ft_lstnew(0, 0);
+	node->content = new_cursor;
+	ft_stackpush(vm->cursor_stack, node);
 }
 
 void	add_cursor_to_vm(t_vm *vm, int pc)

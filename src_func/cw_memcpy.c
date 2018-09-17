@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_fork.c                                          :+:      :+:    :+:   */
+/*   cwcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 15:12:30 by rhohls           ###   ########.fr       */
+/*   Created: 2018/09/17 14:16:05 by rhohls            #+#    #+#             */
+/*   Updated: 2018/09/17 14:37:53 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-int	cw_fork(t_vm *vm, t_cursor *cursor)
+void	cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm)
 {
-	t_cursor	*new_cursor;
-	int			new_pc;
-	int			i;
-	
-	new_pc = get_half_c_int(PC_PLUS(1), vm);
-	new_cursor = create_cursor(vm, new_pc);
-	
-	i = 0;
-	while (i < REG_NUMBER)
+	if (core_dest + size > MEM_SIZE)
 	{
-		ft_memcpy(new_cursor->reg[i], cursor->reg[i], REG_SIZE);
-		i++;
+		printf("fix cwcpy \n");
+		exit(0);
 	}
-	
-	add_cursor_to_cursorlist(vm, new_cursor);	
-	return (1);
+	ft_memcpy(&(vm->core[core_dest]), &(vm->core[core_start]), size);
+}
+
+
+void	cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm)
+{
+	ft_memcpy(&(vm->core[core_dest]), reg_pointer, size);
 }

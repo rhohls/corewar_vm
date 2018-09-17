@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 09:22:29 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 14:05:25 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	char	 *register_info;
 	
 	dest = 0;
-	jump = -1;
+	jump = 0 ;
 	reg_info = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
 	
 	if (EBYTE(cursor->encoding) == RRR)
@@ -41,6 +41,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		//
 		// check below to see which is right
 		//
+		// should also be no IDX_MOD
 		register_info = get_reg(cursor, CORE_PC_PLUS(3));
 		dest += get_point_int(register_info);
 		

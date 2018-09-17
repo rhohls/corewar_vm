@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 09:22:29 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 15:04:35 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # define RID 0b01111000 //120	78
 # define IR 0b11010000	//208	90		
 # define DR 0b10010000	//144	d0
+# define RR 0b01010000	//80	50		
+# define RI 0b01110000	//112	70
 # define R 0b01000000
 
 // #negative????
@@ -92,6 +94,9 @@ int			get_half_p_int(char *pointer_to_int);
 int			get_core_int(int start_of_int, t_vm *vm);
 int			get_half_c_int(int start_of_int, t_vm *vm);
 
+void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
+void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
+
 t_player	*make_player(char *file_name, int player_num);
 void		set_op_tab(t_vm *vm_data);
 
@@ -112,6 +117,7 @@ void		update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump);
 void		add_cursor_to_vm(t_vm *vm, int pc);
 int			get_op_code(t_cursor *cursor, t_vm *vm);
 void		kill_cursor(t_cursor *cursor, t_vm *vm);
+void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);
 
 /*
 **	Printing
