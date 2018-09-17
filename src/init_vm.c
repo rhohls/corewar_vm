@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_vm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:35 by ppreez            #+#    #+#             */
-/*   Updated: 2018/09/17 07:49:44 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 09:49:31 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 	while (players)
 	{
 		i = 0;
-		// create_cursor(vm, x);//Save pointer to where?
-		
-		
+		add_cursor_to_vm(vm, x);
 		while (i < ((t_player *)(players->content))->program_size)
 		{
-			vm->core[x] = ((t_player *)(players->content))->program[i];
+			vm->core[x] = ((t_player *)(players->content))->program[i];;
 			x++;
 			i++;
 		}
@@ -52,8 +50,6 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 	}
 	
 	printf("init cursor at %d\n",x);
-	add_cursor_to_vm(vm, 0);
-	add_cursor_to_vm(vm, 2048);
 	
 	print_cursor_info(vm);
 	players = start;
@@ -72,7 +68,7 @@ void		load_players(t_vm *vm, char *board, t_list *players)
 	while (players)
 	{
 		size += ((t_player *)(players->content))->program_size;
-		count++;
+		((t_player *)(players->content))->player_num = ++count;
 		players = players->next;
 	}
 	players = start;
