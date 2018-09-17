@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_vm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
+/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:35 by ppreez            #+#    #+#             */
-/*   Updated: 2018/09/14 15:59:31 by ppreez           ###   ########.fr       */
+/*   Updated: 2018/09/17 07:49:44 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,26 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 	while (players)
 	{
 		i = 0;
-		//create_cursor(vm, x);//Save pointer to where?
+		// create_cursor(vm, x);//Save pointer to where?
+		
+		
 		while (i < ((t_player *)(players->content))->program_size)
 		{
 			vm->core[x] = ((t_player *)(players->content))->program[i];
 			x++;
 			i++;
 		}
+		
+		
 		x += offset;
 		players = players->next;
 	}
+	
+	printf("init cursor at %d\n",x);
+	add_cursor_to_vm(vm, 0);
+	add_cursor_to_vm(vm, 2048);
+	
+	print_cursor_info(vm);
 	players = start;
 }
 // also need to load players cursors @ location

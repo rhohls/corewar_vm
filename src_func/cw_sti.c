@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 12:57:06 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 07:07:12 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	if (EBYTE(cursor->encoding) == RRR)
 	{
 		//
-		check below to see which is right
+		// check below to see which is right
 		//
 		register_info = get_reg_info(cursor, CORE_PC_PLUS(3));
 		dest += get_point_int(register_info);

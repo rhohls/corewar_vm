@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:58:31 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 08:25:01 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 07:51:02 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,18 +151,21 @@ void	print_cycle_info(t_vm *vm)
 	ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
 }
 
-void	print_cursor_location(t_vm *vm)
+void	print_cursor_info(t_vm *vm)
 {
 	t_list		*node;
 	t_cursor	*cursor;
 	int			i;
 	
 	i = 0;
+	
 	node = vm->cursor_stack->start;
 	while (node)
 	{
 		cursor = node->content;
-		ft_printf("Cursor no. %i is at |%d|\n", i, cursor->pc);
+		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
+		printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
+					cursor->pc, cursor->op_code, cursor->curr_cycle);
 		node = node->next;
 		i++;
 	}
@@ -173,5 +176,5 @@ void	print_game_state(t_vm *vm)
 	print_board((unsigned const char *)(&(vm->core[0])), MEM_SIZE);
 	print_player_live(vm);
 	print_cycle_info(vm);
-	print_cursor_location(vm);
+	print_cursor_info(vm);
 }

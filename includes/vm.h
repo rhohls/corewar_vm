@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 12:46:28 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 07:38:54 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ int			get_half_m_int(int start_of_int, t_vm *vm);
 
 t_player	*make_player(char *file_name, int player_num);
 void		set_op_tab(t_vm *vm_data);
-void		print_memory(const void *addr, size_t size, int printable, int location);
+
 void		swap_bits(int *num);
 void		load_players(t_vm *vm, char *board, t_list *players);
-t_cursor *create_cursor(t_vm *vm, int pc);
-void	vm_loop(t_vm *vm);
+t_cursor	*create_cursor(t_vm *vm, int pc);
+void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
 void		incr_cursor(t_vm *vm);
@@ -105,28 +105,39 @@ int			cycle_death(t_vm *vm);
 char		*get_reg_info(t_cursor *cursor, int reg_num);
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);
-void		print_game_state(t_vm *vm);
-void update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump);
+
+void		update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump);
+void		add_cursor_to_vm(t_vm *vm, int pc);
+int			get_op_code(t_cursor *cursor, t_vm *vm);
+void		kill_cursor(t_cursor *cursor, t_vm *vm);
+
 /*
-** Functions
+**	Printing
+*/
+void		print_memory(const void *addr, size_t size, int printable, int location);
+void		print_game_state(t_vm *vm);
+void		print_cursor_info(t_vm *vm);
+
+/*
+**	Functions
 */
 
-int		cw_null(t_vm *vm, t_cursor *cursor);
-int		cw_live(t_vm *vm, t_cursor *cursor);
-int		cw_ld(t_vm *vm, t_cursor *cursor);
-int		cw_st(t_vm *vm, t_cursor *cursor);
-int		cw_add(t_vm *vm, t_cursor *cursor);
-int		cw_sub(t_vm *vm, t_cursor *cursor);
-int		cw_and(t_vm *vm, t_cursor *cursor);
-int		cw_or(t_vm *vm, t_cursor *cursor);
-int		cw_xor(t_vm *vm, t_cursor *cursor);
-int		cw_zjmp(t_vm *vm, t_cursor *cursor);
-int		cw_ldi(t_vm *vm, t_cursor *cursor);
-int		cw_sti(t_vm *vm, t_cursor *cursor);
-int		cw_fork(t_vm *vm, t_cursor *cursor);
-int		cw_lld(t_vm *vm, t_cursor *cursor);
-int		cw_lldi(t_vm *vm, t_cursor *cursor);
-int		cw_lfork(t_vm *vm, t_cursor *cursor);
-int		cw_aff(t_vm *vm, t_cursor *cursor);
+int			cw_null(t_vm *vm, t_cursor *cursor);
+int			cw_live(t_vm *vm, t_cursor *cursor);
+int			cw_ld(t_vm *vm, t_cursor *cursor);
+int			cw_st(t_vm *vm, t_cursor *cursor);
+int			cw_add(t_vm *vm, t_cursor *cursor);
+int			cw_sub(t_vm *vm, t_cursor *cursor);
+int			cw_and(t_vm *vm, t_cursor *cursor);
+int			cw_or(t_vm *vm, t_cursor *cursor);
+int			cw_xor(t_vm *vm, t_cursor *cursor);
+int			cw_zjmp(t_vm *vm, t_cursor *cursor);
+int			cw_ldi(t_vm *vm, t_cursor *cursor);
+int			cw_sti(t_vm *vm, t_cursor *cursor);
+int			cw_fork(t_vm *vm, t_cursor *cursor);
+int			cw_lld(t_vm *vm, t_cursor *cursor);
+int			cw_lldi(t_vm *vm, t_cursor *cursor);
+int			cw_lfork(t_vm *vm, t_cursor *cursor);
+int			cw_aff(t_vm *vm, t_cursor *cursor);
 
 #endif
