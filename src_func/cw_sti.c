@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 07:07:12 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 09:22:29 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **	par3 = dir or reg
 **	sti copies REG_SIZE bytes of par1 at address (par2 + par3)
 **	Parameters 2 and 3 are indexes. If they are registers,
-**	we’ll use their contents as indexes.
+**	their contents are used as indexes.
 */
 
 
@@ -34,39 +34,39 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	
 	dest = 0;
 	jump = -1;
-	reg_info = get_reg_info(cursor, vm->core[WRAP(cursor->pc + 2)]);
+	reg_info = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
 	
 	if (EBYTE(cursor->encoding) == RRR)
 	{
 		//
 		// check below to see which is right
 		//
-		register_info = get_reg_info(cursor, CORE_PC_PLUS(3));
+		register_info = get_reg(cursor, CORE_PC_PLUS(3));
 		dest += get_point_int(register_info);
 		
-		reg_info_as_int = get_point_int(get_reg_info(cursor, CORE_PC_PLUS(4)));
+		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(4)));
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
 		jump = 5;
 	}
 	else if (EBYTE(cursor->encoding) == RRD)
 	{
-		reg_info_as_int = get_point_int(get_reg_info(cursor, CORE_PC_PLUS(3)));
+		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(3)));
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
-		dest += get_half_m_int(CORE_PC_PLUS(4), vm);
+		dest += get_half_c_int(CORE_PC_PLUS(4), vm);
 		jump = 6;
 	}
 	else if (EBYTE(cursor->encoding) == RIR || EBYTE(cursor->encoding) == RDR)
 	{
-		dest += get_half_m_int(CORE_PC_PLUS(3), vm);	
-		reg_info_as_int = get_point_int(get_reg_info(cursor, CORE_PC_PLUS(5)));
+		dest += get_half_c_int(CORE_PC_PLUS(3), vm);	
+		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(5)));
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
 		jump = 6;
 				
 	}
 	else if (EBYTE(cursor->encoding) == RID || EBYTE(cursor->encoding) == RDD)
 	{
-		dest += get_half_m_int(CORE_PC_PLUS(3), vm);
-		dest += get_half_m_int(CORE_PC_PLUS(5), vm);
+		dest += get_half_c_int(CORE_PC_PLUS(3), vm);
+		dest += get_half_c_int(CORE_PC_PLUS(5), vm);
 		jump = 7;
 	}
 	

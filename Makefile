@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/14 10:18:40 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/17 09:19:29 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_FILE =	op.c	\
 			cursor.c	\
 			death_cycle.c	\
 			ex_instructions.c	\
-			get_info.c	\
+			get_reg.c	\
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\

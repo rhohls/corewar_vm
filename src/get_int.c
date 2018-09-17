@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 07:55:16 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 12:46:28 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 09:34:35 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int			get_core_int(int start_of_int, t_vm *vm)
 	return (ret);	
 }
 
-int			get_half_p_int(char *pointer_to_int)
+int			get_half_p_int(char *pointer_to_int)//, int size
 {
 	int ret;
 	int	i;
-	char dup[4];
+	char dup[4];//char dup[size]
 	
 	dup[0] = 0;
 	dup[1] = 0;
@@ -67,7 +67,7 @@ int			get_half_p_int(char *pointer_to_int)
 	return (ret);
 }
 
-int			get_half_m_int(int start_of_int, t_vm *vm)
+int			get_half_c_int(int start_of_int, t_vm *vm)
 {
 	int ret;
 	int	i;
