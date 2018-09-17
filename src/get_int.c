@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 07:55:16 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 09:34:35 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 13:29:02 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,22 @@ int			get_half_p_int(char *pointer_to_int)//, int size
 	int	i;
 	char dup[4];//char dup[size]
 	
-	dup[0] = 0;
-	dup[1] = 0;
-	dup[2] = *pointer_to_int;
 	dup[3] = *(pointer_to_int + 1);
+	
+	// printf("\tval :%d\n", dup[3]);
+	
+	if (dup[3] < 0)
+	{
+		dup[0] = 0xff;
+		dup[1] = 0xff;
+	}
+	else
+	{
+		dup[0] = 0;
+		dup[1] = 0;
+	}
+	dup[2] = *pointer_to_int;
+	
 
 	ret = *((int *)dup);
 	swap_bits(&ret);
@@ -73,10 +85,20 @@ int			get_half_c_int(int start_of_int, t_vm *vm)
 	int	i;
 	char dup[4];
 	
-	dup[0] = 0;
-	dup[1] = 0;
-	dup[2] = vm->core[WRAP(start_of_int)];
 	dup[3] = vm->core[WRAP(start_of_int + 1)];
+	
+	if (dup[3] < 0)
+	{
+		dup[0] = 0xff;
+		dup[1] = 0xff;
+	}
+	else
+	{
+		dup[0] = 0;
+		dup[1] = 0;
+	}
+	dup[2] = vm->core[WRAP(start_of_int)];
+	
 	
 	ret = *((int *)dup);
 	swap_bits(&ret);

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/14 12:46:08 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 13:32:45 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,24 @@ t_player	*make_player(char *file_name, int player_num)
 		exit_errnostr("Error reading file\n");
 		
 	if (get_point_int(header) != COREWAR_EXEC_MAGIC) 
-		exit_str("Error: Magic numbers don't match\n");	
+		exit_str("Error: Magic numbers don't match\n");
 	
+	
+	char *pointer;
+	// // pointer = &header[2210];
+	// pointer = &program[18];
+	
+	// printf("magic num is:\t\t%d\n", get_point_int(pointer));
+	// printf("magic num from head:\t%d\n", *((int *)(pointer)));
+	// printf("magic short from head:\t%d\n", *((short *)(pointer)));
+	// printf("magic short from hea2:\t%d\n", *((short *)(pointer + 2)));
+	
+	// printf("magic gin is:\t\t%d\n", gin(pointer));
+	// printf("magic gip is:\t\t%d\n", gip(pointer));
+	
+	
+	// printf("half magic num is:\t%d\n\n", get_half_p_int(pointer));
+
 	t_player	*ret_player;
 	int			i;
 	
