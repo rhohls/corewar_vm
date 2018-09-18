@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 10:47:23 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 11:28:47 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cursor *create_cursor(t_vm *vm, int pc)
 	i = 0;
 	while (i < REG_NUMBER)
 	{
-		ft_bzero(cursor->reg[i], REG_SIZE);
+		cursor->reg[i] = 0;
 		i++;
 	}
 	update_cursor_info(cursor, vm, 0);

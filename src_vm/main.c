@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 09:10:25 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 13:55:45 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int main(int argc, char **argv)
 	//
 	// check cycle to die
 	// kill players
+	
 
+	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 07:59:49 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 11:44:23 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		dest += get_half_c_int(CORE_PC_PLUS(3), vm);	
 		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(5)));
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
-		jump = 6;
-				
+		jump = 6;	
 	}
 	else if (EBYTE(cursor->encoding) == RID || EBYTE(cursor->encoding) == RDD)
 	{

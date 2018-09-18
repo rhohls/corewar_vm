@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:32:25 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 10:47:23 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 14:39:44 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,23 @@ int get_op_code(t_cursor *cursor, t_vm *vm)
 	return (op_code);
 }
 
+int		verify_cursor(t_cursor *cursor, t_vm *vm)
+{
+	if (cursor->op_code == CORE_PC_PLUS(0) && cursor->encoding == CORE_PC_PLUS(1))
+		return (1);
+	else
+		return (0);
+}
+
 
 void	excute_instruction(t_cursor *cursor, t_vm *vm)
 {
 	int cursor_jump;
 	
-	cursor_jump = (*(g_func_ptr[cursor->op_code]))(vm,cursor);
+	if (verify_cursor(cursor, vm))
+		cursor_jump = (*(g_func_ptr[cursor->op_code]))(vm,cursor);
+	else
+		cursor_jump = 1;
 	// if (cursor_jump < 1)
 	// 	kill_cursor(cursor, vm);
 	// else

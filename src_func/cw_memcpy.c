@@ -27,3 +27,4 @@ void	cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm)
 {
 	ft_memcpy(&(vm->core[core_dest]), reg_pointer, size);
 }
+

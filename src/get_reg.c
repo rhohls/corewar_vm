@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 11:57:30 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 09:22:29 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 15:00:14 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int			reg_check(t_cursor *cursor, int reg_num)
 	return (0);
 }
 
-char		*get_reg(t_cursor *cursor, int reg_num)
+int			*get_reg(t_cursor *cursor, int reg_num)
 {
 	if (reg_check(cursor, reg_num))
-		return (cursor->reg[reg_num]);
+		return (&(cursor->reg[reg_num]));
 	return (NULL);
 }
