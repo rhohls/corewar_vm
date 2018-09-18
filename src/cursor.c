@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 09:43:04 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 10:47:23 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cursor *create_cursor(t_vm *vm, int pc)
 		ft_bzero(cursor->reg[i], REG_SIZE);
 		i++;
 	}
-	update_cursor(cursor, vm, 0);
+	update_cursor_info(cursor, vm, 0);
 	return (cursor);
 }
 
@@ -52,7 +52,7 @@ void	kill_cursor(t_cursor *cursor, t_vm *vm)
 	// remove cursor from list
 }
 
-void	update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump)
+void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 {
 	// assign new opcode and cycle from PC
 	// printf("old pc %d - ", cursor->pc);
@@ -70,7 +70,7 @@ void	update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump)
 	}
 }
 
-void	incr_cursor(t_vm *vm)
+void	incr_all_cursor(t_vm *vm)
 {
 	t_list		*cursor_node;
 	t_cursor	*cursor;

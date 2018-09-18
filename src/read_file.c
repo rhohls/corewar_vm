@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 08:38:05 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 09:58:27 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 10:05:32 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ t_player	*make_player(char *file_name, int player_num)
 	ret_player->alive = 1;
 	// ret_player->nbr_lives = 0;
 	
-	int fd1 = open("file.test", O_RDWR);
-	printf("writing to file with fd %d\n", fd1);
-	write(fd1, program, prog_size);
-	close(fd1);
+	// int fd1 = open("file.test", O_RDWR);
+	// int fd1 = open("file.test", O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
+	// printf("writing to file with fd %d\n", fd1);
+	// write(fd1, program, prog_size);
+	// close(fd1);
 	
 	
 	
