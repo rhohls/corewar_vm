@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 15:04:35 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 09:14:18 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 
 // #negative????
 # define WRAP(x)			(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
-# define CORE_PC_PLUS(y)	vm->core[WRAP(cursor->pc + y)]
-# define PC_PLUS(x)			WRAP(cursor->pc + x)
+# define CORE_PC_PLUS(y)	vm->core[WRAP(cursor->pc + y)]	//byte at vaule
+# define PC_PLUS(x)			WRAP(cursor->pc + x)			//index
 
 
 typedef struct	s_vm
@@ -70,6 +70,7 @@ typedef struct	s_player
 	char		name[PROG_NAME_LENGTH + 1];
 	char		*program;
 	int			player_num;
+	int			start_location;
 	u_int		program_size;
 	int			nbr_lives;
 	int			alive;
@@ -81,6 +82,7 @@ typedef struct	s_cursor
 	int			op_code;
 	int			encoding;
 	char		reg[REG_NUMBER][REG_SIZE];
+	// int			reg[REG_NUMBER];	
 	int			curr_cycle;
 	int			carry;
 }				t_cursor;

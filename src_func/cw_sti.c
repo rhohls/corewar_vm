@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 14:05:25 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 07:59:49 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	
 	if (jump > 0 && reg_info)
 	{
+		// marking sheet says idx mod here
 		ft_memcpy(&CORE_PC_PLUS(dest % IDX_MOD), reg_info, REG_SIZE);
 	}
 	

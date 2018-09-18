@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:55 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 15:08:40 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 09:43:04 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	kill_cursor(t_cursor *cursor, t_vm *vm)
 void	update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump)
 {
 	// assign new opcode and cycle from PC
-	printf("old pc %d - ", cursor->pc);
+	// printf("old pc %d - ", cursor->pc);
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
-	printf("new pc %d \n", cursor->pc);	
+	// printf("new pc %d \n", cursor->pc);	
 	cursor->op_code = CORE_PC_PLUS(0);
 	// printf("core info = %02x\t", vm->core[WRAP(cursor->pc)]);
-	printf("op_code = %02x\n", cursor->op_code);		
+	// printf("op_code = %02x\n", cursor->op_code);		
 	cursor->encoding = CORE_PC_PLUS(1);
 	if (cursor->op_code >= 16) // or more errors
 		kill_cursor(cursor, vm);

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 15:12:30 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 06:58:21 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	cw_fork(t_vm *vm, t_cursor *cursor)
 	int			new_pc;
 	int			i;
 	
-	new_pc = get_half_c_int(PC_PLUS(1), vm);
+	new_pc = get_half_c_int(PC_PLUS(1), vm) % IDX_MOD;
 	new_cursor = create_cursor(vm, new_pc);
 	
 	i = 0;

@@ -6,7 +6,7 @@
 #    By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 13:08:28 by rhohls            #+#    #+#              #
-#    Updated: 2018/09/17 09:19:29 by rhohls           ###   ########.fr        #
+#    Updated: 2018/09/18 08:54:58 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ FUNC_FILE = cw_add.c	\
 			cw_sub.c	\
 			cw_xor.c	\
 			cw_zjmp.c	\
+			cw_memcpy.c	\
 
 # Manipulate
 OBJ_FILE = $(SRC_FILE:%.c=%.o)

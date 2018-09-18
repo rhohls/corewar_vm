@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 13:28:11 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 09:10:25 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ void marco_saftey(void)
 		exit_str("REG_SIZE cant be less than 4\n");
 }
 
+void print_usage(void)
+{
+	ft_putstr("Usage: ./corewar [-dump N] < [-n N -a N] champion1.cor >   <...>\n");
+	ft_putstr("\t-dump N: Dumps the memory after nbr_cycle execution cycles\n\
+	(if the game isn’t already over)\n\n");
+	// ft_putstr("#####################################################################\n");	
+	ft_putstr("\t-n N: Sets the number of the next program. By default, it will\n\
+	be the next available number, in parameter order.\n");
+	ft_putstr("\t-a N: Sets the load address of the next program. When no\n\
+	address is specified, the programs will be evenly sapced.\n");
+	
+}
+
 int main(int argc, char **argv)
 {
 	t_vm		vm;
@@ -49,7 +62,7 @@ int main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_putstr("usage!!, needs a file\n");
+		print_usage();
 		exit(0);
 	}
 	i = 1;
