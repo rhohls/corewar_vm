@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
+#include <stdio.h>
 
 int	cw_null(t_vm *vm, t_cursor *cursor)
 {

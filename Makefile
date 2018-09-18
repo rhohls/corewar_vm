@@ -32,6 +32,8 @@ SRC_FILE =	op.c	\
 			death_cycle.c	\
 			ex_instructions.c	\
 			get_reg.c	\
+			replace_live.c \
+			jump_function.c \
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\
