@@ -6,7 +6,7 @@
 /*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 12:49:35 by ppreez            #+#    #+#             */
-/*   Updated: 2018/09/17 09:49:31 by ppreez           ###   ########.fr       */
+/*   Updated: 2018/09/18 10:43:13 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void init_vm(t_vm *vm)
 {
-	set_op_tab(vm);// whyyyyyy!??!
+	// set_makop_tab(vm);// whyyyyyy!??!
 	vm->file_lines = NULL;
 	vm->cursor_stack = ft_stacknew();
 	vm->curr_cycle = 0;

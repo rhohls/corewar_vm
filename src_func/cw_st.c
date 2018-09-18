@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 14:49:19 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/17 16:32:48 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	else if (EBYTE(cursor->encoding) == RI)
 	{
 		dest = get_half_c_int(PC_PLUS(3), vm) % IDX_MOD;
-		cw_reg_cpy(dest, reg_info, REG_SIZE, vm);
+		// cw_reg_cpy(dest, reg_info, REG_SIZE, vm);
 		jump = 4;
 	}
 

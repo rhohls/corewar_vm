@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ppreez <marvin@42.FR>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 07:38:05 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 10:37:08 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,17 @@ int	cw_and(t_vm *vm, t_cursor *cursor)
 	reg_store = get_reg(cursor, CORE_PC_PLUS(4));	
 	
 	if (EBYTE(cursor->encoding) == RRR)
-	{
 		jump = 5;
-	}
 	else if (EBYTE(cursor->encoding) == IRR || EBYTE(cursor->encoding) == RIR)
-	{
 		jump = 6;
-	}
 	else if (EBYTE(cursor->encoding) == IIR)
-	{
 		jump = 7;
-	}
 	else if (EBYTE(cursor->encoding) == DRR || EBYTE(cursor->encoding) == RDR)
-	{
 		jump = 8;
-	}
 	else if (EBYTE(cursor->encoding) == DDR)
-	{
 		jump = 11;
-	}	
 	else if (EBYTE(cursor->encoding) == DIR || EBYTE(cursor->encoding) == IDR)
-	{
 		jump = 9;
-	}
 
 		
 	if (jump > 0)
