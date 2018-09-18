@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 07:32:25 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/17 13:30:18 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 10:47:23 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	excute_instruction(t_cursor *cursor, t_vm *vm)
 	// if (cursor_jump < 1)
 	// 	kill_cursor(cursor, vm);
 	// else
-	update_cursor(cursor, vm, cursor_jump);
+	update_cursor_info(cursor, vm, cursor_jump);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 07:28:33 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 09:14:18 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/09/18 10:47:23 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ t_cursor	*create_cursor(t_vm *vm, int pc);
 void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
-void		incr_cursor(t_vm *vm);
+void		incr_all_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
 char		*get_reg(t_cursor *cursor, int reg_num);
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);
 
-void		update_cursor(t_cursor *cursor, t_vm *vm, int cursor_jump);
+void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump);
 void		add_cursor_to_vm(t_vm *vm, int pc);
 int			get_op_code(t_cursor *cursor, t_vm *vm);
 void		kill_cursor(t_cursor *cursor, t_vm *vm);
