@@ -29,7 +29,9 @@ int get_op_code(t_cursor *cursor, t_vm *vm)
 
 int		verify_cursor(t_cursor *cursor, t_vm *vm)
 {
-	if (cursor->op_code == CORE_PC_PLUS(0) && cursor->encoding == CORE_PC_PLUS(1))
+	if (cursor->op_code == CORE_PC_PLUS(0) &&
+		cursor->op_code >= 0 && cursor->op_code < 16
+		&& cursor->encoding == CORE_PC_PLUS(1))
 		return (1);
 	else
 		return (0);

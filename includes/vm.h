@@ -48,10 +48,16 @@
 
 // #negative????
 # define WRAP(x)			(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
-# define CORE_PC_PLUS(y)	vm->core[WRAP(cursor->pc + y)]	//byte at vaule
+# define CORE_PC_PLUS(y)	EBYTE(vm->core[WRAP(cursor->pc + y)])	//byte at vaule
 # define PC_PLUS(x)			WRAP(cursor->pc + x)			//index
 # define ABS(x)				x >= 0 ? x : x * -1
 
+
+typedef struct	s_flags
+{
+	int			dump;
+	
+}				t_flags;
 
 typedef struct	s_vm
 {
@@ -63,7 +69,7 @@ typedef struct	s_vm
 	int			cycle_death;
 	int			nbr_dead;
 	t_stack		*player_list;
-	
+	t_flags		flags;
 }				t_vm;
 
 typedef struct	s_player
@@ -119,7 +125,7 @@ void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
 void		name_replacer(t_vm *vm, t_list *player);
-void		incr_all_cursor(t_vm *vm);
+void		incr_all_cursor(t_vm *vm, int *print);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
 int			*get_reg(t_cursor *cursor, int reg_num);

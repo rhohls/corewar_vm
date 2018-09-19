@@ -55,22 +55,22 @@ void	kill_cursor(t_cursor *cursor, t_vm *vm)
 void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 {
 	// assign new opcode and cycle from PC
+	// printf("\n Updating cursor\n");
 	// printf("old pc %d - ", cursor->pc);
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
 	// printf("new pc %d \n", cursor->pc);	
 	cursor->op_code = CORE_PC_PLUS(0);
-	// printf("core info = %02x\t", vm->core[WRAP(cursor->pc)]);
+	// printf("core info = %02x\t", EBYTE(vm->core[WRAP(cursor->pc)]));
 	// printf("op_code = %02x\n", cursor->op_code);		
 	cursor->encoding = CORE_PC_PLUS(1);
 	if (cursor->op_code >= 16) // or more errors
-		kill_cursor(cursor, vm);
+		cursor->curr_cycle = 1;
 	else
-	{
 		cursor->curr_cycle = (vm->op_table[cursor->op_code]).cycles;
-	}
+	// printf("number of cycles: %d\n", cursor->curr_cycle);
 }
 
-void	incr_all_cursor(t_vm *vm)
+void	incr_all_cursor(t_vm *vm, int *print)
 {
 	t_list		*cursor_node;
 	t_cursor	*cursor;
@@ -83,8 +83,9 @@ void	incr_all_cursor(t_vm *vm)
 		cursor->curr_cycle--;
 		if (cursor->curr_cycle <= 0)
 		{
-			printf("updating cursor at %d\n", cursor->pc);
+			// printf("updating cursor at %d\n", cursor->pc);
 			excute_instruction(cursor, vm);
+			*print = 1;
 		}
 		cursor_node = cursor_node->next;
 	}

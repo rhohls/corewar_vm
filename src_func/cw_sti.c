@@ -31,7 +31,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	int 	jump;
 	
 	dest = 0;
-	jump = 0 ;
+	jump = 1;
 	reg_info_toload = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
 	
 	if (cursor->encoding == RRR)

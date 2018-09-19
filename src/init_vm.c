@@ -16,7 +16,7 @@ void replace_live(t_vm *vm, t_list *players); // TO BE MOVED TO HEADER
 
 void init_vm(t_vm *vm)
 {
-	// set_makop_tab(vm);// whyyyyyy!??!
+	set_op_tab(vm);// whyyyyyy!??!
 	vm->file_lines = NULL;
 	vm->cursor_stack = ft_stacknew();
 	vm->curr_cycle = 0;
@@ -44,19 +44,23 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 	while (players)
 	{
 		i = 0;
-		add_cursor_to_vm(vm, x);
 		x = offset[1];
+		
+		
 		while (i < ((t_player *)(players->content))->program_size)
 		{
 			vm->core[x] = ((t_player *)(players->content))->program[i];
 			x++;
 			i++;
-		}	
+		}
+		
+		add_cursor_to_vm(vm, offset[1]);
+		printf("adding cursor at %d\n", offset[1]);
 		offset[1] += offset[0];
 		players = players->next;
 	}
 	players = start;
-	printf("init cursor at %d\n", x);
+	
 	// print_cursor_info(vm);
 }
 // also need to load players cursors @ location

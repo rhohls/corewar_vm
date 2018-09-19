@@ -34,15 +34,21 @@ void	display_winner(t_vm *vm)
 void	vm_loop(t_vm *vm)
 {
 	int i = 0;
+	int print;
+
+	print_game_state(vm);
+
 	while(i < 100)
 	{
+		print = 0;
 		printf("Cycle: %d\n", vm->curr_cycle);
-		incr_all_cursor(vm);
+		incr_all_cursor(vm, &print);
 		vm->curr_cycle++;
 		if (vm->curr_cycle == vm->cycle_death)
 			if (cycle_death(vm))
 				break ;
-		// print_game_state(vm);
+		if (print)
+			print_game_state(vm);
 		i++;
 	}
 	display_winner(vm);

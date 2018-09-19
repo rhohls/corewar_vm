@@ -12,13 +12,13 @@
 
 #include "../includes/vm.h"
 
-void	init_players(int argc, char **argv, t_vm *vm)
+void	init_players(int player_start, int argc, char **argv, t_vm *vm)
 {
 	int i;
 	t_player	*new_player;
 	t_list		*node;
 	
-	i = 1;
+	i = player_start;
 	while (i < argc)
 	{
 		new_player = make_player(argv[i], i);
@@ -40,7 +40,7 @@ void marco_saftey(void)
 
 void print_usage(void)
 {
-	ft_putstr("Usage: ./corewar [-dump N] < [-n N -a N] champion1.cor >   <...>\n");
+	ft_putstr("Usage: ./corewar [-dump N] < [-n N -a N] champion1.cor >  <...>\n");
 	ft_putstr("\t-dump N: Dumps the memory after nbr_cycle execution cycles\n\
 	(if the game isn’t already over)\n\n");
 	// ft_putstr("#####################################################################\n");	
@@ -48,28 +48,32 @@ void print_usage(void)
 	be the next available number, in parameter order.\n");
 	ft_putstr("\t-a N: Sets the load address of the next program. When no\n\
 	address is specified, the programs will be evenly sapced.\n");
+	exit(0);
+}
+
+
+int	add_flags(int argc, char **argv, t_vm *vm)
+{
 	
 }
 
 int main(int argc, char **argv)
 {
 	t_vm		vm;
-	int			i;
+	int			begin_players;
 		
 	/* load info */
 	init_vm(&vm);
 	marco_saftey();
 
 	if (argc < 2)
-	{
 		print_usage();
-		exit(0);
-	}
-	i = 1;
-	
-	init_players(argc, argv, &vm);
-	
 
+	
+	begin_players = add_flags(argc, argv, &vm);
+	
+	init_players(begin_players, argc, argv, &vm);
+	
 	ft_bzero(vm.core, MEM_SIZE);
 	load_players(&vm, vm.core, vm.player_list->start);
 	printf("\n~~~~~~~\n");
