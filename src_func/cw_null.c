@@ -14,6 +14,5 @@
 
 int	cw_null(t_vm *vm, t_cursor *cursor)
 {
-	
-	return (0);
+	return (1);
 }

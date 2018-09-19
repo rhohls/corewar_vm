@@ -12,8 +12,28 @@
 
 #include "../includes/vm.h"
 
-int	cw_lfork(t_vm *vm, t_cursor *cursor)
+/*
+**	fork par1
+**	create new cursor, inherates state
+**	loads cursor at par1
+*/
+
+int	cw_fork(t_vm *vm, t_cursor *cursor)
 {
+	t_cursor	*new_cursor;
+	int			new_pc;
+	int			i;
 	
-	return (0);
+	new_pc = get_half_c_int(PC_PLUS(1), vm);
+	new_cursor = create_cursor(vm, WRAP(new_pc));
+	
+	i = 0;
+	while (i < REG_NUMBER)
+	{
+		new_cursor->reg[i] = cursor->reg[i];
+		i++;
+	}
+	
+	add_cursor_to_cursorlist(vm, new_cursor);	
+	return (1);
 }

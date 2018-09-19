@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
+
 /*
 **	add par1, par2, par3
 **	par1 = reg
@@ -36,7 +37,6 @@ int	cw_add(t_vm *vm, t_cursor *cursor)
 		reg_info_2 = *(get_reg(cursor, CORE_PC_PLUS(3)));
 		reg_store = get_reg(cursor, CORE_PC_PLUS(4));
 		
-		// change reg to int instead of char?
 		if (reg_store != NULL)
 		{
 			*reg_store = reg_info_1 + reg_info_2;

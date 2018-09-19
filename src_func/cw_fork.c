@@ -12,6 +12,12 @@
 
 #include "../includes/vm.h"
 
+/*
+**	fork par1
+**	create new cursor, inherates state
+**	loads cursor at par1
+*/
+
 int	cw_fork(t_vm *vm, t_cursor *cursor)
 {
 	t_cursor	*new_cursor;
@@ -19,12 +25,12 @@ int	cw_fork(t_vm *vm, t_cursor *cursor)
 	int			i;
 	
 	new_pc = get_half_c_int(PC_PLUS(1), vm) % IDX_MOD;
-	new_cursor = create_cursor(vm, new_pc);
+	new_cursor = create_cursor(vm, WRAP(new_pc));
 	
 	i = 0;
 	while (i < REG_NUMBER)
 	{
-		ft_memcpy(new_cursor->reg[i], cursor->reg[i], REG_SIZE);
+		new_cursor->reg[i] = cursor->reg[i];
 		i++;
 	}
 	
