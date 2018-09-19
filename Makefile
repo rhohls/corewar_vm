@@ -90,7 +90,7 @@ $(OBJ_PATH)%.o: $(FUNC_PATH)%.c
 
 test: $(OBJ) $(TEST)
 	@make -C./libft/
-	@$(CC) -o $@ $(OBJ) $(TEST) $(LIBF)
+	@$(CC) -o $@ $(OBJ) $(FUNC_OBJ) $(TEST) $(LIBF)
 	@./test
 
 clean: 
