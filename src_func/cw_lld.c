@@ -22,7 +22,7 @@
 **	into par2(reg)
 */
 
-int	cw_ld(t_vm *vm, t_cursor *cursor)
+int	cw_lld(t_vm *vm, t_cursor *cursor)
 {
 	int		info_to_load;
 	int		location_info;

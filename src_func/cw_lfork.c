@@ -18,7 +18,7 @@
 **	loads cursor at par1
 */
 
-int	cw_fork(t_vm *vm, t_cursor *cursor)
+int	cw_lfork(t_vm *vm, t_cursor *cursor)
 {
 	t_cursor	*new_cursor;
 	int			new_pc;

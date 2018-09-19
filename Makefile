@@ -32,6 +32,9 @@ SRC_FILE =	op.c	\
 			death_cycle.c	\
 			ex_instructions.c	\
 			get_reg.c	\
+			replace_live.c \
+			jump_function.c \
+			store_int.c	\
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\
@@ -51,6 +54,7 @@ FUNC_FILE = cw_add.c	\
 			cw_xor.c	\
 			cw_zjmp.c	\
 			cw_memcpy.c	\
+			cw_bitop.c	\
 
 # Manipulate
 OBJ_FILE = $(SRC_FILE:%.c=%.o)

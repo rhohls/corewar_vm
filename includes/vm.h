@@ -22,7 +22,7 @@
 # include <errno.h>
 
 # define  u_int unsigned int
-// # define BYTE(x)	(x & 0xff)
+# define EBYTE(x)	(x & 0xff)
 
 #define REG_BYTE	1
 #define DIR_BYTE	4
@@ -118,6 +118,7 @@ t_cursor	*create_cursor(t_vm *vm, int pc);
 void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
+void		name_replacer(t_vm *vm, t_list *player);
 void		incr_all_cursor(t_vm *vm);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_death(t_vm *vm);
@@ -160,4 +161,27 @@ int			cw_lldi(t_vm *vm, t_cursor *cursor);
 int			cw_lfork(t_vm *vm, t_cursor *cursor);
 int			cw_aff(t_vm *vm, t_cursor *cursor);
 int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
+
+/*
+**	Jump functions
+*/
+
+int			null_jump(char *program);
+int			live_jump(char *program);
+int			ld_jump(char *program);
+int			st_jump(char *program);
+int			add_jump(char *program);
+int			sub_jump(char *program);
+int			and_jump(char *program);
+int			or_jump(char *program);
+int			xor_jump(char *program);
+int			zjmp_jump(char *program);
+int			ldi_jump(char *program);
+int			sti_jump(char *program);
+int			fork_jump(char *program);
+int			lld_jump(char *program);
+int			lldi_jump(char *program);
+int			lfork_jump(char *program);
+int			aff_jump(char *program);
+
 #endif
