@@ -17,38 +17,36 @@
 **	par1 = dir or ind
 **	par2 = reg
 **	ld coppies REG_SIZE bytes from par1 (PC + (par1 % IDX_MOD)) 
-**	into par2
-**	
-**	ld enc dir reg	
-**	0	1	2	6
+**	into par2(reg)
 */
 
 int	cw_ld(t_vm *vm, t_cursor *cursor)
 {
 	int		info_to_load;
-	int		loca_info;
-	char	*reg;
+	int		location_info;
+	int		*reg;
 	int 	jump;
 
 	jump = -1;
 	if (cursor->encoding == DR)
 	{
-		loca_info = get_core_int(PC_PLUS(2), vm);
+		location_info = get_core_int(PC_PLUS(2), vm);
 		reg = get_reg(cursor, CORE_PC_PLUS(6));
 		jump = 7;
 	}
 	else if (cursor->encoding == IR)
 	{
-		loca_info = get_half_c_int(PC_PLUS(2), vm);
+		location_info = get_half_c_int(PC_PLUS(2), vm);
 		reg = get_reg(cursor, CORE_PC_PLUS(4));
 		jump = 5;
 	}
-	info_to_load = get_core_int(PC_PLUS(loca_info % IDX_MOD), vm);
+	info_to_load = get_core_int(PC_PLUS(location_info % IDX_MOD), vm);
 	
 	if (jump > 0 && info_to_load)
 	{
-		ft_memcpy(reg, &info_to_load, REG_SIZE);
-		cursor->carry = 1;
+		*reg = info_to_load;
+		if (*reg)
+			cursor->carry = 1;
 	}
 	
 	return (jump);

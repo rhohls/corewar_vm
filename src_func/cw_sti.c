@@ -26,41 +26,30 @@
 int	cw_sti(t_vm *vm, t_cursor *cursor)
 {
 	// int reg_num;
-	char	*reg_info;
+	int		*reg_info_toload;
 	int		dest;
 	int 	jump;
-	int		reg_info_as_int;
-	char	 *register_info;
 	
 	dest = 0;
 	jump = 0 ;
-	reg_info = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
+	reg_info_toload = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
 	
 	if (cursor->encoding == RRR)
-	{
-		//
-		// check below to see which is right
-		//
-		// should also be no IDX_MOD
-		register_info = get_reg(cursor, CORE_PC_PLUS(3));
-		dest += get_point_int(register_info);
-		
-		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(4)));
-		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
+	{	
+		dest += *(get_reg(cursor, CORE_PC_PLUS(3)));
+		dest += *(get_reg(cursor, CORE_PC_PLUS(4)));
 		jump = 5;
 	}
 	else if (cursor->encoding == RRD)
 	{
-		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(3)));
-		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
+		dest += *(get_reg(cursor, CORE_PC_PLUS(3)));
 		dest += get_half_c_int(CORE_PC_PLUS(4), vm);
 		jump = 6;
 	}
 	else if (cursor->encoding == RIR || cursor->encoding == RDR)
 	{
 		dest += get_half_c_int(CORE_PC_PLUS(3), vm);	
-		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(5)));
-		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
+		dest += *(get_reg(cursor, CORE_PC_PLUS(5)));
 		jump = 6;	
 	}
 	else if (cursor->encoding == RID || cursor->encoding == RDD)
@@ -70,10 +59,10 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		jump = 7;
 	}
 	
-	if (jump > 0 && reg_info)
+	if (jump > 0 && reg_info_toload)
 	{
 		// marking sheet says idx mod here
-		ft_memcpy(&CORE_PC_PLUS(dest % IDX_MOD), reg_info, REG_SIZE);
+		store_core_int(*reg_info_toload, PC_PLUS(dest %IDX_MOD), vm);
 	}
 	
 	return (jump);

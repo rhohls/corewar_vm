@@ -40,11 +40,11 @@
 # define RRD 0b01011000 //88 	58
 # define RDD 0b01101000 //104	68
 # define RID 0b01111000 //120	78
-# define IR 0b11010000	//208	90		
-# define DR 0b10010000	//144	d0
-# define RR 0b01010000	//80	50		
-# define RI 0b01110000	//112	70
-# define R 0b01000000
+# define IR  0b11010000	//208	90		
+# define DR  0b10010000	//144	d0
+# define RR  0b01010000	//80	50		
+# define RI  0b01110000	//112	70
+# define R   0b01000000	//64	40
 
 // #negative????
 # define WRAP(x)			(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
