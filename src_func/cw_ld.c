@@ -27,7 +27,7 @@ int	cw_ld(t_vm *vm, t_cursor *cursor)
 	int		*reg;
 	int 	jump;
 
-	jump = -1;
+	jump = 1;
 	if (cursor->encoding == DR)
 	{
 		location_info = get_core_int(PC_PLUS(2), vm);
@@ -42,7 +42,7 @@ int	cw_ld(t_vm *vm, t_cursor *cursor)
 	}
 	info_to_load = get_core_int(PC_PLUS(location_info % IDX_MOD), vm);
 	
-	if (jump > 0 && info_to_load)
+	if (jump > 1 && info_to_load)
 	{
 		*reg = info_to_load;
 		if (*reg)

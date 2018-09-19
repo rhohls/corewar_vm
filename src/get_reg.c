@@ -16,12 +16,14 @@ int			reg_check(t_cursor *cursor, int reg_num)
 {
 	if ((reg_num < REG_NUMBER || reg_num >= 0) && cursor)
 		return (1);
-	return (0);
+	else
+		return (0);
 }
 
 int			*get_reg(t_cursor *cursor, int reg_num)
 {
 	if (reg_check(cursor, reg_num))
 		return (&(cursor->reg[reg_num]));
-	return (NULL);
+	else
+		return (NULL);
 }

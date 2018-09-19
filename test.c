@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/vm.h"
-
+// #include "./includes/vm.h"
+#include <stdio.h>
 static char g_strings[4][10] = {"test", "str2", "fsef", "\0"};
 
 int main()
@@ -19,22 +19,29 @@ int main()
 	char *str;
 	int i;
 	
-	i = 0;		
-	str = g_strings[0];
+	// i = 0;		
+	// str = g_strings[0];
 	
-	g_strings[0][3] = 0x12;
+	// g_strings[0][3] = 0x12;
 	
-	i = g_strings[0][3];
-	printf("int i = %d %x\n", i, i);
-	g_strings[0][3]++;
+	// i = g_strings[0][3];
+	// printf("int i = %d %x\n", i, i);
+	// g_strings[0][3]++;
 	
-	i = g_strings[0][3];
-	printf("int i = %d %x\n", i, i);
+	// i = g_strings[0][3];
+	// printf("int i = %d %x\n", i, i);
 	// while (i < 4)
 	// {
 	// 	printf("%s \n", g_strings[i]);
 	// 	i++;
 	// }
+	
+	int *in;
+	
+	in  = NULL;
+		
+	printf("int add %p\n", in);
+	printf("int val %d\n", *in);
 	
 	return (0);	
 	
