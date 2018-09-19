@@ -26,42 +26,15 @@
 int	cw_or(t_vm *vm, t_cursor *cursor)
 {
 	int		jump;
-	char	*reg_store;
+	t_bitop	bitop;
 	
-	
-	reg_store = get_reg(cursor, CORE_PC_PLUS(4));	
-	
-	if (EBYTE(cursor->encoding) == RRR)
-	{
-		jump = 5;
-	}
-	else if (EBYTE(cursor->encoding) == IRR || EBYTE(cursor->encoding) == RIR)
-	{
-		jump = 6;
-	}
-	else if (EBYTE(cursor->encoding) == IIR)
-	{
-		jump = 7;
-	}
-	else if (EBYTE(cursor->encoding) == DRR || EBYTE(cursor->encoding) == RDR)
-	{
-		jump = 8;
-	}
-	else if (EBYTE(cursor->encoding) == DDR)
-	{
-		jump = 11;
-	}	
-	else if (EBYTE(cursor->encoding) == DIR || EBYTE(cursor->encoding) == IDR)
-	{
-		jump = 9;
-	}
+	jump = cw_bitop(vm, cursor, &bitop);
 
-		
-	if (jump > 0)
+	if (jump > 1)
 	{
-		if (reg_store != 0)
+		*(bitop.reg_store) = bitop.par1 | bitop.par2;
+		if (bitop.reg_store != 0)
 			cursor->carry = 1;
 	}
-	
 	return (jump);
 }

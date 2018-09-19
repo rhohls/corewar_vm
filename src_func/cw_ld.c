@@ -31,13 +31,13 @@ int	cw_ld(t_vm *vm, t_cursor *cursor)
 	int 	jump;
 
 	jump = -1;
-	if (EBYTE(cursor->encoding) == DR)
+	if (cursor->encoding == DR)
 	{
 		loca_info = get_core_int(PC_PLUS(2), vm);
 		reg = get_reg(cursor, CORE_PC_PLUS(6));
 		jump = 7;
 	}
-	else if (EBYTE(cursor->encoding) == IR)
+	else if (cursor->encoding == IR)
 	{
 		loca_info = get_half_c_int(PC_PLUS(2), vm);
 		reg = get_reg(cursor, CORE_PC_PLUS(4));

@@ -36,7 +36,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	jump = 0 ;
 	reg_info = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
 	
-	if (EBYTE(cursor->encoding) == RRR)
+	if (cursor->encoding == RRR)
 	{
 		//
 		// check below to see which is right
@@ -49,21 +49,21 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
 		jump = 5;
 	}
-	else if (EBYTE(cursor->encoding) == RRD)
+	else if (cursor->encoding == RRD)
 	{
 		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(3)));
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
 		dest += get_half_c_int(CORE_PC_PLUS(4), vm);
 		jump = 6;
 	}
-	else if (EBYTE(cursor->encoding) == RIR || EBYTE(cursor->encoding) == RDR)
+	else if (cursor->encoding == RIR || cursor->encoding == RDR)
 	{
 		dest += get_half_c_int(CORE_PC_PLUS(3), vm);	
 		reg_info_as_int = get_point_int(get_reg(cursor, CORE_PC_PLUS(5)));
 		dest += get_core_int(CORE_PC_PLUS(reg_info_as_int % IDX_MOD), vm);
 		jump = 6;	
 	}
-	else if (EBYTE(cursor->encoding) == RID || EBYTE(cursor->encoding) == RDD)
+	else if (cursor->encoding == RID || cursor->encoding == RDD)
 	{
 		dest += get_half_c_int(CORE_PC_PLUS(3), vm);
 		dest += get_half_c_int(CORE_PC_PLUS(5), vm);

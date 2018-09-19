@@ -40,13 +40,13 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	jump = 0;
 	reg_info = get_reg(cursor, CORE_PC_PLUS(2));
 	
-	if (EBYTE(cursor->encoding) == RR)
+	if (cursor->encoding == RR)
 	{
 		reg_dest = get_reg(cursor, CORE_PC_PLUS(3));
 		ft_memcpy(reg_dest, reg_info, REG_SIZE);
 		jump = 4;
 	}
-	else if (EBYTE(cursor->encoding) == RI)
+	else if (cursor->encoding == RI)
 	{
 		dest = get_half_c_int(PC_PLUS(3), vm) % IDX_MOD;
 		cw_reg_cpy(dest, reg_info, REG_SIZE, vm);

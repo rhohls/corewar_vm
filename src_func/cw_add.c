@@ -28,8 +28,7 @@ int	cw_add(t_vm *vm, t_cursor *cursor)
 	int		reg_info_2;
 	int		*reg_store;
 	
-	jump = 0;
-	
+	jump = 1;
 	if ((cursor->encoding & RRR) == RRR)
 	{
 		

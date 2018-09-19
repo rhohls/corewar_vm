@@ -22,7 +22,7 @@
 # include <errno.h>
 
 # define  u_int unsigned int
-# define EBYTE(x)	(x & 0xFF)
+// # define BYTE(x)	(x & 0xff)
 
 #define REG_BYTE	1
 #define DIR_BYTE	4
@@ -50,7 +50,7 @@
 # define WRAP(x)			(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
 # define CORE_PC_PLUS(y)	vm->core[WRAP(cursor->pc + y)]	//byte at vaule
 # define PC_PLUS(x)			WRAP(cursor->pc + x)			//index
-# define ABS(x)				WRAP(cursor->pc + x)
+# define ABS(x)				x >= 0 ? x : x * -1
 
 
 typedef struct	s_vm
@@ -87,6 +87,14 @@ typedef struct	s_cursor
 	int			curr_cycle;
 	int			carry;
 }				t_cursor;
+
+typedef struct	s_bitop
+{
+	int			*reg_store;
+	int			par1;
+	int			par2;	
+}				t_bitop;
+
 
 void		exit_str(char *str);
 void		exit_errno(void);
@@ -151,5 +159,5 @@ int			cw_lld(t_vm *vm, t_cursor *cursor);
 int			cw_lldi(t_vm *vm, t_cursor *cursor);
 int			cw_lfork(t_vm *vm, t_cursor *cursor);
 int			cw_aff(t_vm *vm, t_cursor *cursor);
-
+int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 #endif

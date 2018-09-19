@@ -17,13 +17,13 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 	int jump;
 	int *reg_info;
 	
-	jump = 0;
+	jump = 1;
 	if ((cursor->encoding & R) == R)
 	{
 		reg_info = (get_reg(cursor, CORE_PC_PLUS(2)));
-		
+		ft_printf("Cursor at %d register %d value: %d\n", cursor->pc, 
+					CORE_PC_PLUS(2), *reg_info)	;
+		jump = 3;
 	}
-	
-	
 	return (0);
 }
