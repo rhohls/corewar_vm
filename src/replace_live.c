@@ -80,36 +80,34 @@ int		jump_function(int op_code, t_list *player, int index)
 	return (ret);
 }
 
-void	replace_live(t_list *player, int index)
+void    replace_player_num(t_list *player, int prog_index)
 {
-	int split[4];
+    char *num;
 	t_player *temp;
 
 	temp = ((t_player *)(player->content));
-	split[0] = (258 & 0x000000ff);
-	split[1] = (258 & 0x0000ff00);
-	split[2] = (258 & 0x00ff0000);
-	split[3] = (258 & 0xff000000);
-	
-	temp->program[index + 1] = split[3];
-	temp->program[index + 2] = split[2];
-	temp->program[index + 3] = split[1];
-	temp->program[index + 4] = split[0];
+    num = (char *)(&temp->player_num);
+    temp->program[prog_index + 1] = num[3];
+    temp->program[prog_index + 2] = num[2];
+    temp->program[prog_index + 3] = num[1];
+    temp->program[prog_index + 4] = num[0];
 }
 
 void	name_replacer(t_vm *vm, t_list *player)
 {
-	int		index;
-	char	op_code;
+	int			index;
+	t_player	*temp;
+	char		op_code;
 
 	index = 0;
-	printf("program_size = %d\n", ((t_player *)(player->content))->program_size);
-	printf("program_size = %d\n", ((t_player *)(player->content))->program[index]);
-	while (index < ((t_player *)(player->content))->program_size)
+	temp = ((t_player *)(player->content));
+	printf("program_size = %d\n", temp->program_size);
+	printf("program_size = %d\n", temp->program[index]);
+	while (index < temp->program_size)
 	{
-		op_code = ((t_player *)(player->content))->program[index];
+		op_code = temp->program[index];
 		if (op_code == 1)
-			replace_live(player, index);
+			replace_player_num(player, index);
 		index += jump_function(op_code, player, index);
 	}
 }
