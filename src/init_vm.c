@@ -16,11 +16,13 @@ void replace_live(t_vm *vm, t_list *players); // TO BE MOVED TO HEADER
 
 void init_vm(t_vm *vm)
 {
-	set_op_tab(vm);// whyyyyyy!??!
+	ft_bzero(vm, sizeof(t_vm));
+	set_op_tab(vm);// whyyyyyy!??! (its for the cycles)
 	vm->file_lines = NULL;
 	vm->cursor_stack = ft_stacknew();
-	vm->curr_cycle = 0;
-	vm->nbr_dead = 0;
+	// vm->curr_cycle = 0;
+	// vm->nbr_dead = 0;
+	
 	vm->player_list = ft_stacknew();
 	vm->cycle_death = CYCLE_TO_DIE;
 }
@@ -77,9 +79,9 @@ void		load_players(t_vm *vm, char *board, t_list *player)
 	while (player)
 	{
 		size += ((t_player *)(player->content))->program_size;
-		((t_player *)(player->content))->player_num = ++count;
 		name_replacer(vm, player);
 		player = player->next;
+		count++;
 	}
 	player = start;
 	size_balance(vm, player, size, count);

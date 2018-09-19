@@ -12,26 +12,6 @@
 
 #include "../includes/vm.h"
 
-void	init_players(int player_start, int argc, char **argv, t_vm *vm)
-{
-	int i;
-	t_player	*new_player;
-	t_list		*node;
-	
-	i = player_start;
-	while (i < argc)
-	{
-		new_player = make_player(argv[i], i);
-		// reassign_player_live(new_player);
-		node = ft_lstnew(NULL, 0);
-		node->content = new_player;
-		node->content_size = i;
-		// ft_lstaddfront(&player_list, node);
-		ft_stackpush(vm->player_list, node);
-		i++;
-	}
-}
-
 void marco_saftey(void)
 {
 	if (REG_SIZE < 4)
@@ -52,27 +32,43 @@ void print_usage(void)
 }
 
 
-int	add_flags(int argc, char **argv, t_vm *vm)
+void	add_flags(t_args *args, t_vm *vm)
 {
-	
+	while (args->index < args->argc)
+	{
+		if (args->argv[args->index][0] != '-')
+			break ;
+		if (ft_strcmp(args->argv[args->index] + 1, "dump") == 0)
+		{
+			args->index++;
+			vm->flags.dump = ft_atoi_long(args->argv[args->index]);
+		}
+		args->index++;
+	}
 }
 
 int main(int argc, char **argv)
 {
 	t_vm		vm;
 	int			begin_players;
-		
-	/* load info */
+	t_args		args;
+	
 	init_vm(&vm);
 	marco_saftey();
-
 	if (argc < 2)
 		print_usage();
 
+	args.argv = argv;
+	args.argc = argc;
+	args.index = 1;
+
+	add_flags(&args, &vm);
+	printf("player start: %d\n", begin_players);
+	printf("dump? %d\n", vm.flags.dump);
 	
-	begin_players = add_flags(argc, argv, &vm);
+	init_players(&args, &vm);
 	
-	init_players(begin_players, argc, argv, &vm);
+	
 	
 	ft_bzero(vm.core, MEM_SIZE);
 	load_players(&vm, vm.core, vm.player_list->start);
@@ -80,18 +76,7 @@ int main(int argc, char **argv)
 	vm_loop(&vm);
 	print_game_state(&vm);
 	
-	// make vm space
-	// add player program to space
-	// add cursors 
-	//
-	// loop:
-	// incr cursor cycle
-	// excute if needed
-	// 		delta PC
-	//
-	// check cycle to die
-	// kill players
-	
+
 
 	
 	return (0);

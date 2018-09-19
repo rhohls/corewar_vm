@@ -23,7 +23,7 @@ FUNC_PATH = ./src_func/
 # Files
 SRC_FILE =	op.c	\
 			print.c	\
-			read_file.c	\
+			make_player.c	\
 			error.c	\
 			get_int.c	\
 			init_vm.c	\

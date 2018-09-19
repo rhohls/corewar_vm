@@ -53,6 +53,13 @@
 # define ABS(x)				x >= 0 ? x : x * -1
 
 
+typedef struct	s_args
+{
+	char		**argv;
+	int			argc;
+	int			index;
+}				t_args;
+
 typedef struct	s_flags
 {
 	int			dump;
@@ -115,7 +122,7 @@ void		store_core_int(int number, int core_dest_start, t_vm *vm);
 void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
-t_player	*make_player(char *file_name, int player_num);
+t_player	*make_player(t_args *args, int *player_num);
 void		set_op_tab(t_vm *vm_data);
 
 void		swap_bits(int *num);
@@ -124,6 +131,7 @@ t_cursor	*create_cursor(t_vm *vm, int pc);
 void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
+void		init_players(t_args *args, t_vm *vm);
 void		name_replacer(t_vm *vm, t_list *player);
 void		incr_all_cursor(t_vm *vm, int *print);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
