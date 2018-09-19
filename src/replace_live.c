@@ -16,59 +16,6 @@ static int (*jump_func_ptr[17])(char *program) =
 	xor_jump, zjmp_jump, ldi_jump, sti_jump, fork_jump, lld_jump, lldi_jump,
 	lfork_jump, aff_jump
 };
-/*
-int    cw_st(char *program, int index)
-{
-    if program[index +1] == RRR //encoding byte
-        return 3
-    else if ...
-        return 5;
-}
-
-while(1)
-{
-    if index > program_size
-        break ;
-    op_code = program[index]
-    if op_code == 1
-        replace;
-    index += jump_function(op_code)
-}
-
-
-void	excute_live_instruction(t_cursor *cursor, t_vm *vm)
-{
-	int cursor_jump;
-	
-	cursor_jump = (*(g_func_ptr2[cursor->op_code]))(vm,cursor);	
-	update_cursor_info(cursor, vm, cursor_jump);
-	if (cursor->op_code == 1)
-	{
-		
-	}
-		cursor_jump = 0;
-		
-}
-
-void	incr_live_cursor(t_vm *vm, t_list *players)
-{
-	t_list		*cursor_node;
-	t_cursor	*cursor;
-		
-	cursor_node = vm->cursor_stack->start;
-	while (cursor_node)
-	{
-
-		cursor = cursor_node->content;
-		cursor->curr_cycle--;
-		if (cursor->curr_cycle <= 0)
-		{
-			printf("updating cursor at %d\n", cursor->pc);
-			excute_live_instruction(cursor, vm);
-		}
-		cursor_node = cursor_node->next;
-	}
-}*/
 
 int		jump_function(int op_code, t_list *player, int index)
 {
