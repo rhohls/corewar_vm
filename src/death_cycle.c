@@ -22,11 +22,13 @@ void		kill_players(t_vm *vm)
 	{
 		player = node->content;
 		
-		if (player->nbr_lives < NBR_LIVE)
+		if (player->nbr_lives < 1)
 		{
 			player->alive = 0;
 			vm->nbr_dead++;
 		}
+		player->nbr_lives = 0;
+		node = node->next;
 	}
 }
 
@@ -40,9 +42,12 @@ int		cycle_checkup(t_vm *vm)
 			vm->life_info.nbr_live_reached)
 	{
 		vm->life_info.nbr_checkups = 0;
+		vm->cycle_to_die -= CYCLE_DELTA;		
 		vm->life_info.nbr_live_reached = 1;
 		kill_players(vm);
-		if (vm->nbr_dead <= (int)vm->player_list->length - 1)
+		if (vm->nbr_dead >= (int)vm->player_list->length - 1)
+			return (1);
+		else if (vm->cycle_to_die <= 0)
 			return (1);
 	}
 	else if (vm->life_info.nbr_checkups >= MAX_CHECKS)
@@ -52,5 +57,10 @@ int		cycle_checkup(t_vm *vm)
 	}
 	vm->curr_cycle = 0;
 	vm->life_info.nbr_checkups++;
+	// printf("cycle to die: %d\n", vm->cycle_to_die);
+	// printf("cycle checkups: %d\n", vm->life_info.nbr_checkups);
+	// printf("nbr live calls: %d\n", vm->life_info.nbr_live_calls);
+	
+	
 	return (0);
 }

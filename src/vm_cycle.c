@@ -43,10 +43,10 @@ void	vm_loop(t_vm *vm)
 
 	print_game_state(vm);
 
-	while(i < 100)
+	while(1)
 	{
 		print_update = 0;
-		printf("Cycle: %d\n", vm->curr_cycle);
+		// printf("Cycle: %d\n", vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		if (vm->curr_cycle >= vm->cycle_to_die)

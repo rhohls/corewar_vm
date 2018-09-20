@@ -105,16 +105,16 @@ fclean: clean
 	@rm -f $(COREWAR)
 	@echo "\x1b[31m"Removed $(COREWAR)"\x1b[0m"
 	
-cleanall: fclean fcleanlib
-
 cleanlib:
 	@make clean -C $(LIB_PATH)
 
 fcleanlib:
 	@make fclean -C $(LIB_PATH)
+	
+cleanall: fclean fcleanlib
 
 re : fclean all
 
-fre: fcleanall all
+fre: cleanall all
 
-.PHONY: re fclean clean all
+.PHONY: re fclean clean all test
