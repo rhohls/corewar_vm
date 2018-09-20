@@ -42,7 +42,7 @@ void	vm_loop(t_vm *vm)
 	int print_update;
 
 	print_game_state(vm);
-
+	printf("---------int at %d -----\n", get_half_c_int(1, vm));
 	while(1)
 	{
 		print_update = 0;
@@ -56,6 +56,8 @@ void	vm_loop(t_vm *vm)
 			print_game_state(vm);
 		i++;
 	}
+	print_game_state(vm);
+	
 	display_winner(vm);
 	// free everything?
 }

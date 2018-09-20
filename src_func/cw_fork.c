@@ -27,6 +27,8 @@ int	cw_fork(t_vm *vm, t_cursor *cursor)
 	new_pc = get_half_c_int(PC_PLUS(1), vm) % IDX_MOD;
 	new_cursor = create_cursor(vm, WRAP(new_pc));
 	
+	printf("new pc location: %d wiht mod: %d\n", get_half_c_int(PC_PLUS(1), vm), new_pc);
+	
 	i = 0;
 	while (i < REG_NUMBER)
 	{

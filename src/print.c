@@ -164,7 +164,7 @@ void	print_cursor_info(t_vm *vm)
 	{
 		cursor = node->content;
 		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
-		printf("\tCursor location\t- %d\n\tCurrent OP code\t- %02x\n\tAmt cycles left\t- %d\n",		
+		ft_printf("\tCursor location\t- %d\n\tCurrent OP code\t- %d\n\tAmt cycles left\t- %d\n",		
 		// printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
 					cursor->pc, cursor->op_code, cursor->curr_cycle);
 		node = node->next;

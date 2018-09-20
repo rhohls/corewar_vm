@@ -43,7 +43,7 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	else if (cursor->encoding == RI)
 	{
 		dest = get_half_c_int(PC_PLUS(3), vm);
-		jump = 4;
+		jump = 5;
 	}
 	if (jump > 1 && reg_info)
 	{

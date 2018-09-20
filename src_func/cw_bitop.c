@@ -98,6 +98,8 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 		bitop->par2 = get_core_int(PC_PLUS(4), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
 	}
+	else
+		return (jump);
 	bitop->success = 1;
 	return (jump);
 }

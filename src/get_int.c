@@ -58,10 +58,10 @@ int			get_half_p_int(char *pointer_to_int)//, int size
 	char dup[4];//char dup[size]
 	
 	dup[3] = *(pointer_to_int + 1);
-	
+	dup[2] = *pointer_to_int;
 	// printf("\tval :%d\n", dup[3]);
 	
-	if (dup[3] < 0)
+	if (dup[2] < 0)
 	{
 		dup[0] = 0xff;
 		dup[1] = 0xff;
@@ -71,7 +71,7 @@ int			get_half_p_int(char *pointer_to_int)//, int size
 		dup[0] = 0;
 		dup[1] = 0;
 	}
-	dup[2] = *pointer_to_int;
+	
 	
 
 	ret = *((int *)dup);
@@ -86,8 +86,8 @@ int			get_half_c_int(int start_of_int, t_vm *vm)
 	char dup[4];
 	
 	dup[3] = vm->core[WRAP(start_of_int + 1)];
-	
-	if (dup[3] < 0)
+	dup[2] = vm->core[WRAP(start_of_int)];
+	if (dup[2] < 0)
 	{
 		dup[0] = 0xff;
 		dup[1] = 0xff;
@@ -97,7 +97,6 @@ int			get_half_c_int(int start_of_int, t_vm *vm)
 		dup[0] = 0;
 		dup[1] = 0;
 	}
-	dup[2] = vm->core[WRAP(start_of_int)];
 	
 	
 	ret = *((int *)dup);
