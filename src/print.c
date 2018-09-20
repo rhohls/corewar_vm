@@ -157,7 +157,7 @@ void	print_cursor_info(t_vm *vm)
 	t_cursor	*cursor;
 	int			i;
 	
-	i = 0;
+	i = vm->cursor_stack->length;
 	
 	node = vm->cursor_stack->start;
 	while (node)
@@ -168,7 +168,7 @@ void	print_cursor_info(t_vm *vm)
 		// printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
 					cursor->pc, cursor->op_code, cursor->curr_cycle);
 		node = node->next;
-		i++;
+		i--;
 	}
 }
 

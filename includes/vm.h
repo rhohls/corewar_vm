@@ -46,8 +46,8 @@
 # define RI  0b01110000	//112	70
 # define R   0b01000000	//64	40
 
-// #negative????
-# define WRAP(x)			(x > MEM_SIZE ? x % MEM_SIZE + MEM_SIZE : x)
+
+# define WRAP(x)			(x % MEM_SIZE < 0 ? x % MEM_SIZE + MEM_SIZE : x % MEM_SIZE)
 # define CORE_PC_PLUS(y)	EBYTE(vm->core[WRAP(cursor->pc + y)])	//byte at vaule
 # define PC_PLUS(x)			WRAP(cursor->pc + x)			//index
 # define ABS(x)				x >= 0 ? x : x * -1
@@ -70,7 +70,6 @@ typedef struct	s_life
 {
 	int			last_live_playernum;
 	int			nbr_live_calls;
-	int			nbr_live_reached;
 	int			nbr_checkups;
 }				t_life;
 
@@ -101,6 +100,7 @@ typedef struct	s_player
 
 typedef struct	s_cursor
 {
+	int			player_num;
 	int			pc;
 	int			op_code;
 	int			encoding;
@@ -114,7 +114,8 @@ typedef struct	s_bitop
 {
 	int			*reg_store;
 	int			par1;
-	int			par2;	
+	int			par2;
+	int			success;
 }				t_bitop;
 
 
@@ -131,7 +132,7 @@ void		store_core_int(int number, int core_dest_start, t_vm *vm);
 void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
-t_player	*make_player(t_args *args, int *player_num);
+t_player	*make_player(t_args *args, int *player_num, t_vm *vm);
 void		set_op_tab(t_vm *vm_data);
 
 void		swap_bits(int *num);
@@ -149,9 +150,10 @@ int			*get_reg(t_cursor *cursor, int reg_num);
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);
 t_player	*get_player(t_vm *vm, int player_num);
+int			is_duplicate_player_num(int number, t_vm *vm);
 
 void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump);
-void		add_cursor_to_vm(t_vm *vm, int pc);
+void		add_cursor_to_vm(t_vm *vm, int pc, t_player *player);
 int			get_op_code(t_cursor *cursor, t_vm *vm);
 void		kill_cursor(t_cursor *cursor, t_vm *vm);
 void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);

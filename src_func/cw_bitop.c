@@ -19,13 +19,8 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 {
 	int		jump;
 	
-	bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(4));
-	
-	bitop->par1 = *(get_reg(cursor, CORE_PC_PLUS(4)));
-	bitop->par1 = get_core_int(PC_PLUS(0), vm);
-	bitop->par1 = get_half_c_int(PC_PLUS(0), vm);
-	
 	jump = 1;
+	bitop->success = 0;
 	if (cursor->encoding == RRR)
 	{
 		bitop->par1 = *(get_reg(cursor, CORE_PC_PLUS(2)));
@@ -89,5 +84,6 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
 		jump = 9;
 	}
+	bitop->success = 1;
 	return (jump);
 }

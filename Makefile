@@ -75,7 +75,7 @@ CC = gcc #$(CCFLAGS)
 LIBF = $(LIB_PATH)libft.a
 
 #Make Commands
-all: $(COREWAR)
+all: $(COREWAR) $(COREWAR_MAIN)
 
 $(COREWAR): $(OBJ) $(FUNC_OBJ) $(COREWAR_MAIN)
 	@make -C $(LIB_PATH)

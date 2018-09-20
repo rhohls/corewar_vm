@@ -3,7 +3,7 @@
 
 #init
 entry:
-	fork	%:coregeni
+fork %:coregeni
 	st		r1, 6
 	live	%42
 	fork	%:torpgeni

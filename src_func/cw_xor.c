@@ -30,7 +30,7 @@ int	cw_xor(t_vm *vm, t_cursor *cursor)
 	
 	jump = cw_bitop(vm, cursor, &bitop);
 
-	if (jump > 1)
+	if (bitop.success)
 	{
 		*(bitop.reg_store) = bitop.par1 ^ bitop.par2;
 		if (bitop.reg_store != 0)

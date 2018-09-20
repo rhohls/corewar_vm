@@ -22,6 +22,7 @@ int			reg_check(t_cursor *cursor, int reg_num)
 
 int			*get_reg(t_cursor *cursor, int reg_num)
 {
+	reg_num -= 1;
 	if (reg_check(cursor, reg_num))
 		return (&(cursor->reg[reg_num]));
 	else

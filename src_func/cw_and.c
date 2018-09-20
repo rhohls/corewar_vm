@@ -29,11 +29,17 @@ int	cw_and(t_vm *vm, t_cursor *cursor)
 	t_bitop	bitop;
 	jump = cw_bitop(vm, cursor, &bitop);
 
-	if (jump > 1)
+	printf("123\n");
+	if (bitop.success)
 	{
+		// printf("reg_store address %p \n", bitop.reg_store);
+		// printf("par1: %d\n", bitop.par1);
+		// printf("par2: %d\n", bitop.par2);
 		*(bitop.reg_store) = bitop.par1 & bitop.par2;
 		if (bitop.reg_store != 0)
 			cursor->carry = 1;
 	}
+	printf("343\n");
+	
 	return (jump);
 }

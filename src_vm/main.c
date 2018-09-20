@@ -14,21 +14,23 @@
 
 void marco_saftey(void)
 {
-	if (REG_SIZE < 4)
+	if (REG_SIZE != 4)
 		exit_str("REG_SIZE cant be less than 4\n");
 }
 
 void print_usage(void)
 {
-	ft_putstr("Usage: ./corewar [-dump N] < [-n N -a N] champion1.cor >  <...>\n");
+	ft_putstr("Usage: ./corewar [-dump [-c -v] N] < [-n N -a N] champion1.cor >  <...>\n");
 	ft_putstr("\t-dump N: Dumps the memory after nbr_cycle execution cycles\n\
-	(if the game isn’t already over)\n\n");
+	(if the game isn’t already over)\n");
+	ft_putstr("\t-c Continue: will allow you to continue after dumping\n\t-v Verbose: will dump extra info abou thte game state\n\n");
 	// ft_putstr("#####################################################################\n");	
 	ft_putstr("\t-n N: Sets the number of the next program. By default, it will\n\
 	be the next available number, in parameter order.\n");
 	ft_putstr("\t-a N: Sets the load address of the next program. When no\n\
 	address is specified, the programs will be evenly sapced.\n");
 	exit(0);
+	
 }
 
 

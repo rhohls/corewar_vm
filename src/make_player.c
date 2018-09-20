@@ -56,7 +56,7 @@ void		read_header(int fd, u_int *prog_size, char	**program)
 	// print_memory(program, prog_size, 0, 1);	
 }
 
-char		*check_flags(t_args *args, int *player_num, int *player_start)
+char		*check_flags(t_args *args, int *player_num, int *player_start, t_vm *vm)
 {
 	*player_start = -1;
 	while (args->index < args->argc)
@@ -67,7 +67,7 @@ char		*check_flags(t_args *args, int *player_num, int *player_start)
 		{
 			args->index++;
 			*player_num = ft_atoi_long(args->argv[args->index]);
-			if (*player_num == 0)
+			if (*player_num == 0 || is_duplicate_player_num(*player_num, vm))
 				exit_str("Error:\nBad player number\n");
 		}
 		else if (ft_strcmp(args->argv[args->index] + 1, "a") == 0)
@@ -80,7 +80,7 @@ char		*check_flags(t_args *args, int *player_num, int *player_start)
 	return(args->argv[args->index]);
 }
 
-t_player	*make_player(t_args *args, int *player_num)
+t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 {
 	int		fd;
 	u_int	prog_size;
@@ -88,14 +88,17 @@ t_player	*make_player(t_args *args, int *player_num)
 	char	*file_name;
 	int		player_start;
 	
-	file_name = check_flags(args, player_num, &player_start);
+	file_name = check_flags(args, player_num, &player_start, vm);
 	
 	fd = open_file(file_name);
 	// read_header(fd, &prog_size, &program);
 	char	header[HEADER_SIZE];	
 	if (read(fd, header, HEADER_SIZE) < 1)
 		exit_errnostr("Error reading file\n");
+		
 	prog_size = get_prog_size(&header[136]);
+	if (prog_size >= CHAMP_MAX_SIZE || prog_size <= 0)
+		exit_str("Error: Champ size incorrect\n");
 	program = (char *)ft_memalloc(prog_size);
 	if (read(fd, program, prog_size) < 1)
 		exit_errnostr("Error reading file\n");
@@ -150,15 +153,13 @@ void	reassign_player_number(t_vm *vm)
 	curr_min_num = 1;
 	while (node)
 	{
-		printf("curr_num: %d\n",curr_min_num );
+		// printf("curr_num: %d\n",curr_min_num );
 		if (node->content_size == -1)
 		{
-			
 			while (is_duplicate_player_num(curr_min_num, vm))
 				curr_min_num++;
 			node->content_size = curr_min_num;
 			((t_player *)(node->content))->player_num = curr_min_num;
-			printf("123\n");
 		}
 		node = node->next;
 	}	
@@ -173,7 +174,7 @@ void	init_players(t_args *args, t_vm *vm)
 	while (args->index < args->argc)
 	{
 		player_num = -1;
-		new_player = make_player(args, &player_num);
+		new_player = make_player(args, &player_num, vm);
 		node = ft_lstnew(NULL, 0);
 		node->content = new_player;
 		node->content_size = player_num;

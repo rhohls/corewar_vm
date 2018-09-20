@@ -32,7 +32,8 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	
 	dest = 0;
 	jump = 1;
-	reg_info_toload = get_reg(cursor, vm->core[WRAP(cursor->pc + 2)]);
+	reg_info_toload = get_reg(cursor, CORE_PC_PLUS(2));
+	printf("register num for info %d  -  val: %d\n", CORE_PC_PLUS(2), *reg_info_toload);
 	
 	if (cursor->encoding == RRR)
 	{	
@@ -43,19 +44,19 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	else if (cursor->encoding == RRD)
 	{
 		dest += *(get_reg(cursor, CORE_PC_PLUS(3)));
-		dest += get_half_c_int(CORE_PC_PLUS(4), vm);
+		dest += get_half_c_int(PC_PLUS(4), vm);
 		jump = 6;
 	}
 	else if (cursor->encoding == RIR || cursor->encoding == RDR)
 	{
-		dest += get_half_c_int(CORE_PC_PLUS(3), vm);	
+		dest += get_half_c_int(PC_PLUS(3), vm);	
 		dest += *(get_reg(cursor, CORE_PC_PLUS(5)));
 		jump = 6;	
 	}
 	else if (cursor->encoding == RID || cursor->encoding == RDD)
 	{
-		dest += get_half_c_int(CORE_PC_PLUS(3), vm);
-		dest += get_half_c_int(CORE_PC_PLUS(5), vm);
+		dest += get_half_c_int(PC_PLUS(3), vm);
+		dest += get_half_c_int(PC_PLUS(5), vm);
 		jump = 7;
 	}
 	
@@ -64,6 +65,6 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		// marking sheet says idx mod here
 		store_core_int(*reg_info_toload, PC_PLUS(dest %IDX_MOD), vm);
 	}
-	
+	printf("relative to pc where to stor info %d with mod %d\n", dest, dest%IDX_MOD);
 	return (jump);
 }

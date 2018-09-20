@@ -37,11 +37,17 @@ void	add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor)
 	ft_stackpush(vm->cursor_stack, node);
 }
 
-void	add_cursor_to_vm(t_vm *vm, int pc)
+void	add_cursor_to_vm(t_vm *vm, int pc, t_player *player)
 {
-	t_list *node;
+	t_list		*node;
+	t_cursor	*cursor;
 	node = ft_lstnew(0, 0);
-	node->content = create_cursor(vm, pc);
+	cursor = create_cursor(vm, pc);
+	
+	cursor->player_num = player->player_num;
+	(cursor->reg)[0] = player->player_num;
+	
+	node->content = cursor;
 	ft_stackpush(vm->cursor_stack, node);
 }
 

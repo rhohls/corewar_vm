@@ -33,7 +33,6 @@ int	cw_fork(t_vm *vm, t_cursor *cursor)
 		new_cursor->reg[i] = cursor->reg[i];
 		i++;
 	}
-	
 	add_cursor_to_cursorlist(vm, new_cursor);	
-	return (1);
+	return (3);
 }

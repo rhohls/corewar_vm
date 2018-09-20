@@ -39,22 +39,19 @@ void		kill_players(t_vm *vm)
 int		cycle_checkup(t_vm *vm)
 {
 	if (vm->life_info.nbr_live_calls >= NBR_LIVE ||
-			vm->life_info.nbr_live_reached)
+			vm->life_info.nbr_checkups >= MAX_CHECKS)
 	{
+		vm->life_info.nbr_live_calls = 0;
 		vm->life_info.nbr_checkups = 0;
-		vm->cycle_to_die -= CYCLE_DELTA;		
-		vm->life_info.nbr_live_reached = 1;
+		vm->cycle_to_die -= CYCLE_DELTA;
+			
 		kill_players(vm);
 		if (vm->nbr_dead >= (int)vm->player_list->length - 1)
 			return (1);
 		else if (vm->cycle_to_die <= 0)
 			return (1);
 	}
-	else if (vm->life_info.nbr_checkups >= MAX_CHECKS)
-	{
-		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->life_info.nbr_checkups = 0;
-	}
+
 	vm->curr_cycle = 0;
 	vm->life_info.nbr_checkups++;
 	// printf("cycle to die: %d\n", vm->cycle_to_die);
