@@ -34,14 +34,18 @@ static void apply_life(t_vm *vm, int player_num)
 	t_player	*player;
 	player = get_player(vm, player_num);
 	if (player)
+	{
 		player->nbr_lives++;
+		vm->life_info.last_live_playernum = player_num;
+		vm->life_info.nbr_live_calls++;
+	}
 }
 
 int	cw_live(t_vm *vm, t_cursor *cursor)
 {
 	int player_num;
 	
-	player_num = get_core_int(cursor->pc + 1, vm);
-	apply_life(vm, player_num);	
+	player_num = get_core_int(PC_PLUS(1), vm);
+	apply_life(vm, player_num);
 	return (5);
 }

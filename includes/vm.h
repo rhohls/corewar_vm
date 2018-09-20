@@ -66,6 +66,14 @@ typedef struct	s_flags
 	
 }				t_flags;
 
+typedef struct	s_life
+{
+	int			last_live_playernum;
+	int			nbr_live_calls;
+	int			nbr_live_reached;
+	int			nbr_checkups;
+}				t_life;
+
 typedef struct	s_vm
 {
 	char		core[MEM_SIZE];
@@ -73,10 +81,11 @@ typedef struct	s_vm
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
 	int			curr_cycle;
-	int			cycle_death;
+	int			cycle_to_die;
 	int			nbr_dead;
 	t_stack		*player_list;
 	t_flags		flags;
+	t_life		life_info;
 }				t_vm;
 
 typedef struct	s_player
@@ -135,10 +144,11 @@ void		init_players(t_args *args, t_vm *vm);
 void		name_replacer(t_vm *vm, t_list *player);
 void		incr_all_cursor(t_vm *vm, int *print);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
-int			cycle_death(t_vm *vm);
+int			cycle_checkup(t_vm *vm);
 int			*get_reg(t_cursor *cursor, int reg_num);
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);
+t_player	*get_player(t_vm *vm, int player_num);
 
 void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump);
 void		add_cursor_to_vm(t_vm *vm, int pc);

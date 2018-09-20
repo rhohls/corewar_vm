@@ -147,7 +147,7 @@ void	print_player_live(t_vm *vm)
 void	print_cycle_info(t_vm *vm)
 {
 	ft_printf("Current cycle: %d\t", vm->curr_cycle);
-	ft_printf("Cycle to die: %d\t", vm->cycle_death);
+	ft_printf("Cycle to die: %d\t", vm->cycle_to_die);
 	ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
 }
 
@@ -164,7 +164,8 @@ void	print_cursor_info(t_vm *vm)
 	{
 		cursor = node->content;
 		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
-		printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
+		printf("\tCursor location\t- %d\n\tCurrent OP code\t- %02x\n\tAmt cycles left\t- %d\n",		
+		// printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
 					cursor->pc, cursor->op_code, cursor->curr_cycle);
 		node = node->next;
 		i++;

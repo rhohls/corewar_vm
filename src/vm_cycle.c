@@ -15,40 +15,45 @@
 void	display_winner(t_vm *vm)
 {
 	t_player	*player;
-	t_list		*node;
 	
-	node = vm->player_list->start;
-	while(node)
-	{
-		player = node->content;
-		if (player->alive == 1)
-		{
-			ft_printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
+	player = get_player(vm, vm->life_info.last_live_playernum);
+	ft_printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
 						player->player_num);
-			break ;
-		}
-		node = node->next;
-	}	
+	// t_player	*player;
+	// t_list		*node;
+	
+	// node = vm->player_list->start;
+	// while(node)
+	// {
+	// 	player = node->content;
+	// 	if (player->alive == 1)
+	// 	{
+	// 		ft_printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
+	// 					player->player_num);
+	// 		break ;
+	// 	}
+	// 	node = node->next;
+	// }	
 }
 
 void	vm_loop(t_vm *vm)
 {
 	int i = 0;
-	int print;
+	int print_update;
 
 	print_game_state(vm);
 
 	while(i < 100)
 	{
-		print = 0;
+		print_update = 0;
 		printf("Cycle: %d\n", vm->curr_cycle);
-		incr_all_cursor(vm, &print);
+		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
-		if (vm->curr_cycle == vm->cycle_death)
-			if (cycle_death(vm))
+		if (vm->curr_cycle >= vm->cycle_to_die)
+			if (cycle_checkup(vm))
 				break ;
-		if (print)
-			print_game_state(vm);
+		// if (print_update)
+			// print_game_state(vm);
 		i++;
 	}
 	display_winner(vm);

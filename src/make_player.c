@@ -123,6 +123,45 @@ t_player	*make_player(t_args *args, int *player_num)
 }
 
 
+int		is_duplicate_player_num(int number, t_vm *vm)
+{
+	t_list	*player_node;
+	
+	player_node = vm->player_list->start;
+	while (player_node)
+	{
+		// printf("address: %p\n", player_node);
+		if (player_node->content_size == number)
+			return (1);
+		player_node = player_node->next;
+	}
+	return (0);
+}
+
+void	reassign_player_number(t_vm *vm)
+{
+	int			curr_min_num;
+	t_player	*new_player;
+	t_list		*node;
+	
+	node = vm->player_list->start;
+	curr_min_num = 1;
+	while (node)
+	{
+		printf("curr_num: %d\n",curr_min_num );
+		if (node->content_size == -1)
+		{
+			
+			while (is_duplicate_player_num(curr_min_num, vm))
+				curr_min_num++;
+			node->content_size = curr_min_num;
+			((t_player *)(node->content))->player_num = curr_min_num;
+			printf("123\n");
+		}
+		node = node->next;
+	}	
+}
+
 void	init_players(t_args *args, t_vm *vm)
 {
 	int			player_num;
@@ -141,4 +180,5 @@ void	init_players(t_args *args, t_vm *vm)
 		printf("After making - player: %s has number %d\n", new_player->name, new_player->player_num);
 		args->index++;
 	}
+	reassign_player_number(vm);
 }

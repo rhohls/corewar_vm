@@ -30,10 +30,27 @@ void		kill_players(t_vm *vm)
 	}
 }
 
-int		cycle_death(t_vm *vm)
+/*
+** Will end the game if all players are dead
+*/
+
+int		cycle_checkup(t_vm *vm)
 {
-	kill_players(vm);
-	if (vm->nbr_dead <= (int)vm->player_list->length - 1)
-		return (1);
+	if (vm->life_info.nbr_live_calls >= NBR_LIVE ||
+			vm->life_info.nbr_live_reached)
+	{
+		vm->life_info.nbr_checkups = 0;
+		vm->life_info.nbr_live_reached = 1;
+		kill_players(vm);
+		if (vm->nbr_dead <= (int)vm->player_list->length - 1)
+			return (1);
+	}
+	else if (vm->life_info.nbr_checkups >= MAX_CHECKS)
+	{
+		vm->cycle_to_die -= CYCLE_DELTA;
+		vm->life_info.nbr_checkups = 0;
+	}
+	vm->curr_cycle = 0;
+	vm->life_info.nbr_checkups++;
 	return (0);
 }

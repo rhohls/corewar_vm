@@ -24,7 +24,7 @@ void init_vm(t_vm *vm)
 	// vm->nbr_dead = 0;
 	
 	vm->player_list = ft_stacknew();
-	vm->cycle_death = CYCLE_TO_DIE;
+	vm->cycle_to_die = CYCLE_TO_DIE;
 }
 
 /*
