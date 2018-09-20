@@ -25,23 +25,23 @@
 int	cw_add(t_vm *vm, t_cursor *cursor)
 {
 	int		jump;
-	int 	reg_info_1;
-	int		reg_info_2;
+	int 	*reg_info_1;
+	int		*reg_info_2;
 	int		*reg_store;
 	
 	jump = 1;
 	if ((cursor->encoding & RRR) == RRR)
 	{
-		
-		reg_info_1 = *(get_reg(cursor, CORE_PC_PLUS(2)));
-		reg_info_2 = *(get_reg(cursor, CORE_PC_PLUS(3)));
+		jump = 5;
+		if (!(reg_info_1 = get_reg(cursor, CORE_PC_PLUS(2))))
+			return (jump);
+		if (!(reg_info_2 = get_reg(cursor, CORE_PC_PLUS(3))))
+			return (jump);	
 		reg_store = get_reg(cursor, CORE_PC_PLUS(4));
-		
 		if (reg_store != NULL)
 		{
-			*reg_store = reg_info_1 + reg_info_2;
+			*reg_store = *reg_info_1 + *reg_info_2;
 			cursor->carry = 1;
-			jump = 5;
 		}
 	}
 	return (jump);

@@ -15,6 +15,9 @@
 #define HEADER_SIZE 2192
 #include <unistd.h>
 
+// The champions cannot go over CHAMP_MAX_SIZE, otherwise it is an error.
+// Max number of players?
+
 
 u_int		get_prog_size(char *header_at_size)
 {
@@ -118,7 +121,6 @@ t_player	*make_player(t_args *args, int *player_num)
 	ret_player->alive = 1;
 	ret_player->nbr_lives = 0;
 
-
 	return (ret_player);
 }
 
@@ -176,8 +178,6 @@ void	init_players(t_args *args, t_vm *vm)
 		node->content = new_player;
 		node->content_size = player_num;
 		ft_stackpush(vm->player_list, node);
-		
-		printf("After making - player: %s has number %d\n", new_player->name, new_player->player_num);
 		args->index++;
 	}
 	reassign_player_number(vm);

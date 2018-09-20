@@ -41,6 +41,9 @@ static void apply_life(t_vm *vm, int player_num)
 	}
 }
 
+
+// For each valid execution of the live instruction, the machine must display:
+// “A process shows that player X (champion_name) is alive”
 int	cw_live(t_vm *vm, t_cursor *cursor)
 {
 	int player_num;

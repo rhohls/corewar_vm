@@ -172,6 +172,11 @@ void	print_cursor_info(t_vm *vm)
 	}
 }
 
+// -dump nbr_cycles
+// at the end of nbr_cycles of executions, dump the memory on the standard output
+// and quit the game. The memory must be dumped in the hexadecimal format with
+// 32 octets per line.
+
 void	print_game_state(t_vm *vm)
 {
 	printf("\n");
