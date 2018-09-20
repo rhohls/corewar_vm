@@ -24,6 +24,7 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 {
 
 	// int reg_num;
+	int		*reg;
 	int		*reg_info;
 	int		dest;
 	int 	jump;
@@ -34,7 +35,9 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	
 	if (cursor->encoding == RR)
 	{
-		dest = *(get_reg(cursor, CORE_PC_PLUS(3)));
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
+			return (jump);
+		dest = *(reg);
 		jump = 4;
 	}
 	else if (cursor->encoding == RI)

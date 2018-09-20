@@ -26,6 +26,7 @@
 int	cw_sti(t_vm *vm, t_cursor *cursor)
 {
 	// int reg_num;
+	int		*reg;
 	int		*reg_info_toload;
 	int		dest;
 	int 	jump;
@@ -37,27 +38,35 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	
 	if (cursor->encoding == RRR)
 	{	
-		dest += *(get_reg(cursor, CORE_PC_PLUS(3)));
-		dest += *(get_reg(cursor, CORE_PC_PLUS(4)));
 		jump = 5;
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
+			return (jump);
+		dest += *(reg);
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
+			return (jump);
+		dest += *(reg);
 	}
 	else if (cursor->encoding == RRD)
 	{
-		dest += *(get_reg(cursor, CORE_PC_PLUS(3)));
-		dest += get_half_c_int(PC_PLUS(4), vm);
 		jump = 6;
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
+			return (jump);
+		dest += *(reg);
+		dest += get_half_c_int(PC_PLUS(4), vm);
 	}
 	else if (cursor->encoding == RIR || cursor->encoding == RDR)
 	{
+		jump = 6;
 		dest += get_half_c_int(PC_PLUS(3), vm);	
-		dest += *(get_reg(cursor, CORE_PC_PLUS(5)));
-		jump = 6;	
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(5))))
+			return (jump);
+		dest += *(reg);
 	}
 	else if (cursor->encoding == RID || cursor->encoding == RDD)
 	{
+		jump = 7;
 		dest += get_half_c_int(PC_PLUS(3), vm);
 		dest += get_half_c_int(PC_PLUS(5), vm);
-		jump = 7;
 	}
 	
 	if (jump > 0 && reg_info_toload)

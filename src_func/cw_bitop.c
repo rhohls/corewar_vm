@@ -18,71 +18,85 @@
 int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 {
 	int		jump;
+	int		*reg;
 	
 	jump = 1;
 	bitop->success = 0;
 	if (cursor->encoding == RRR)
 	{
-		bitop->par1 = *(get_reg(cursor, CORE_PC_PLUS(2)));
-		bitop->par2 = *(get_reg(cursor, CORE_PC_PLUS(3)));
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(4));
 		jump = 5;
-	}
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
+			return (jump);
+		bitop->par1 = *(reg);
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
+			return (jump);
+		bitop->par2 = *(reg);
+		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(4));
+		}
 	else if (cursor->encoding == RIR)
 	{
-		bitop->par1 = *(get_reg(cursor, CORE_PC_PLUS(2)));
+		jump = 6;
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
+			return (jump);
+		bitop->par1 = *(reg);
 		bitop->par2 = get_half_c_int(PC_PLUS(3), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(5));
-		jump = 6;
+		
 	}
 	else if (cursor->encoding == IRR)
 	{
-		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
-		bitop->par2 = *(get_reg(cursor, CORE_PC_PLUS(4)));
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(5));
 		jump = 6;
+		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
+			return (jump);
+		bitop->par2 = *(reg);
+		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(5));
 	}
 	else if (cursor->encoding == IIR)
 	{
+		jump = 7;
 		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
 		bitop->par2 = get_half_c_int(PC_PLUS(4), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(6));
-		jump = 7;
 	}
 	else if (cursor->encoding == RDR)
 	{
-		bitop->par1 = *(get_reg(cursor, CORE_PC_PLUS(2)));
+		jump = 8;
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
+			return (jump);
+		bitop->par1 = *(reg);
 		bitop->par2 = get_core_int(PC_PLUS(3), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(7));
-		jump = 8;
 	}
 	else if (cursor->encoding == DRR)
 	{
-		bitop->par1 = get_core_int(PC_PLUS(2), vm);
-		bitop->par2 = *(get_reg(cursor, CORE_PC_PLUS(6)));
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(7));
 		jump = 8;
+		bitop->par1 = get_core_int(PC_PLUS(2), vm);
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(6))))
+			return (jump);
+		bitop->par2 = *(reg);
+		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(7));
 	}
 	else if (cursor->encoding == DDR)
 	{
+		jump = 11;
 		bitop->par1 = get_core_int(PC_PLUS(2), vm);
 		bitop->par2 = get_core_int(PC_PLUS(6), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(10));
-		jump = 11;
+		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(10));	
 	}	
 	else if (cursor->encoding == DIR)
 	{
+		jump = 9;
 		bitop->par1 = get_core_int(PC_PLUS(2), vm);
 		bitop->par2 = get_half_c_int(PC_PLUS(6), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
-		jump = 9;
 	}
 	else if (cursor->encoding == IDR)	
 	{
+		jump = 9;
 		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
 		bitop->par2 = get_core_int(PC_PLUS(4), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
-		jump = 9;
 	}
 	bitop->success = 1;
 	return (jump);
