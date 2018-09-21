@@ -15,7 +15,7 @@
 void marco_saftey(void)
 {
 	if (REG_SIZE != 4)
-		exit_str("REG_SIZE cant be less than 4\n");
+		exit_str("REG_SIZE can not be anything than 4\n");
 }
 
 void print_usage(void)
