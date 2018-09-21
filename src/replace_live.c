@@ -33,6 +33,8 @@ void    replace_player_num(t_list *player, int prog_index)
     temp->program[prog_index + 4] = num[0];
 }
 
+
+
 void	name_replacer(t_vm *vm, t_list *player)
 {
 	int			index;

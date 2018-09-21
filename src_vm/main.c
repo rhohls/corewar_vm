@@ -59,7 +59,9 @@ int main(int argc, char **argv)
 	marco_saftey();
 	if (argc < 2)
 		print_usage();
-
+	// set visualiser on or off
+		//init_curses();
+	
 	args.argv = argv;
 	args.argc = argc;
 	args.index = 1;

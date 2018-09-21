@@ -14,6 +14,7 @@
 # define VM_H
 
 # include "op.h"
+# include "cwv.h"
 # include "../libft/includes/libft.h"
 
 # include <stdlib.h>
@@ -85,6 +86,7 @@ typedef struct	s_vm
 	t_stack		*player_list;
 	t_flags		flags;
 	t_life		life_info;
+	t_visual	cwv;
 }				t_vm;
 
 typedef struct	s_player
