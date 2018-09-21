@@ -40,14 +40,15 @@
 # define RRD 0b01011000 //88 	58
 # define RDD 0b01101000 //104	68
 # define RID 0b01111000 //120	78
-# define IR  0b11010000	//208	90		
-# define DR  0b10010000	//144	d0
+# define IR  0b11010000	//208	d0		
+# define DR  0b10010000	//144	90
 # define RR  0b01010000	//80	50		
 # define RI  0b01110000	//112	70
 # define R   0b01000000	//64	40
 
 
-# define WRAP(x)			(x % MEM_SIZE < 0 ? x % MEM_SIZE + MEM_SIZE : x % MEM_SIZE)
+# define WRAP(x)			((x) % MEM_SIZE < 0 ? (((x) % MEM_SIZE) + MEM_SIZE) : ((x) % MEM_SIZE))
+
 # define CORE_PC_PLUS(y)	EBYTE(vm->core[WRAP(cursor->pc + y)])	//byte at vaule
 # define PC_PLUS(x)			WRAP(cursor->pc + x)			//index
 # define ABS(x)				x >= 0 ? x : x * -1
@@ -164,6 +165,7 @@ void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);
 void		print_memory(const void *addr, size_t size, int printable, int location);
 void		print_game_state(t_vm *vm);
 void		print_cursor_info(t_vm *vm);
+void		print_board_location(unsigned char const *core, size_t size);
 
 /*
 **	Functions
@@ -187,6 +189,7 @@ int			cw_lldi(t_vm *vm, t_cursor *cursor);
 int			cw_lfork(t_vm *vm, t_cursor *cursor);
 int			cw_aff(t_vm *vm, t_cursor *cursor);
 int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
+int			cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 
 /*
 **	Jump functions

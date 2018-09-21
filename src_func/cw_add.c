@@ -24,25 +24,19 @@
 
 int	cw_add(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in add -\n");
 	int		jump;
-	int 	*reg_info_1;
-	int		*reg_info_2;
-	int		*reg_store;
+	t_bitop	bitop;
 	
-	jump = 1;
-	if ((cursor->encoding & RRR) == RRR)
+	jump = cw_math(vm, cursor, &bitop);
+	
+	if (bitop.success && bitop.reg_store != NULL)
 	{
-		jump = 5;
-		if (!(reg_info_1 = get_reg(cursor, CORE_PC_PLUS(2))))
-			return (jump);
-		if (!(reg_info_2 = get_reg(cursor, CORE_PC_PLUS(3))))
-			return (jump);	
-		reg_store = get_reg(cursor, CORE_PC_PLUS(4));
-		if (reg_store != NULL)
-		{
-			*reg_store = *reg_info_1 + *reg_info_2;
+		*(bitop.reg_store) = bitop.par1 + bitop.par2;
+		if (!(*(bitop.reg_store)))
 			cursor->carry = 1;
-		}
+		else
+			cursor->carry = 0;
 	}
 	return (jump);
 }

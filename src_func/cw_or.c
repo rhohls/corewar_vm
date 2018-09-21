@@ -25,6 +25,7 @@
 
 int	cw_or(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in or -\n");
 	int		jump;
 	t_bitop	bitop;
 	

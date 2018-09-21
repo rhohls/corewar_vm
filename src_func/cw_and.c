@@ -25,6 +25,7 @@
 
 int	cw_and(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in and -\n");
 	int		jump;
 	t_bitop	bitop;
 	jump = cw_bitop(vm, cursor, &bitop);

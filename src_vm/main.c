@@ -20,15 +20,13 @@ void marco_saftey(void)
 
 void print_usage(void)
 {
-	ft_putstr("Usage: ./corewar [-dump [-c -v] N] < [-n N -a N] champion1.cor >  <...>\n");
-	ft_putstr("\t-dump N: Dumps the memory after nbr_cycle execution cycles\n\
-	(if the game isn’t already over)\n");
-	ft_putstr("\t-c Continue: will allow you to continue after dumping\n\t-v Verbose: will dump extra info abou thte game state\n\n");
+	ft_putstr("Usage: ./corewar [-dump [-c -v] N]  <[-n N -a N] champion1.cor>  <...>\n");
+	ft_putstr("\t-dump N: Dumps the memory after nbr_cycle execution cycles (if the game isn’t already over)\n");
+	ft_putstr("\t-c: Continue, will allow you to continue after dumping\n");
+	ft_putstr("\t-v: Verbose, will dump extra info about the game state\n\n");
 	// ft_putstr("#####################################################################\n");	
-	ft_putstr("\t-n N: Sets the number of the next program. By default, it will\n\
-	be the next available number, in parameter order.\n");
-	ft_putstr("\t-a N: Sets the load address of the next program. When no\n\
-	address is specified, the programs will be evenly sapced.\n");
+	ft_putstr("\t-n N: Sets the number of the next program. By default, it will be the next available number, in parameter order.\n");
+	ft_putstr("\t-a N: Sets the load address of the next program. When no address is specified, the programs will be evenly sapced.\n");
 	exit(0);
 	
 }
@@ -74,6 +72,10 @@ int main(int argc, char **argv)
 	
 	ft_bzero(vm.core, MEM_SIZE);
 	load_players(&vm, vm.core, vm.player_list->start);
+	
+	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
+	int i = 311;
+	printf("info at %i is %d\n ", i, get_core_int(i + 2, &vm));
 	printf("\n~~~~~~~\n");
 	vm_loop(&vm);
 	print_game_state(&vm);

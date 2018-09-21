@@ -20,6 +20,7 @@
 
 int	cw_fork(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in fork -\n");
 	t_cursor	*new_cursor;
 	int			new_pc;
 	int			i;

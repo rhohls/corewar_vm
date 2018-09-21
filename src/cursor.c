@@ -62,6 +62,10 @@ void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 {
 	// assign new opcode and cycle from PC
 	// printf("\n Updating cursor\n");
+	
+	// printf("un wrap: old_pc-%d  jump-%d\t wrapped-%d\t",cursor->pc, cursor_jump, WRAP(cursor->pc + cursor_jump));
+	// printf("Memesize: %d\n", MEM_SIZE);
+	
 	// printf("old pc %d - ", cursor->pc);
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
 	// printf("new pc %d \n", cursor->pc);	
@@ -84,14 +88,15 @@ void	incr_all_cursor(t_vm *vm, int *print)
 	cursor_node = vm->cursor_stack->start;
 	while (cursor_node)
 	{
-
+		
 		cursor = cursor_node->content;
 		cursor->curr_cycle--;
 		if (cursor->curr_cycle <= 0)
 		{
-			// printf("updating cursor at %d\n", cursor->pc);
+			printf("updating cursor at %d\n", cursor->pc);
 			excute_instruction(cursor, vm);
 			*print = 1;
+			printf("updated!\n");
 		}
 		cursor_node = cursor_node->next;
 	}

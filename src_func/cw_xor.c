@@ -25,6 +25,7 @@
 
 int	cw_xor(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in xor -\n");
 	int		jump;
 	t_bitop	bitop;
 	

@@ -104,6 +104,37 @@ void	print_memory(const void *addr, size_t size, int printable, int location)
 	}
 }
 
+void	print_board_location(unsigned char const *core, size_t size)
+{
+	size_t	ind;
+	size_t	a;
+	size_t	stop;
+	
+	stop = 32; // 4096 ^ 0.5
+	ind = 0;
+	size_t location;
+	while (ind < size)
+	{
+		a = 0;
+		location = ind + 1;
+		while (location < 1000)
+		{
+			write(1, "0", 1);
+			location *=10;
+		}
+		ft_putnbr(ind);
+		write(1, ": ", 3);
+		while (a < stop && a + ind < size)
+		{
+			ft_putnbr_hex(*(core + ind + a), 2);
+			write(1, " ", 1);
+			a++;
+		}
+		write(1, "\n", 1);
+		ind += stop;
+	}
+}
+
 void	print_board(unsigned char const *core, size_t size)
 {
 	size_t	ind;

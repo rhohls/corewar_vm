@@ -24,6 +24,7 @@
 
 int	cw_lld(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in lld -\n");
 	int		info_to_load;
 	int		location_info;
 	int		*reg;

@@ -14,6 +14,7 @@
 
 int	cw_zjmp(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in zjump -\n");
 	int jump;
 	
 	if (cursor->carry)

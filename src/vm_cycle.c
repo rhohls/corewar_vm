@@ -52,8 +52,8 @@ void	vm_loop(t_vm *vm)
 		if (vm->curr_cycle >= vm->cycle_to_die)
 			if (cycle_checkup(vm))
 				break ;
-		if (print_update)
-			print_game_state(vm);
+		// if (print_update)
+		// 	print_game_state(vm);
 		i++;
 	}
 	print_game_state(vm);
