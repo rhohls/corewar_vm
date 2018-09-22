@@ -22,7 +22,7 @@
 
 int	cw_st(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in st -\n");
+	// printf("- in st -\n");
 	// int reg_num;
 	int		*reg;
 	int		*reg_info;

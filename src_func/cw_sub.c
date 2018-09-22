@@ -25,7 +25,7 @@
 
 int	cw_sub(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in sub -\n");
+	// printf("- in sub -\n");
 	int		jump;
 	t_bitop	bitop;
 	

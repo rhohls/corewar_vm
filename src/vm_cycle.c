@@ -17,7 +17,7 @@ void	display_winner(t_vm *vm)
 	t_player	*player;
 	
 	player = get_player(vm, vm->life_info.last_live_playernum);
-	// ft_printf("The winer is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
+	// // ft_printf("The winer is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
 						
 	// t_player	*player;
 	// t_list		*node;
@@ -28,7 +28,7 @@ void	display_winner(t_vm *vm)
 	// 	player = node->content;
 	// 	if (player->alive == 1)
 	// 	{
-	// 		ft_printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
+	// 		ft_// printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
 	// 					player->player_num);
 	// 		break ;
 	// 	}
@@ -42,11 +42,11 @@ void	vm_loop(t_vm *vm)
 	int print_update;
 
 	print_game_state(vm);
-	// printf("---------int at %d -----\n", get_half_c_int(1, vm));
+	// // printf("---------int at %d -----\n", get_half_c_int(1, vm));
 	while(1)
 	{
 		print_update = 0;
-		// printf("Cycle: %d\n", vm->curr_cycle);
+		// // printf("Cycle: %d\n", vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		if (vm->curr_cycle >= vm->cycle_to_die)

@@ -166,20 +166,20 @@ void	print_player_live(t_vm *vm)
 	while (node)
 	{
 		player = node->content;
-		ft_printf("Player: \"%s\" number: %i ", player->name, player->player_num);
+		// ft_printf("Player: \"%s\" number: %i ", player->name, player->player_num);
 		if (player->alive == 0)
-			ft_printf("is dead\n");
+			// ft_printf("is dead\n");
 		else
-			ft_printf("has %d lives\n", player->nbr_lives);		
+			// ft_printf("has %d lives\n", player->nbr_lives);		
 		node = node->next;
 	}
 }
 
 void	print_cycle_info(t_vm *vm)
 {
-	ft_printf("Current cycle: %d\t", vm->curr_cycle);
-	ft_printf("Cycle to die: %d\t", vm->cycle_to_die);
-	ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
+	// ft_printf("Current cycle: %d\t", vm->curr_cycle);
+	// ft_printf("Cycle to die: %d\t", vm->cycle_to_die);
+	// ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
 }
 
 void	print_cursor_info(t_vm *vm)
@@ -194,8 +194,8 @@ void	print_cursor_info(t_vm *vm)
 	while (node)
 	{
 		cursor = node->content;
-		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
-		ft_printf("\tCursor location\t- %d\n\tCurrent OP code\t- %d\n\tAmt cycles left\t- %d\n",		
+		// ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
+		// ft_printf("\tCursor location\t- %d\n\tCurrent OP code\t- %d\n\tAmt cycles left\t- %d\n",		
 		// printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
 					cursor->pc, cursor->op_code, cursor->curr_cycle);
 		node = node->next;

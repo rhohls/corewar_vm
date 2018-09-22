@@ -35,7 +35,7 @@ int			open_file(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 3)
 	{
-		ft_printf("Error: There was an error opening file \"%s\"\nReason: ", file_name);
+		ft_// printf("Error: There was an error opening file \"%s\"\nReason: ", file_name);
 		exit_errno();
 	}
 	return (fd);
@@ -49,7 +49,7 @@ void		read_header(int fd, u_int *prog_size, char	**program)
 		exit_errnostr("Error reading file\n");
 	*prog_size = get_prog_size(&header[136]);
 	// print_memory(header, HEADER_SIZE, 0, 1);
-	// printf("progam size is %d\n", prog_size);
+	// // printf("progam size is %d\n", prog_size);
 	*program = (char *)ft_memalloc(*prog_size);
 	if (read(fd, program, *prog_size) < 1)
 		exit_errnostr("Error reading file\n");
@@ -117,7 +117,7 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 		i++;		
 	}
 	ret_player->program = program;
-	// printf("palyer num: %d\n", *player_num);
+	// // printf("palyer num: %d\n", *player_num);
 	ret_player->player_num = *player_num;
 	ret_player->start_location = player_start;
 	ret_player->program_size = prog_size;
@@ -135,7 +135,7 @@ int		is_duplicate_player_num(int number, t_vm *vm)
 	player_node = vm->player_list->start;
 	while (player_node)
 	{
-		// printf("address: %p\n", player_node);
+		// // printf("address: %p\n", player_node);
 		if (player_node->content_size == number)
 			return (1);
 		player_node = player_node->next;
@@ -153,7 +153,7 @@ void	reassign_player_number(t_vm *vm)
 	curr_min_num = 1;
 	while (node)
 	{
-		// printf("curr_num: %d\n",curr_min_num );
+		// // printf("curr_num: %d\n",curr_min_num );
 		if (node->content_size == -1)
 		{
 			while (is_duplicate_player_num(curr_min_num, vm))

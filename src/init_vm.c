@@ -57,7 +57,7 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 		}
 		
 		add_cursor_to_vm(vm, offset[1], (t_player *)(players->content));
-		// printf("adding cursor at %d\n", offset[1]);
+		// // printf("adding cursor at %d\n", offset[1]);
 		offset[1] += offset[0];
 		players = players->next;
 	}

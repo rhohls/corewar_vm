@@ -24,7 +24,7 @@
 
 int	cw_add(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in add -\n");
+	// printf("- in add -\n");
 	int		jump;
 	t_bitop	bitop;
 	

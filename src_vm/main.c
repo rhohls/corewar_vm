@@ -66,8 +66,8 @@ int main(int argc, char **argv)
 	args.index = 1;
 
 	add_flags(&args, &vm);
-	// printf("player start: %d\n", begin_players);
-	// printf("dump? %d\n", vm.flags.dump);
+	// // printf("player start: %d\n", begin_players);
+	// // printf("dump? %d\n", vm.flags.dump);
 	
 	init_players(&args, &vm);
 	
@@ -78,8 +78,8 @@ int main(int argc, char **argv)
 	
 	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	int i = 311;
-	// printf("info at %i is %d\n ", i, get_core_int(i + 2, &vm));
-	// printf("\n~~~~~~~\n");
+	// // printf("info at %i is %d\n ", i, get_core_int(i + 2, &vm));
+	// // printf("\n~~~~~~~\n");
 	// vm_loop(&vm);
 	print_game_state(&vm);
 	initscr();
