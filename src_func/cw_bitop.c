@@ -20,6 +20,7 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 	printf("- in bitop -\n");
 	int		jump;
 	int		info_location;
+	int		indirect;
 	int		*reg;
 	
 	jump = 1;
@@ -34,21 +35,23 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 			return (jump);
 		bitop->par2 = *(reg);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(4));
-		}
+	}
 	else if (cursor->encoding == RIR)
 	{
 		jump = 6;
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
 			return (jump);
 		bitop->par1 = *(reg);
-		bitop->par2 = get_half_c_int(PC_PLUS(3), vm);
+		indirect = get_half_c_int(CORE_PC_PLUS(3), vm) % IDX_MOD;		
+		bitop->par2 = get_half_c_int(PC_PLUS(indirect), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(5));
 		
 	}
 	else if (cursor->encoding == IRR)
 	{
 		jump = 6;
-		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
+		indirect = get_half_c_int(CORE_PC_PLUS(2), vm) % IDX_MOD;		
+		bitop->par1 = get_half_c_int(PC_PLUS(indirect), vm);
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
 			return (jump);
 		bitop->par2 = *(reg);
@@ -57,8 +60,10 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 	else if (cursor->encoding == IIR)
 	{
 		jump = 7;
-		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
-		bitop->par2 = get_half_c_int(PC_PLUS(4), vm);
+		indirect = get_half_c_int(CORE_PC_PLUS(2), vm) % IDX_MOD;		
+		bitop->par1 = get_half_c_int(PC_PLUS(indirect), vm);
+		indirect = get_half_c_int(CORE_PC_PLUS(4), vm) % IDX_MOD;		
+		bitop->par2 = get_half_c_int(PC_PLUS(indirect), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(6));
 	}
 	else if (cursor->encoding == RDR)
@@ -90,7 +95,8 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 	{
 		jump = 9;
 		bitop->par1 = get_core_int(PC_PLUS(2), vm);
-		bitop->par2 = get_half_c_int(PC_PLUS(6), vm);
+		indirect = get_half_c_int(CORE_PC_PLUS(6), vm) % IDX_MOD;		
+		bitop->par2 = get_half_c_int(PC_PLUS(indirect), vm);
 		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
 	}
 	else if (cursor->encoding == IDR)	

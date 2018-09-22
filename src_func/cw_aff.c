@@ -24,6 +24,8 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 		jump = 3;
 		if (!(reg_info = get_reg(cursor, CORE_PC_PLUS(2))))
 			return (jump);
+		//change to print printable character?
+		// %256 & ABS to get char
 		ft_printf("aff operation from cursor at %d from register %d\nThe info: %d\n",
 					cursor->pc, CORE_PC_PLUS(2), *reg_info);
 		}

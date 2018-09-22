@@ -28,7 +28,6 @@ void print_usage(void)
 	ft_putstr("\t-n N: Sets the number of the next program. By default, it will be the next available number, in parameter order.\n");
 	ft_putstr("\t-a N: Sets the load address of the next program. When no address is specified, the programs will be evenly sapced.\n");
 	exit(0);
-	
 }
 
 

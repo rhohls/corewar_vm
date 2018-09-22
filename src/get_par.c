@@ -28,3 +28,18 @@ int			*get_reg(t_cursor *cursor, int reg_num)
 	else
 		return (NULL);
 }
+
+int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size)
+{
+	if (half_size)
+		return(get_half_c_int(CORE_PC_PLUS(relative_pc), vm));
+	else
+		return(get_core_int(CORE_PC_PLUS(relative_pc), vm));
+}
+
+int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor)
+{
+	int	indirect;
+	indirect = get_half_c_int(CORE_PC_PLUS(2), vm) % IDX_MOD;
+	return (get_core_int(CORE_PC_PLUS(indirect), vm));	
+}

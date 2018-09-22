@@ -18,24 +18,34 @@
 **	loads cursor at par1
 */
 
-int	cw_fork(t_vm *vm, t_cursor *cursor)
+static t_cursor *duplicate_cursor(t_vm *vm, t_cursor *cursor, int new_pc)
 {
-	printf("- in fork -\n");
 	t_cursor	*new_cursor;
-	int			new_pc;
 	int			i;
 	
-	new_pc = get_half_c_int(PC_PLUS(1), vm) % IDX_MOD;
-	new_cursor = create_cursor(vm, WRAP(new_pc));
-	
-	printf("new pc location: %d wiht mod: %d\n", get_half_c_int(PC_PLUS(1), vm), new_pc);
-	
+	new_cursor = create_cursor(vm, new_pc);
+	new_cursor->player_num = cursor->player_num;
+	new_cursor->carry = cursor->carry;
+
 	i = 0;
 	while (i < REG_NUMBER)
 	{
 		new_cursor->reg[i] = cursor->reg[i];
 		i++;
 	}
+	return (new_cursor);
+}
+
+int	cw_fork(t_vm *vm, t_cursor *cursor)
+{
+	printf("- in fork -\n");
+	t_cursor	*new_cursor;
+	int			new_pc;
+	
+	new_pc = get_half_c_int(PC_PLUS(1), vm) % IDX_MOD;
+	new_pc = PC_PLUS(new_pc);
+	new_cursor = duplicate_cursor(vm, cursor, new_pc);	
 	add_cursor_to_cursorlist(vm, new_cursor);	
+	printf("new pc location: %d with mod rel to pc: %d\n", get_half_c_int(PC_PLUS(1), vm), new_pc);
 	return (3);
 }

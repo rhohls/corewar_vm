@@ -12,13 +12,13 @@ cw_st:Y
 		RI		5
 		RR		4
 		
-cw_add:Y
+cw_add:Y - C
 		RRR		5
 		
-cw_sub:Y
+cw_sub:Y - C
 		RRR		5
 		
-cw_and:Y
+cw_and:Y - C
 		RRR		5
 		IRR		6
 		RIR		6
@@ -54,7 +54,7 @@ cw_xor:Y
 cw_zjmp:N
 		D		3
 			
-cw_ldi:Y	***ld D=2 (not 4)
+cw_ldi:Y - C	***ld D=2 (not 4)
 		RRR		5
 		IRR		6
 		DRR		6
@@ -73,11 +73,11 @@ cw_sti:Y ***sti D=2 (not 4)
 cw_fork:N ***sti D=2 (not 4)
 		D		3
 		
-cw_lld:Y
+cw_lld:Y - C
 		DR		7
 		IR		5 
 		
-cw_lldi:Y	***ld D=2 (not 4)
+cw_lldi:Y - C	***ld D=2 (not 4)
 		RRR		5
 		IRR		6
 		DRR		6

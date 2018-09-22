@@ -29,6 +29,7 @@ int	cw_ldi(t_vm *vm, t_cursor *cursor)
 	printf("- in ldi -\n");
 	int		info_to_load;
 	int		location_info;
+	int		indirect;
 	int		*reg_to_load;
 	int		*reg;
 	int 	jump;
@@ -47,10 +48,19 @@ int	cw_ldi(t_vm *vm, t_cursor *cursor)
 		location_info += *(reg);
 		reg_to_load = get_reg(cursor, CORE_PC_PLUS(4));
 	}
-	else if (cursor->encoding == IRR || cursor->encoding == DRR)
+	else if (cursor->encoding == DRR)
 	{
 		jump = 6;
 		location_info += get_half_c_int(CORE_PC_PLUS(2), vm);
+		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
+			return (jump);
+		location_info += *(reg);
+		reg_to_load = get_reg(cursor, CORE_PC_PLUS(5));
+	}
+	else if (cursor->encoding == IRR)
+	{
+		jump = 6;
+		location_info += get_ind(2, vm, cursor);
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
 			return (jump);
 		location_info += *(reg);
@@ -73,8 +83,7 @@ int	cw_ldi(t_vm *vm, t_cursor *cursor)
 		reg_to_load = get_reg(cursor, CORE_PC_PLUS(6));
 	}
 	
-	
-	if (jump > 1 && info_to_load)
+	if (jump > 1 && reg_to_load)
 	{
 		info_to_load = get_core_int(PC_PLUS(location_info % IDX_MOD), vm);
 		*reg_to_load = info_to_load;

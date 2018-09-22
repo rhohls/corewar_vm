@@ -49,8 +49,10 @@
 
 # define WRAP(x)			((x) % MEM_SIZE < 0 ? (((x) % MEM_SIZE) + MEM_SIZE) : ((x) % MEM_SIZE))
 
-# define CORE_PC_PLUS(y)	EBYTE(vm->core[WRAP(cursor->pc + y)])	//byte at vaule
-# define PC_PLUS(x)			WRAP(cursor->pc + x)			//index
+//input is index output is byte
+# define CORE_PC_PLUS(x)	EBYTE(vm->core[WRAP(cursor->pc + x)])	
+// just wraping from relative PC
+# define PC_PLUS(x)			WRAP(cursor->pc + x)					
 # define ABS(x)				x >= 0 ? x : x * -1
 
 
@@ -130,6 +132,10 @@ int			get_core_int(int start_of_int, t_vm *vm);
 int			get_half_c_int(int start_of_int, t_vm *vm);
 void		store_core_int(int number, int core_dest_start, t_vm *vm);
 
+int			*get_reg(t_cursor *cursor, int reg_num);
+int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size);
+int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor);
+
 void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
@@ -147,7 +153,7 @@ void		name_replacer(t_vm *vm, t_list *player);
 void		incr_all_cursor(t_vm *vm, int *print);
 void		excute_instruction(t_cursor *cursor, t_vm *vm);
 int			cycle_checkup(t_vm *vm);
-int			*get_reg(t_cursor *cursor, int reg_num);
+
 void		swap_bits(int *num);
 int			reg_check(t_cursor *cursor, int reg_num);
 t_player	*get_player(t_vm *vm, int player_num);
@@ -190,6 +196,7 @@ int			cw_lfork(t_vm *vm, t_cursor *cursor);
 int			cw_aff(t_vm *vm, t_cursor *cursor);
 int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 int			cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
+int			cw_load(t_vm *vm, t_cursor *cursor, int long_ld);
 
 /*
 **	Jump functions

@@ -31,7 +31,7 @@ SRC_FILE =	op.c	\
 			cursor.c	\
 			death_cycle.c	\
 			ex_instructions.c	\
-			get_reg.c	\
+			get_par.c	\
 			replace_live.c \
 			jump_function.c \
 			store_int.c	\

@@ -13,7 +13,8 @@
 #include "../includes/vm.h"
 
 /*
-**	add par1, par2, par3
+**			add & sub
+**	par1, par2, par3
 **	par1 = reg
 **	par2 = reg
 **	par3 = reg

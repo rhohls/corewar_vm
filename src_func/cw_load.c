@@ -20,12 +20,42 @@
 **	into par2(reg)
 */
 
-int	cw_ld(t_vm *vm, t_cursor *cursor)
+int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 {
 	printf("- in ld -\n");
+	int		info_to_load;
+	int		location_info;
+	int		*reg;
 	int 	jump;
-	
-	jump = cw_load(vm, cursor, 0);
 
+	jump = 1;
+	if (cursor->encoding == DR)
+	{
+		info_to_load = get_core_int(PC_PLUS(2), vm);
+		reg = get_reg(cursor, CORE_PC_PLUS(6));
+		jump = 7;
+	}
+	else if (cursor->encoding == IR)
+	{
+		location_info = get_half_c_int(PC_PLUS(2), vm);
+		if (!long_ld)
+			location_info = location_info % IDX_MOD;
+		info_to_load = get_core_int(PC_PLUS(location_info), vm);		
+		reg = get_reg(cursor, CORE_PC_PLUS(4));
+		jump = 5;
+	}
+	
+	printf("cursor pc %d\n", cursor->pc);	
+	printf("location for info %d (rel PC)-%d actual info: %d\n", location_info, location_info % IDX_MOD, info_to_load);
+	
+	if (jump > 1 && reg)
+	{
+		*reg = info_to_load;
+		if (info_to_load)
+			cursor->carry = 1;
+		else
+			cursor->carry = 0;
+	}
+	
 	return (jump);
 }
