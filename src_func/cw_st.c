@@ -31,18 +31,18 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 
 
 	jump = 1;
-	reg_info = get_reg(cursor, CORE_PC_PLUS(2));
+	reg_info = get_reg(2, vm, cursor);
 	
 	if (cursor->encoding == RR)
 	{
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
+		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
 		dest = *(reg);
 		jump = 4;
 	}
 	else if (cursor->encoding == RI)
 	{
-		dest = get_half_c_int(PC_PLUS(3), vm);
+		dest = get_ind(3, vm, cursor);
 		jump = 5;
 	}
 	if (jump > 1 && reg_info)

@@ -19,7 +19,7 @@ int	cw_zjmp(t_vm *vm, t_cursor *cursor)
 	
 	if (cursor->carry)
 	{
-		jump = get_half_c_int(WRAP(cursor->pc + 1), vm); 
+		jump = get_dir(1, vm, cursor, 1); 
 		jump = jump % IDX_MOD;
 	}
 	else

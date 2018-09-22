@@ -42,7 +42,7 @@ int	cw_fork(t_vm *vm, t_cursor *cursor)
 	t_cursor	*new_cursor;
 	int			new_pc;
 	
-	new_pc = get_half_c_int(PC_PLUS(1), vm) % IDX_MOD;
+	new_pc = get_dir(1, vm, cursor, 1) % IDX_MOD;
 	new_pc = PC_PLUS(new_pc);
 	new_cursor = duplicate_cursor(vm, cursor, new_pc);	
 	add_cursor_to_cursorlist(vm, new_cursor);	

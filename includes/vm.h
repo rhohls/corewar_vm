@@ -104,6 +104,7 @@ typedef struct	s_player
 typedef struct	s_cursor
 {
 	int			player_num;
+	int			live_call;
 	int			pc;
 	int			op_code;
 	int			encoding;
@@ -132,7 +133,7 @@ int			get_core_int(int start_of_int, t_vm *vm);
 int			get_half_c_int(int start_of_int, t_vm *vm);
 void		store_core_int(int number, int core_dest_start, t_vm *vm);
 
-int			*get_reg(t_cursor *cursor, int reg_num);
+int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor);
 int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size);
 int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor);
 
@@ -197,6 +198,7 @@ int			cw_aff(t_vm *vm, t_cursor *cursor);
 int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 int			cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 int			cw_load(t_vm *vm, t_cursor *cursor, int long_ld);
+int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld);
 
 /*
 **	Jump functions

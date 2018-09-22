@@ -20,7 +20,18 @@ int			reg_check(t_cursor *cursor, int reg_num)
 		return (0);
 }
 
-int			*get_reg(t_cursor *cursor, int reg_num)
+int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor)
+{
+	int reg_num;
+	
+	reg_num = CORE_PC_PLUS(relative_pc) - 1;
+	if (reg_check(cursor, reg_num))
+		return (&(cursor->reg[reg_num]));
+	else
+		return (NULL);
+}
+
+int			*get_register(t_cursor *cursor, int reg_num)
 {
 	reg_num -= 1;
 	if (reg_check(cursor, reg_num))

@@ -22,7 +22,7 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 	if ((cursor->encoding & R) == R)
 	{
 		jump = 3;
-		if (!(reg_info = get_reg(cursor, CORE_PC_PLUS(2))))
+		if (!(reg_info = get_reg(2, vm, cursor)))
 			return (jump);
 		//change to print printable character?
 		// %256 & ABS to get char

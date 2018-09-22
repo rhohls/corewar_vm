@@ -55,6 +55,9 @@ FUNC_FILE = cw_add.c	\
 			cw_zjmp.c	\
 			cw_memcpy.c	\
 			cw_bitop.c	\
+			cw_math.c	\
+			cw_load.c	\
+			cw_load_i.c	\
 
 # Manipulate
 OBJ_FILE = $(SRC_FILE:%.c=%.o)

@@ -22,89 +22,83 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 	int		info_location;
 	int		indirect;
 	int		*reg;
-	
+
 	jump = 1;
 	bitop->success = 0;
 	if (cursor->encoding == RRR)
 	{
 		jump = 5;
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
+		if (!(reg = get_reg(2, vm, cursor)))
 			return (jump);
 		bitop->par1 = *(reg);
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
+		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
 		bitop->par2 = *(reg);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(4));
+		bitop->reg_store = get_reg(4, vm, cursor);
 	}
 	else if (cursor->encoding == RIR)
 	{
 		jump = 6;
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
+		if (!(reg = get_reg(2, vm, cursor)))
 			return (jump);
 		bitop->par1 = *(reg);
-		indirect = get_half_c_int(CORE_PC_PLUS(3), vm) % IDX_MOD;		
-		bitop->par2 = get_half_c_int(PC_PLUS(indirect), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(5));
-		
+		bitop->par2 = get_ind(3, vm, cursor);
+		bitop->reg_store = get_reg(5, vm, cursor);
 	}
 	else if (cursor->encoding == IRR)
 	{
 		jump = 6;
-		indirect = get_half_c_int(CORE_PC_PLUS(2), vm) % IDX_MOD;		
-		bitop->par1 = get_half_c_int(PC_PLUS(indirect), vm);
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
+		bitop->par1 = get_ind(2, vm, cursor);
+		if (!(reg = get_reg(4, vm, cursor)))
 			return (jump);
 		bitop->par2 = *(reg);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(5));
+		bitop->reg_store = get_reg(5, vm, cursor);
 	}
 	else if (cursor->encoding == IIR)
 	{
 		jump = 7;
-		indirect = get_half_c_int(CORE_PC_PLUS(2), vm) % IDX_MOD;		
-		bitop->par1 = get_half_c_int(PC_PLUS(indirect), vm);
-		indirect = get_half_c_int(CORE_PC_PLUS(4), vm) % IDX_MOD;		
-		bitop->par2 = get_half_c_int(PC_PLUS(indirect), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(6));
+		bitop->par1 = get_ind(2, vm, cursor);
+		bitop->par2 = get_ind(3, vm, cursor);
+		bitop->reg_store = get_reg(6, vm, cursor);
 	}
 	else if (cursor->encoding == RDR)
 	{
 		jump = 8;
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(2))))
+		if (!(reg = get_reg(2, vm, cursor)))
 			return (jump);
 		bitop->par1 = *(reg);
-		bitop->par2 = get_core_int(PC_PLUS(3), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(7));
+		bitop->par2 = get_dir(3, vm, cursor, 0);
+		bitop->reg_store = get_reg(7, vm, cursor);
 	}
 	else if (cursor->encoding == DRR)
 	{
 		jump = 8;
-		bitop->par1 = get_core_int(PC_PLUS(2), vm);
-		if (!(reg = get_reg(cursor, CORE_PC_PLUS(6))))
+		bitop->par1 = get_dir(2, vm, cursor, 0);
+		if (!(reg = get_reg(6, vm, cursor)))
 			return (jump);
 		bitop->par2 = *(reg);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(7));
+		bitop->reg_store = get_reg(7, vm, cursor);
 	}
 	else if (cursor->encoding == DDR)
 	{
 		jump = 11;
-		bitop->par1 = get_core_int(PC_PLUS(2), vm);
-		bitop->par2 = get_core_int(PC_PLUS(6), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(10));	
+		bitop->par1 = get_dir(2, vm, cursor, 0);
+		bitop->par2 = get_dir(6, vm, cursor, 0);
+		bitop->reg_store = get_reg(10, vm, cursor);	
 	}	
 	else if (cursor->encoding == DIR)
 	{
 		jump = 9;
-		bitop->par1 = get_core_int(PC_PLUS(2), vm);
-		indirect = get_half_c_int(CORE_PC_PLUS(6), vm) % IDX_MOD;		
-		bitop->par2 = get_half_c_int(PC_PLUS(indirect), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
+		bitop->par1 = get_dir(2, vm, cursor, 0);
+		bitop->par2 = get_ind(6, vm, cursor);
+		bitop->reg_store = get_reg(8, vm, cursor);
 	}
 	else if (cursor->encoding == IDR)	
 	{
 		jump = 9;
-		bitop->par1 = get_half_c_int(PC_PLUS(2), vm);
-		bitop->par2 = get_core_int(PC_PLUS(4), vm);
-		bitop->reg_store = get_reg(cursor, CORE_PC_PLUS(8));
+		bitop->par1 = get_dir(2, vm, cursor, 0);
+		bitop->par2 = get_ind(6, vm, cursor);
+		bitop->reg_store = get_reg(8, vm, cursor);
 	}
 	else
 		return (jump);

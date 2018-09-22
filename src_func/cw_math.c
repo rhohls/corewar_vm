@@ -36,11 +36,11 @@ int	cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 	if ((cursor->encoding & RRR) == RRR)
 	{
 		jump = 5;
-		if (!(reg_info_1 = get_reg(cursor, CORE_PC_PLUS(2))))
+		if (!(reg_info_1 = get_reg(2, vm, cursor)))
 			return (jump);
-		if (!(reg_info_2 = get_reg(cursor, CORE_PC_PLUS(3))))
+		if (!(reg_info_2 = get_reg(3, vm, cursor)))
 			return (jump);	
-		reg_store = get_reg(cursor, CORE_PC_PLUS(4));
+		reg_store = get_reg(4, vm, cursor);
 		bitop->par1 = *reg_info_1;
 		bitop->par2 = *reg_info_2;
 		bitop->reg_store = reg_store;

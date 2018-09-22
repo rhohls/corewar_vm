@@ -17,7 +17,7 @@ void	display_winner(t_vm *vm)
 	t_player	*player;
 	
 	player = get_player(vm, vm->life_info.last_live_playernum);
-	ft_printf("The winer is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
+	ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
 						
 	// t_player	*player;
 	// t_list		*node;
