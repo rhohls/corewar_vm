@@ -18,7 +18,8 @@
 # include "../../corewar_vm/includes/vm.h"
 # include "../../corewar_vm/includes/op.h"
 
-# define SECTION(x) t_visual->section[x]
+# define DISPLAY(x)	vm->cwv.window[x]
+# define SECTION(x) vm->cwv.section[x]
 # define OCTET		64
 
 typedef struct 	s_section
@@ -31,9 +32,9 @@ typedef struct 	s_section
 
 typedef struct	s_visual
 {
-	WINDOW		*window[2];
-	PANEL		*panel[2];
-	t_section	section[2];
+	WINDOW		*window[3];
+	PANEL		*panel[3];
+	t_section	section[3];
 	int			mode;
 	int			win_x;
 	int			win_y;

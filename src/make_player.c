@@ -117,7 +117,7 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 		i++;		
 	}
 	ret_player->program = program;
-	printf("palyer num: %d\n", *player_num);
+	// printf("palyer num: %d\n", *player_num);
 	ret_player->player_num = *player_num;
 	ret_player->start_location = player_start;
 	ret_player->program_size = prog_size;

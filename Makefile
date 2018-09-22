@@ -35,6 +35,7 @@ SRC_FILE =	op.c	\
 			replace_live.c \
 			jump_function.c \
 			store_int.c	\
+			visualiser.c \
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\
@@ -46,6 +47,7 @@ FUNC_FILE = cw_add.c	\
 			cw_live.c	\
 			cw_lld.c	\
 			cw_lldi.c	\
+			cw_math.c	\
 			cw_null.c	\
 			cw_or.c		\
 			cw_st.c		\
@@ -70,7 +72,8 @@ COREWAR_MAIN = ./src_vm/main.c
 
 #Compile
 CCFLAGS = -Wall -Werror -Wextra
-CC = gcc #$(CCFLAGS)
+NCURSES = -lncurses
+CC = gcc $(NCURSES) #$(CCFLAGS)
 
 LIBF = $(LIB_PATH)libft.a
 

@@ -215,4 +215,9 @@ int			lldi_jump(char *program);
 int			lfork_jump(char *program);
 int			aff_jump(char *program);
 
+/*
+**	Visualiser functions
+*/
+void	init_curses(t_vm *vm);
+
 #endif

@@ -58,15 +58,16 @@ int main(int argc, char **argv)
 	if (argc < 2)
 		print_usage();
 	// set visualiser on or off
-		//init_curses();
+	init_curses(&vm);
+	
 	
 	args.argv = argv;
 	args.argc = argc;
 	args.index = 1;
 
 	add_flags(&args, &vm);
-	printf("player start: %d\n", begin_players);
-	printf("dump? %d\n", vm.flags.dump);
+	// printf("player start: %d\n", begin_players);
+	// printf("dump? %d\n", vm.flags.dump);
 	
 	init_players(&args, &vm);
 	
@@ -77,13 +78,14 @@ int main(int argc, char **argv)
 	
 	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	int i = 311;
-	printf("info at %i is %d\n ", i, get_core_int(i + 2, &vm));
-	printf("\n~~~~~~~\n");
-	vm_loop(&vm);
+	// printf("info at %i is %d\n ", i, get_core_int(i + 2, &vm));
+	// printf("\n~~~~~~~\n");
+	// vm_loop(&vm);
 	print_game_state(&vm);
-	
-
-
+	initscr();
+	refresh();
+	getch();
+	endwin();
 	
 	return (0);
 }
