@@ -32,6 +32,22 @@ void		kill_players(t_vm *vm)
 	}
 }
 
+void		kill_cursors(t_vm *vm)
+{
+	t_list		*cursor_node;
+	t_cursor	*cursor;
+		
+	cursor_node = vm->cursor_stack->start;
+	while (cursor_node)
+	{
+		cursor = cursor_node->content;
+		cursor_node = cursor_node->next;
+		
+		if (cursor->live_call < 1)
+			kill_cursor(cursor, vm);
+		else
+			cursor->live_call = 0;
+	}
 /*
 ** Will end the game if all players are dead
 */
@@ -46,6 +62,7 @@ int		cycle_checkup(t_vm *vm)
 		vm->cycle_to_die -= CYCLE_DELTA;
 			
 		kill_players(vm);
+		kill_cursors(vm);
 		if (vm->nbr_dead >= (int)vm->player_list->length - 1)
 			return (1);
 		else if (vm->cycle_to_die <= 0)

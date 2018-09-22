@@ -49,7 +49,8 @@ int	cw_live(t_vm *vm, t_cursor *cursor)
 	printf("- in live -\n");
 	int player_num;
 	
-	player_num = get_core_int(PC_PLUS(1), vm);
+	cursor->live_call = 1;
+	player_num = get_dir(1, vm, cursor, 0);
 	apply_life(vm, player_num);
 	return (5);
 }
