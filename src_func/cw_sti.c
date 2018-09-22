@@ -25,6 +25,8 @@
 
 int	cw_sti(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in sti -\n");
+	
 	// int reg_num;
 	int		*reg;
 	int		*reg_info_toload;
@@ -34,16 +36,24 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	dest = 0;
 	jump = 1;
 	reg_info_toload = get_reg(cursor, CORE_PC_PLUS(2));
+	
+	
+	printf("cursor pc %d\n", cursor->pc);
 	printf("register num for info %d  -  val: %d\n", CORE_PC_PLUS(2), *reg_info_toload);
+	
+	
+	
 	
 	if (cursor->encoding == RRR)
 	{	
 		jump = 5;
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
 			return (jump);
+		printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
 		dest += *(reg);
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(4))))
 			return (jump);
+		printf("register num %d  -  val: %d\n", CORE_PC_PLUS(4), *reg);
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RRD)
@@ -51,6 +61,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		jump = 6;
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(3))))
 			return (jump);
+		printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
 		dest += *(reg);
 		dest += get_half_c_int(PC_PLUS(4), vm);
 	}
@@ -60,6 +71,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		dest += get_half_c_int(PC_PLUS(3), vm);	
 		if (!(reg = get_reg(cursor, CORE_PC_PLUS(5))))
 			return (jump);
+		printf("register num %d  -  val: %d\n", CORE_PC_PLUS(5), *reg);
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RID || cursor->encoding == RDD)
@@ -75,5 +87,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		store_core_int(*reg_info_toload, PC_PLUS(dest %IDX_MOD), vm);
 	}
 	printf("relative to pc where to stor info %d with mod %d\n", dest, dest%IDX_MOD);
+	
+	print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
 	return (jump);
 }

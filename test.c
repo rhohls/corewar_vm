@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_aff.c                                           :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <rhohls@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/10 08:30:32 by rhohls            #+#    #+#             */
-/*   Updated: 2018/09/18 14:47:27 by rhohls           ###   ########.fr       */
+/*   Created: 2018/09/05 07:11:41 by rhohls            #+#    #+#             */
+/*   Updated: 2018/09/12 08:30:33 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "./includes/vm.h"
+#include <stdio.h>
+static char g_strings[4][10] = {"test", "str2", "fsef", "\0"};
 
-int	cw_aff(t_vm *vm, t_cursor *cursor)
+int add(int a, int b)
 {
-	printf("- in aff -\n");
-	int jump;
-	int *reg_info;
+	if (a >b)
+		return (a + b);
+		
+	else
+		return (a/b);
+}
+
+int main()
+{
+	int a;
 	
-	jump = 1;
-	if ((cursor->encoding & R) == R)
-	{
-		jump = 3;
-		if (!(reg_info = get_reg(cursor, CORE_PC_PLUS(2))))
-			return (jump);
-		ft_printf("aff operation from cursor at %d from register %d\nThe info: %d\n",
-					cursor->pc, CORE_PC_PLUS(2), *reg_info);
-		}
-	return (0);
+	a = add(10, 5);
+	printf("result %d\n",a);
+	return (0);	
+	
 }

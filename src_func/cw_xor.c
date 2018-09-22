@@ -25,6 +25,7 @@
 
 int	cw_xor(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in xor -\n");
 	int		jump;
 	t_bitop	bitop;
 	
@@ -33,8 +34,10 @@ int	cw_xor(t_vm *vm, t_cursor *cursor)
 	if (bitop.success)
 	{
 		*(bitop.reg_store) = bitop.par1 ^ bitop.par2;
-		if (bitop.reg_store != 0)
+		if (*(bitop.reg_store) == 0)
 			cursor->carry = 1;
+		else
+			cursor->carry = 0;	
 	}
 	return (jump);
 }

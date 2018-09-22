@@ -46,6 +46,7 @@ static void apply_life(t_vm *vm, int player_num)
 // “A process shows that player X (champion_name) is alive”
 int	cw_live(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in live -\n");
 	int player_num;
 	
 	player_num = get_core_int(PC_PLUS(1), vm);

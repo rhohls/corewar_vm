@@ -22,6 +22,7 @@
 
 int	cw_ld(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in ld -\n");
 	int		info_to_load;
 	int		location_info;
 	int		*reg;
@@ -41,6 +42,9 @@ int	cw_ld(t_vm *vm, t_cursor *cursor)
 		jump = 5;
 	}
 	info_to_load = get_core_int(PC_PLUS(location_info % IDX_MOD), vm);
+	
+	printf("cursor pc %d\n", cursor->pc);	
+	printf("location for info %d (rel PC)-%d actual info: %d\n", location_info, location_info % IDX_MOD, info_to_load);
 	
 	if (jump > 1 && info_to_load)
 	{

@@ -25,6 +25,7 @@
 
 int	cw_and(t_vm *vm, t_cursor *cursor)
 {
+	printf("- in and -\n");
 	int		jump;
 	t_bitop	bitop;
 	jump = cw_bitop(vm, cursor, &bitop);
@@ -37,8 +38,10 @@ int	cw_and(t_vm *vm, t_cursor *cursor)
 		printf("par1: %d\n", bitop.par1);
 		printf("par2: %d\n", bitop.par2);
 		*(bitop.reg_store) = bitop.par1 & bitop.par2;
-		if (bitop.reg_store != 0)
+		if (*(bitop.reg_store) == 0)
 			cursor->carry = 1;
+		else
+			cursor->carry = 0;			
 	}
 	printf("4423\n");
 
