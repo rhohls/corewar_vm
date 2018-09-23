@@ -14,11 +14,7 @@
 
 int	cw_zjmp(t_vm *vm, t_cursor *cursor)
 {
-<<<<<<< HEAD
 	//printf("- in zjump -\n");
-=======
-	// printf("- in zjump -\n");
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	int jump;
 	
 	if (cursor->carry)

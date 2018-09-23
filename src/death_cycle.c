@@ -97,15 +97,9 @@ int		cycle_checkup(t_vm *vm)
 
 	vm->curr_cycle = 0;
 	vm->life_info.nbr_checkups++;
-<<<<<<< HEAD
 	// //printf("cycle to die: %d\n", vm->cycle_to_die);
 	// //printf("cycle checkups: %d\n", vm->life_info.nbr_checkups);
 	// //printf("nbr live calls: %d\n", vm->life_info.nbr_live_calls);
-=======
-	// // printf("cycle to die: %d\n", vm->cycle_to_die);
-	// // printf("cycle checkups: %d\n", vm->life_info.nbr_checkups);
-	// // printf("nbr live calls: %d\n", vm->life_info.nbr_live_calls);
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	
 	return (0);

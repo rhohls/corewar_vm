@@ -44,13 +44,8 @@ void	name_replacer(t_vm *vm, t_list *player)
 	// also replace r1 with player number
 	index = 0;
 	temp = ((t_player *)(player->content));
-<<<<<<< HEAD
 	// //printf("program_size = %d\n", temp->program_size);
 	// //printf("program_size = %d\n", temp->program[index]);
-=======
-	// // printf("program_size = %d\n", temp->program_size);
-	// // printf("program_size = %d\n", temp->program[index]);
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	while (index < temp->program_size)
 	{
 		op_code = temp->program[index];

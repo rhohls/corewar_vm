@@ -25,11 +25,7 @@
 
 int	cw_or(t_vm *vm, t_cursor *cursor)
 {
-<<<<<<< HEAD
 	//printf("- in or -\n");
-=======
-	// printf("- in or -\n");
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	int		jump;
 	t_param	param;
 	

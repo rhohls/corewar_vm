@@ -78,10 +78,6 @@ int main(int argc, char **argv)
 	if (argc < 2)
 		print_usage();
 	// set visualiser on or off
-<<<<<<< HEAD
-=======
-	init_curses(&vm);
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	
 	args.argv = argv;
@@ -89,12 +85,6 @@ int main(int argc, char **argv)
 	args.index = 1;
 
 	add_flags(&args, &vm);
-<<<<<<< HEAD
-=======
-	// // printf("player start: %d\n", begin_players);
-	// // printf("dump? %d\n", vm.flags.dump);
-	
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	init_players(&args, &vm);
 	
 	print_flags(&vm);
@@ -115,21 +105,9 @@ int main(int argc, char **argv)
 		exit_str("Error: Too many champions\n");
 	
 	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
-<<<<<<< HEAD
 	//printf("\n~~~~~~~\n");
 	init_curses(&vm);
 	vm_loop(&vm);
-=======
-	int i = 311;
-	// // printf("info at %i is %d\n ", i, get_core_int(i + 2, &vm));
-	// // printf("\n~~~~~~~\n");
-	// vm_loop(&vm);
-	print_game_state(&vm);
-	initscr();
-	refresh();
-	getch();
-	endwin();
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	//printf("\n---Final Board ---\n");
 	print_game_state(&vm);	

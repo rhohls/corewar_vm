@@ -17,11 +17,7 @@
 
 int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 {
-<<<<<<< HEAD
 	//printf("- in bitop -\n");
-=======
-	// printf("- in bitop -\n");
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	int		jump;
 	int		info_location;
 	int		indirect;

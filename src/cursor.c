@@ -54,7 +54,6 @@ void	add_initial_player_cursor(t_vm *vm, int pc, t_player *player)
 void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 {
 	// assign new opcode and cycle from PC
-<<<<<<< HEAD
 	// //printf("\n Updating cursor\n");
 	
 	// //printf("un wrap: old_pc-%d  jump-%d\t wrapped-%d\t",cursor->pc, cursor_jump, WRAP(cursor->pc + cursor_jump));
@@ -66,29 +65,12 @@ void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 	cursor->op_code = CORE_PC_PLUS(0);
 	// //printf("core info = %02x\t", EBYTE(vm->core[WRAP(cursor->pc)]));
 	// //printf("op_code = %02x\n", cursor->op_code);		
-=======
-	// // printf("\n Updating cursor\n");
-	
-	// // printf("un wrap: old_pc-%d  jump-%d\t wrapped-%d\t",cursor->pc, cursor_jump, WRAP(cursor->pc + cursor_jump));
-	// // printf("Memesize: %d\n", MEM_SIZE);
-	
-	// // printf("old pc %d - ", cursor->pc);
-	cursor->pc = WRAP(cursor->pc + cursor_jump);
-	// // printf("new pc %d \n", cursor->pc);	
-	cursor->op_code = CORE_PC_PLUS(0);
-	// // printf("core info = %02x\t", EBYTE(vm->core[WRAP(cursor->pc)]));
-	// // printf("op_code = %02x\n", cursor->op_code);		
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	cursor->encoding = CORE_PC_PLUS(1);
 	if (cursor->op_code >= 16) // or more errors
 		cursor->curr_cycle = 1;
 	else
 		cursor->curr_cycle = (vm->op_table[cursor->op_code]).cycles;
-<<<<<<< HEAD
 	// //printf("number of cycles: %d\n", cursor->curr_cycle);
-=======
-	// // printf("number of cycles: %d\n", cursor->curr_cycle);
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 }
 
 void	incr_all_cursor(t_vm *vm, int *print)
@@ -104,17 +86,10 @@ void	incr_all_cursor(t_vm *vm, int *print)
 		cursor->curr_cycle--;
 		if (cursor->curr_cycle <= 0)
 		{
-<<<<<<< HEAD
 			// //printf("updating cursor at %d\n", cursor->pc);
 			excute_instruction(cursor, vm);
 			*print = 1;
 			// //printf("updated!\n");
-=======
-			// printf("updating cursor at %d\n", cursor->pc);
-			excute_instruction(cursor, vm);
-			*print = 1;
-			// printf("updated!\n");
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 		}
 		cursor_node = cursor_node->next;
 	}

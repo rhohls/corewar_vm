@@ -36,14 +36,7 @@ typedef struct	s_visual
 	PANEL		*panel[3];
 	t_section	section[3];
 	int			mode;
-<<<<<<< HEAD
 	int			fd;
-=======
-	int			win_x;
-	int			win_y;
-	int			fd;
-	char		core[MEM_SIZE];
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 }				t_visual;
 
 #endif

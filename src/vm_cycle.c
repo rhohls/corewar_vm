@@ -18,15 +18,10 @@ void	display_winner(t_vm *vm)
 	
 	// printf("%d\n", vm->life_info.last_live_playernum);
 	player = get_player(vm, vm->life_info.last_live_playernum);
-<<<<<<< HEAD
 	if (player)
 		ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
 	else
 		ft_printf("No one called any live comands\n");
-=======
-	// // ft_printf("The winer is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
-						
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	// t_player	*player;
 	// t_list		*node;
 	
@@ -67,21 +62,12 @@ void	vm_loop(t_vm *vm)
 	int i = 0;
 	int print_update;
 
-<<<<<<< HEAD
 	// print_game_state(vm);
-=======
-	print_game_state(vm);
-	// // printf("---------int at %d -----\n", get_half_c_int(1, vm));
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	while(1)
 	{
 		n_print_game_state(vm);
 		print_update = 0;
-<<<<<<< HEAD
 		// printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
-=======
-		// // printf("Cycle: %d\n", vm->curr_cycle);
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		vm->total_cycle++;

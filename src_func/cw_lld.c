@@ -22,14 +22,7 @@
 
 int	cw_lld(t_vm *vm, t_cursor *cursor)
 {
-<<<<<<< HEAD
 	//printf("- in lld -\n");
-=======
-	// printf("- in lld -\n");
-	int		info_to_load;
-	int		location_info;
-	int		*reg;
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	int 	jump;
 	
 	jump = cw_load(vm, cursor, 1);

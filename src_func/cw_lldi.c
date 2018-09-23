@@ -26,15 +26,7 @@
 
 int	cw_lldi(t_vm *vm, t_cursor *cursor)
 {
-<<<<<<< HEAD
 	//printf("- in ldi -\n");
-=======
-	// printf("- in ldi -\n");
-	int		info_to_load;
-	int		location_info;
-	int		*reg_to_load;
-	int		*reg;
->>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	int 	jump;
 
 	jump = cw_load_i(vm, cursor, 1);
