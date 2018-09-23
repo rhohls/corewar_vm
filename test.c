@@ -28,7 +28,11 @@ int main()
 	int a;
 	
 	a = add(10, 5);
+<<<<<<< HEAD
+	// printf("result %d\n",a);
+=======
 	//printf("result %d\n",a);
+>>>>>>> cbe397eb1b616fa8c7654e19f1f6e90679fa8c83
 	return (0);	
 	
 }

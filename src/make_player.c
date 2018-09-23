@@ -34,7 +34,7 @@ int			open_file(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 3)
 	{
-		ft_printf("Error: There was an error opening file \"%s\"\nReason: ", file_name);
+		// printf("Error: There was an error opening file \"%s\"\nReason: ", file_name);
 		exit_errno();
 	}
 	return (fd);

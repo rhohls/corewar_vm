@@ -35,6 +35,7 @@ SRC_FILE =	op.c	\
 			replace_live.c \
 			jump_function.c \
 			store_int.c	\
+			visualiser.c \
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\
@@ -74,6 +75,7 @@ COREWAR_MAIN = ./src_vm/main.c
 
 #Compile
 CCFLAGS = -Wall -Werror -Wextra
+NCURSES = -lncurses
 CC = gcc #$(CCFLAGS)
 
 LIBF = $(LIB_PATH)libft.a
@@ -83,7 +85,7 @@ all: $(COREWAR) $(COREWAR_MAIN)
 
 $(COREWAR): $(OBJ) $(FUNC_OBJ) $(COREWAR_MAIN)
 	@make -C $(LIB_PATH)
-	@$(CC) -o $@ $(LIBF) $(OBJ) $(FUNC_OBJ) $(COREWAR_MAIN)
+	@$(CC) $(NCURSES) -o $@ $(LIBF) $(OBJ) $(FUNC_OBJ) $(COREWAR_MAIN)
 	@echo "\x1b[32m"Finished making $@"\x1b[0m"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c

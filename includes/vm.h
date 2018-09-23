@@ -14,6 +14,7 @@
 # define VM_H
 
 # include "op.h"
+# include "cwv.h"
 # include "../libft/includes/libft.h"
 
 # include <stdlib.h>
@@ -91,6 +92,7 @@ typedef struct	s_vm
 	t_stack		*player_list;
 	t_flags		flags;
 	t_life		life_info;
+	t_visual	cwv;
 }				t_vm;
 
 typedef struct	s_player
@@ -227,5 +229,12 @@ int			lld_jump(char *program);
 int			lldi_jump(char *program);
 int			lfork_jump(char *program);
 int			aff_jump(char *program);
+
+/*
+**	Visualiser functions
+*/
+void	init_curses(t_vm *vm);
+void	n_print_core(t_vm *vm);
+void	n_print_game_state(t_vm *vm);
 
 #endif

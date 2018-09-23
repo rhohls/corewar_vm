@@ -31,7 +31,7 @@ void	display_winner(t_vm *vm)
 	// 	player = node->content;
 	// 	if (player->alive == 1)
 	// 	{
-	// 		ft_printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
+	// 		ft_// printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
 	// 					player->player_num);
 	// 		break ;
 	// 	}
@@ -62,11 +62,12 @@ void	vm_loop(t_vm *vm)
 	int i = 0;
 	int print_update;
 
-	print_game_state(vm);
+	// print_game_state(vm);
 	while(1)
 	{
+		n_print_game_state(vm);
 		print_update = 0;
-		printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
+		// printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		vm->total_cycle++;
@@ -85,7 +86,7 @@ void	vm_loop(t_vm *vm)
 		i++;
 	}
 	// print_game_state(vm);
-	
+	getch();
 	display_winner(vm);
 	// free everything?
 }
