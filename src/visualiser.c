@@ -88,6 +88,8 @@ void	n_print_life_info(t_vm *vm)
 void	n_print_cycles(t_vm *vm)
 {
 	mvwprintw(DISPLAY(1), SECTION(1).size_x / 2 - 1, 1, "Total cycles: %d", vm->total_cycle);
+	wmove(DISPLAY(1),  SECTION(1).size_x / 2, 1);
+	// werase(DISPLAY(1));
 	mvwprintw(DISPLAY(1), SECTION(1).size_x / 2, 1, "Current cycle: %d", vm->curr_cycle);
 	mvwprintw(DISPLAY(1), (SECTION(1).size_x / 2) + 1, 1, "Cycles to die: %d", vm->cycle_to_die);
 	mvwprintw(DISPLAY(1), (SECTION(1).size_x / 2) + 2, 1, "Cycle delta: %d", CYCLE_DELTA);
