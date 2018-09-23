@@ -24,5 +24,5 @@ int	cw_zjmp(t_vm *vm, t_cursor *cursor)
 	}
 	else
 		jump = 3;
-	return(jump);
+	return (jump);
 }

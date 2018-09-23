@@ -26,6 +26,5 @@ int	cw_lld(t_vm *vm, t_cursor *cursor)
 	int 	jump;
 	
 	jump = cw_load(vm, cursor, 1);
-
 	return (jump);
 }

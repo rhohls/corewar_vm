@@ -66,8 +66,11 @@ void	vm_loop(t_vm *vm)
 		printf("Cycle: %d\n", vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
+		vm->total_cycle++;
 		
-		if (vm->flags.dump == vm->curr_cycle)	//do this before cycle to die or it breaks
+		// curr_cycle gets set to 0 during checkup
+		// for dump count absolute cycles?
+		if (vm->flags.dump == vm->total_cycle)	//do this before cycle to die or it breaks 
 			cycle_dump(vm);
 			
 		if (vm->curr_cycle >= vm->cycle_to_die) // at start or at end?!?!

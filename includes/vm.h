@@ -84,6 +84,7 @@ typedef struct	s_vm
 	t_op		op_table[17];
 	t_list		*file_lines;
 	t_stack		*cursor_stack;
+	long int	total_cycle;
 	int			curr_cycle;
 	int			cycle_to_die;
 	int			nbr_dead;
@@ -174,6 +175,7 @@ void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);
 void		print_memory(const void *addr, size_t size, int printable, int location);
 void		print_game_state(t_vm *vm);
 void		print_cursor_info(t_vm *vm);
+void		print_one_cursor(t_cursor *cursor);
 void		print_board_location(unsigned char const *core, size_t size);
 void		print_board(unsigned char const *core, size_t size);
 
@@ -202,6 +204,7 @@ int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 int			cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
 int			cw_load(t_vm *vm, t_cursor *cursor, int long_ld);
 int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld);
+int			cw_forking(t_vm *vm, t_cursor *cursor, int long_fk);
 
 /*
 **	Jump functions

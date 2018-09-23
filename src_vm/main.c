@@ -46,6 +46,8 @@ void	add_flags(t_args *args, t_vm *vm)
 		{
 			args->index++;
 			vm->flags.dump = ft_atoi_long(args->argv[args->index]);
+			if (vm->flags.dump == 0 && ft_strcmp(args->argv[args->index], "0") != 0)
+				exit_str("Error: Invalid number for dump\n");
 		}
 		else if (ft_strcmp(args->argv[args->index] + 1, "c") == 0)
 			vm->flags.contin = 1;
@@ -95,6 +97,7 @@ int main(int argc, char **argv)
 		vm.life_info.last_live_playernum = 
 			((t_player *)(vm.player_list->start->content))->player_num;
 		display_winner(&vm);
+		exit(0);
 	}
 	else if (vm.player_list->length > MAX_PLAYERS)
 		exit_str("Error: Too many champions\n");

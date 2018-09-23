@@ -182,6 +182,14 @@ void	print_cycle_info(t_vm *vm)
 	ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
 }
 
+void	print_one_cursor(t_cursor *cursor)
+{
+	ft_printf("\tCursor location\t- %d\n", cursor->pc);
+	ft_printf("\tCurrent OP code\t- %d\n", cursor->op_code);
+	ft_printf("\tAmt cycles left\t- %d\n", cursor->curr_cycle);
+	ft_printf("\tLive call\t- %d\n", cursor->live_call);	
+}
+
 void	print_cursor_info(t_vm *vm)
 {
 	t_list		*node;
@@ -195,9 +203,8 @@ void	print_cursor_info(t_vm *vm)
 	{
 		cursor = node->content;
 		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
-		ft_printf("\tCursor location\t- %d\n\tCurrent OP code\t- %d\n\tAmt cycles left\t- %d\n",		
-		// printf("\tPC \t\t- %d\n\tOP code \t- %02x\n\tcurrent cycle \t- %d\n",
-					cursor->pc, cursor->op_code, cursor->curr_cycle);
+		print_one_cursor(cursor);
+		
 		node = node->next;
 		i--;
 	}

@@ -58,6 +58,7 @@ FUNC_FILE = cw_add.c	\
 			cw_math.c	\
 			cw_load.c	\
 			cw_load_i.c	\
+			cw_forking.c	\
 
 # Manipulate
 OBJ_FILE = $(SRC_FILE:%.c=%.o)

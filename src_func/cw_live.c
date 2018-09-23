@@ -32,15 +32,15 @@ t_player *get_player(t_vm *vm, int player_num)
 static void apply_life(t_vm *vm, int player_num)
 {
 	t_player	*player;
+	
 	player = get_player(vm, player_num);
-	if (player)
+	if (player && player->alive)
 	{
 		player->nbr_lives++;
 		vm->life_info.last_live_playernum = player_num;
 		vm->life_info.nbr_live_calls++;
 	}
 }
-
 
 // For each valid execution of the live instruction, the machine must display:
 // “A process shows that player X (champion_name) is alive”

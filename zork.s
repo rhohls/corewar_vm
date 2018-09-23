@@ -8,4 +8,5 @@ l2:
 	zjmp %:l2
 
 live:
+	and r1, %0, r3	
 	zjmp %:live

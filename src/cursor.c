@@ -86,10 +86,10 @@ void	incr_all_cursor(t_vm *vm, int *print)
 		cursor->curr_cycle--;
 		if (cursor->curr_cycle <= 0)
 		{
-			printf("updating cursor at %d\n", cursor->pc);
+			// printf("updating cursor at %d\n", cursor->pc);
 			excute_instruction(cursor, vm);
 			*print = 1;
-			printf("updated!\n");
+			// printf("updated!\n");
 		}
 		cursor_node = cursor_node->next;
 	}
