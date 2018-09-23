@@ -217,7 +217,7 @@ void	print_cursor_info(t_vm *vm)
 
 void	print_game_state(t_vm *vm)
 {
-	printf("\n");
+	//printf("\n");
 	print_board((unsigned const char *)(&(vm->core[0])), MEM_SIZE);
 	print_cycle_info(vm);
 	print_player_live(vm);

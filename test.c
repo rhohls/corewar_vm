@@ -28,7 +28,7 @@ int main()
 	int a;
 	
 	a = add(10, 5);
-	printf("result %d\n",a);
+	//printf("result %d\n",a);
 	return (0);	
 	
 }

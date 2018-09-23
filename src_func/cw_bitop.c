@@ -15,9 +15,9 @@
 ** Universal for - or xor and -
 */
 
-int	cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
+int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 {
-	printf("- in bitop -\n");
+	//printf("- in bitop -\n");
 	int		jump;
 	int		info_location;
 	int		indirect;

@@ -22,7 +22,7 @@
 
 int	cw_lld(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in lld -\n");
+	//printf("- in lld -\n");
 	int 	jump;
 	
 	jump = cw_load(vm, cursor, 1);

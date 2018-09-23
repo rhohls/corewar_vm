@@ -25,16 +25,16 @@
 
 int	cw_or(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in or -\n");
+	//printf("- in or -\n");
 	int		jump;
-	t_bitop	bitop;
+	t_param	param;
 	
-	jump = cw_bitop(vm, cursor, &bitop);
+	jump = cw_bitop(vm, cursor, &param);
 
-	if (bitop.success && bitop.reg_store)
+	if (param.success && param.reg_store)
 	{
-		*(bitop.reg_store) = bitop.par1 | bitop.par2;
-		if (*(bitop.reg_store) == 0)
+		*(param.reg_store) = param.par1 | param.par2;
+		if (*(param.reg_store) == 0)
 			cursor->carry = 1;
 		else
 			cursor->carry = 0;	

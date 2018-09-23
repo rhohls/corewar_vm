@@ -24,16 +24,16 @@
 
 int	cw_add(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in add -\n");
+	//printf("- in add -\n");
 	int		jump;
-	t_bitop	bitop;
+	t_param	param;
 	
-	jump = cw_math(vm, cursor, &bitop);
+	jump = cw_math(vm, cursor, &param);
 	
-	if (bitop.success && bitop.reg_store != NULL)
+	if (param.success && param.reg_store != NULL)
 	{
-		*(bitop.reg_store) = bitop.par1 + bitop.par2;
-		if (!(*(bitop.reg_store)))
+		*(param.reg_store) = param.par1 + param.par2;
+		if (!(*(param.reg_store)))
 			cursor->carry = 1;
 		else
 			cursor->carry = 0;

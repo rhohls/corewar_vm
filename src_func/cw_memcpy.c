@@ -16,7 +16,7 @@ void	cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm)
 {
 	if (core_dest + size > MEM_SIZE)
 	{
-		printf("fix cwcpy \n");
+		//printf("fix cwcpy \n");
 		exit(0);
 	}
 	ft_memcpy(&(vm->core[core_dest]), &(vm->core[core_start]), size);

@@ -26,7 +26,7 @@
 
 int	cw_lldi(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in ldi -\n");
+	//printf("- in ldi -\n");
 	int 	jump;
 
 	jump = cw_load_i(vm, cursor, 1);

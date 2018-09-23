@@ -23,7 +23,7 @@
 **	modifies the carry.
 */
 
-int	cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
+int	cw_math(t_vm *vm, t_cursor *cursor, t_param *param)
 {
 	int		jump;
 	int 	*reg_info_1;
@@ -31,7 +31,7 @@ int	cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 	int		*reg_store;
 	
 	jump = 1;
-	bitop->success = 0;
+	param->success = 0;
 	
 	if ((cursor->encoding & RRR) == RRR)
 	{
@@ -41,10 +41,10 @@ int	cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop)
 		if (!(reg_info_2 = get_reg(3, vm, cursor)))
 			return (jump);	
 		reg_store = get_reg(4, vm, cursor);
-		bitop->par1 = *reg_info_1;
-		bitop->par2 = *reg_info_2;
-		bitop->reg_store = reg_store;
-		bitop->success = 1;
+		param->par1 = *reg_info_1;
+		param->par2 = *reg_info_2;
+		param->reg_store = reg_store;
+		param->success = 1;
 	}
 	return (jump);
 }

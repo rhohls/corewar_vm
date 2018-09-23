@@ -20,7 +20,7 @@
 
 int	cw_fork(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in fork -\n");
+	//printf("- in fork -\n");
 	int		jump;
 	
 	jump = cw_forking(vm, cursor, 0);

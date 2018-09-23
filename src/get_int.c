@@ -59,7 +59,7 @@ int			get_half_p_int(char *pointer_to_int)//, int size
 	
 	dup[3] = *(pointer_to_int + 1);
 	dup[2] = *pointer_to_int;
-	// printf("\tval :%d\n", dup[3]);
+	// //printf("\tval :%d\n", dup[3]);
 	
 	if (dup[2] < 0)
 	{

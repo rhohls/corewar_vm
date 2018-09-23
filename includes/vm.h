@@ -116,13 +116,13 @@ typedef struct	s_cursor
 	int			carry;
 }				t_cursor;
 
-typedef struct	s_bitop
+typedef struct	s_param
 {
 	int			*reg_store;
 	int			par1;
 	int			par2;
 	int			success;
-}				t_bitop;
+}				t_param;
 
 
 void		exit_str(char *str);
@@ -200,8 +200,8 @@ int			cw_lld(t_vm *vm, t_cursor *cursor);
 int			cw_lldi(t_vm *vm, t_cursor *cursor);
 int			cw_lfork(t_vm *vm, t_cursor *cursor);
 int			cw_aff(t_vm *vm, t_cursor *cursor);
-int			cw_bitop(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
-int			cw_math(t_vm *vm, t_cursor *cursor, t_bitop *bitop);
+int			cw_bitop(t_vm *vm, t_cursor *cursor, t_param *param);
+int			cw_math(t_vm *vm, t_cursor *cursor, t_param *param);
 int			cw_load(t_vm *vm, t_cursor *cursor, int long_ld);
 int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld);
 int			cw_forking(t_vm *vm, t_cursor *cursor, int long_fk);

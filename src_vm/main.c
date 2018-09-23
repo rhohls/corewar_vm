@@ -61,10 +61,10 @@ void	add_flags(t_args *args, t_vm *vm)
 
 void	print_flags(t_vm *vm)
 {
-	printf("dump: %d\n", vm->flags.dump);
-	printf("continue: %d\n", vm->flags.contin);
-	printf("verbose: %d\n", vm->flags.verbose);
-	printf("visual: %d\n", vm->flags.visual);
+	//printf("dump: %d\n", vm->flags.dump);
+	//printf("continue: %d\n", vm->flags.contin);
+	//printf("verbose: %d\n", vm->flags.verbose);
+	//printf("visual: %d\n", vm->flags.visual);
 }
 
 int main(int argc, char **argv)
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 	init_players(&args, &vm);
 	
 	print_flags(&vm);
-	// printf("player_list length %zu\n", vm.player_list->length);
+	// //printf("player_list length %zu\n", vm.player_list->length);
 	
 	ft_bzero(vm.core, MEM_SIZE);
 	load_players(&vm, vm.core, vm.player_list->start);
@@ -103,11 +103,11 @@ int main(int argc, char **argv)
 		exit_str("Error: Too many champions\n");
 	
 	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
-	printf("\n~~~~~~~\n");
+	//printf("\n~~~~~~~\n");
 	
 	vm_loop(&vm);
 	
-	printf("\n---Final Board ---\n");
+	//printf("\n---Final Board ---\n");
 	print_game_state(&vm);	
 	return (0);
 }

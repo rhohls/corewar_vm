@@ -26,7 +26,7 @@
 
 int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 {
-	printf("- in ldi -\n");
+	//printf("- in ldi -\n");
 	int		info_to_load;
 	int		location_info;
 	int		indirect;

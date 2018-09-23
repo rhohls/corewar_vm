@@ -49,8 +49,8 @@ void	excute_instruction(t_cursor *cursor, t_vm *vm)
 	// if (cursor_jump < 1)
 	// 	kill_cursor(cursor, vm);
 	// else
-	printf("  Updating cursor\n");
-	print_one_cursor(cursor);
+	//printf("  Updating cursor\n");
+	// print_one_cursor(cursor);
 	update_cursor_info(cursor, vm, cursor_jump);
 	
 }
