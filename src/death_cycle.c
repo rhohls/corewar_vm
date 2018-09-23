@@ -32,6 +32,30 @@ void		kill_players(t_vm *vm)
 	}
 }
 
+
+void	remove_cursor_from_list(t_cursor *cursor, t_vm *vm)
+{
+	t_list		*curr_node;
+	t_list		*prev_node;
+	
+	prev_node = NULL;	
+	curr_node = vm->cursor_stack->start;
+	while (curr_node)
+	{
+		if (curr_node->content == cursor)
+		{
+			if (prev_node)
+				prev_node->next = curr_node->next;
+			else
+				vm->cursor_stack->start = curr_node->next;
+			free (curr_node);
+			return ;
+		}
+		prev_node = curr_node;		
+		curr_node = curr_node->next;
+	}
+}
+
 void		kill_cursors(t_vm *vm)
 {
 	t_list		*cursor_node;
@@ -44,10 +68,12 @@ void		kill_cursors(t_vm *vm)
 		cursor_node = cursor_node->next;
 		
 		if (cursor->live_call < 1)
-			kill_cursor(cursor, vm);
+			remove_cursor_from_list(cursor, vm);
 		else
 			cursor->live_call = 0;
 	}
+}
+
 /*
 ** Will end the game if all players are dead
 */

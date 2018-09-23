@@ -18,7 +18,6 @@
 // The champions cannot go over CHAMP_MAX_SIZE, otherwise it is an error.
 // Max number of players?
 
-
 u_int		get_prog_size(char *header_at_size)
 {
 	u_int	ret;
@@ -56,7 +55,7 @@ void		read_header(int fd, u_int *prog_size, char	**program)
 	// print_memory(program, prog_size, 0, 1);	
 }
 
-char		*check_flags(t_args *args, int *player_num, int *player_start, t_vm *vm)
+char		*check_player_flags(t_args *args, int *player_num, int *player_start, t_vm *vm)
 {
 	*player_start = -1;
 	while (args->index < args->argc)
@@ -87,12 +86,10 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 	char	*program;
 	char	*file_name;
 	int		player_start;
-	
-	file_name = check_flags(args, player_num, &player_start, vm);
-	
-	fd = open_file(file_name);
-	// read_header(fd, &prog_size, &program);
 	char	header[HEADER_SIZE];	
+	
+	file_name = check_player_flags(args, player_num, &player_start, vm);
+	fd = open_file(file_name);
 	if (read(fd, header, HEADER_SIZE) < 1)
 		exit_errnostr("Error reading file\n");
 		
@@ -116,8 +113,11 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 		ret_player->name[i] = header[i + 4];
 		i++;		
 	}
+	printf("player name: %s\n", ret_player->name);
+	printf("player num: %d\n", *player_num);
+	printf("player start: %d\n\n", player_start);
+	
 	ret_player->program = program;
-	printf("palyer num: %d\n", *player_num);
 	ret_player->player_num = *player_num;
 	ret_player->start_location = player_start;
 	ret_player->program_size = prog_size;

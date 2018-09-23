@@ -48,7 +48,6 @@
 
 
 # define WRAP(x)			((x) % MEM_SIZE < 0 ? (((x) % MEM_SIZE) + MEM_SIZE) : ((x) % MEM_SIZE))
-
 //input is index output is byte
 # define CORE_PC_PLUS(x)	EBYTE(vm->core[WRAP(cursor->pc + x)])	
 // just wraping from relative PC
@@ -66,6 +65,9 @@ typedef struct	s_args
 typedef struct	s_flags
 {
 	int			dump;
+	int			contin;
+	int			verbose;
+	int			visual;
 	
 }				t_flags;
 
@@ -108,7 +110,6 @@ typedef struct	s_cursor
 	int			pc;
 	int			op_code;
 	int			encoding;
-	// char		reg[REG_NUMBER][REG_SIZE];
 	int			reg[REG_NUMBER];	
 	int			curr_cycle;
 	int			carry;
@@ -142,6 +143,7 @@ void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
 t_player	*make_player(t_args *args, int *player_num, t_vm *vm);
 void		set_op_tab(t_vm *vm_data);
+void		display_winner(t_vm *vm);
 
 void		swap_bits(int *num);
 void		load_players(t_vm *vm, char *board, t_list *players);
@@ -161,7 +163,7 @@ t_player	*get_player(t_vm *vm, int player_num);
 int			is_duplicate_player_num(int number, t_vm *vm);
 
 void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump);
-void		add_cursor_to_vm(t_vm *vm, int pc, t_player *player);
+void		add_initial_player_cursor(t_vm *vm, int pc, t_player *player);
 int			get_op_code(t_cursor *cursor, t_vm *vm);
 void		kill_cursor(t_cursor *cursor, t_vm *vm);
 void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);

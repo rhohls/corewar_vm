@@ -37,7 +37,7 @@ void	add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor)
 	ft_stackpush(vm->cursor_stack, node);
 }
 
-void	add_cursor_to_vm(t_vm *vm, int pc, t_player *player)
+void	add_initial_player_cursor(t_vm *vm, int pc, t_player *player)
 {
 	t_list		*node;
 	t_cursor	*cursor;
@@ -49,13 +49,6 @@ void	add_cursor_to_vm(t_vm *vm, int pc, t_player *player)
 	
 	node->content = cursor;
 	ft_stackpush(vm->cursor_stack, node);
-}
-
-
-void	kill_cursor(t_cursor *cursor, t_vm *vm)
-{
-	// itererate through vm cursor list
-	// remove cursor from list
 }
 
 void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)

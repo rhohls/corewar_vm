@@ -17,9 +17,9 @@ void replace_live(t_vm *vm, t_list *players); // TO BE MOVED TO HEADER
 void init_vm(t_vm *vm)
 {
 	ft_bzero(vm, sizeof(t_vm));
-	set_op_tab(vm);// whyyyyyy!??! (its for the cycles)
-	vm->file_lines = NULL;
+	set_op_tab(vm);//  (its for the no. cycles)
 	vm->cursor_stack = ft_stacknew();
+	// vm->file_lines = NULL;
 	// vm->curr_cycle = 0;
 	// vm->nbr_dead = 0;
 	
@@ -56,8 +56,8 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 			i++;
 		}
 		
-		add_cursor_to_vm(vm, offset[1], (t_player *)(players->content));
-		printf("adding cursor at %d\n", offset[1]);
+		add_initial_player_cursor(vm, offset[1], (t_player *)(players->content));
+		// printf("adding cursor at %d\n", offset[1]);
 		offset[1] += offset[0];
 		players = players->next;
 	}
