@@ -20,8 +20,15 @@
 
 int	cw_lfork(t_vm *vm, t_cursor *cursor)
 {
+<<<<<<< HEAD
 	//printf("- in lfork -\n");
 	int		jump;
+=======
+	// printf("- in lfork -\n");
+	t_cursor	*new_cursor;
+	int			new_pc;
+	int			i;
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	jump = cw_forking(vm, cursor, 1);
 	return (jump);

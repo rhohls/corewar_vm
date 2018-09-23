@@ -47,6 +47,7 @@ FUNC_FILE = cw_add.c	\
 			cw_live.c	\
 			cw_lld.c	\
 			cw_lldi.c	\
+			cw_math.c	\
 			cw_null.c	\
 			cw_or.c		\
 			cw_st.c		\
@@ -76,7 +77,11 @@ COREWAR_MAIN = ./src_vm/main.c
 #Compile
 CCFLAGS = -Wall -Werror -Wextra
 NCURSES = -lncurses
+<<<<<<< HEAD
 CC = gcc #$(CCFLAGS)
+=======
+CC = gcc $(NCURSES) #$(CCFLAGS)
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 
 LIBF = $(LIB_PATH)libft.a
 

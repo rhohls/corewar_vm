@@ -25,7 +25,11 @@
 
 int	cw_sti(t_vm *vm, t_cursor *cursor)
 {
+<<<<<<< HEAD
 	//printf("- in sti -\n");
+=======
+	// printf("- in sti -\n");
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	// int reg_num;
 	int		*reg;
@@ -38,8 +42,13 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	reg_info_toload = get_reg(2, vm, cursor);
 	
 	
+<<<<<<< HEAD
 	//printf("cursor pc %d\n", cursor->pc);
 	//printf("register num for info %d  -  val: %d\n", CORE_PC_PLUS(2), *reg_info_toload);
+=======
+	// printf("cursor pc %d\n", cursor->pc);
+	// printf("register num for info %d  -  val: %d\n", CORE_PC_PLUS(2), *reg_info_toload);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	
 	
@@ -49,11 +58,19 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		jump = 5;
 		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
+<<<<<<< HEAD
 		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
+=======
+		// printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 		dest += *(reg);
 		if (!(reg = get_reg(4, vm, cursor)))
 			return (jump);
+<<<<<<< HEAD
 		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(4), *reg);
+=======
+		// printf("register num %d  -  val: %d\n", CORE_PC_PLUS(4), *reg);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RRD)
@@ -61,7 +78,11 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		jump = 6;
 		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
+<<<<<<< HEAD
 		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
+=======
+		// printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 		dest += *(reg);
 		dest += get_dir(4, vm, cursor, 1);
 	}
@@ -71,7 +92,11 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		dest += get_ind(3, vm, cursor);	
 		if (!(reg = get_reg(5, vm, cursor)))
 			return (jump);
+<<<<<<< HEAD
 		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(5), *reg);
+=======
+		// printf("register num %d  -  val: %d\n", CORE_PC_PLUS(5), *reg);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RDR)
@@ -101,7 +126,11 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		// marking sheet says idx mod here
 		store_core_int(*reg_info_toload, PC_PLUS(dest %IDX_MOD), vm);
 	}
+<<<<<<< HEAD
 	// //printf("relative to pc where to stor info %d with mod %d\n", dest, dest%IDX_MOD);
+=======
+	// printf("relative to pc where to stor info %d with mod %d\n", dest, dest%IDX_MOD);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	// print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
 	return (jump);

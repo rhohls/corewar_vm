@@ -15,7 +15,11 @@
 
 int	cw_null(t_vm *vm, t_cursor *cursor)
 {
+<<<<<<< HEAD
 	//printf("- in null -\n");
+=======
+	// printf("- in null -\n");
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	
 	return (1);
 }

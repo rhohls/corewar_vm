@@ -234,7 +234,10 @@ int			aff_jump(char *program);
 **	Visualiser functions
 */
 void	init_curses(t_vm *vm);
+<<<<<<< HEAD
 void	n_print_core(t_vm *vm);
 void	n_print_game_state(t_vm *vm);
+=======
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 
 #endif

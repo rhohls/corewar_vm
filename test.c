@@ -29,10 +29,14 @@ int main()
 	
 	a = add(10, 5);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// printf("result %d\n",a);
 =======
 	//printf("result %d\n",a);
 >>>>>>> cbe397eb1b616fa8c7654e19f1f6e90679fa8c83
+=======
+	// printf("result %d\n",a);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	return (0);	
 	
 }

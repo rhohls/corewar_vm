@@ -24,7 +24,11 @@
 
 int	cw_add(t_vm *vm, t_cursor *cursor)
 {
+<<<<<<< HEAD
 	//printf("- in add -\n");
+=======
+	// printf("- in add -\n");
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
 	int		jump;
 	t_param	param;
 	
