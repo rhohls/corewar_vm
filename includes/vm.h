@@ -175,6 +175,7 @@ void		print_memory(const void *addr, size_t size, int printable, int location);
 void		print_game_state(t_vm *vm);
 void		print_cursor_info(t_vm *vm);
 void		print_board_location(unsigned char const *core, size_t size);
+void		print_board(unsigned char const *core, size_t size);
 
 /*
 **	Functions

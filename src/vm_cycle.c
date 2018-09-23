@@ -36,22 +36,44 @@ void	display_winner(t_vm *vm)
 	// }	
 }
 
+void	cycle_dump(t_vm *vm)
+{
+	char *line;
+	
+	if (vm->flags.verbose)
+		print_game_state(vm);
+	else
+		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
+	if (vm->flags.contin)
+	{
+		ft_putendl("Please enter the next cycle to dump at, or 0 to continue to game end");
+		get_next_line(0, &line);
+		vm->flags.dump = ft_atoi_long(line);
+	}
+	else
+		exit(0);
+}
+
 void	vm_loop(t_vm *vm)
 {
 	int i = 0;
 	int print_update;
 
 	print_game_state(vm);
-	printf("---------int at %d -----\n", get_half_c_int(1, vm));
 	while(1)
 	{
 		print_update = 0;
 		printf("Cycle: %d\n", vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
-		if (vm->curr_cycle >= vm->cycle_to_die)
+		
+		if (vm->flags.dump == vm->curr_cycle)	//do this before cycle to die or it breaks
+			cycle_dump(vm);
+			
+		if (vm->curr_cycle >= vm->cycle_to_die) // at start or at end?!?!
 			if (cycle_checkup(vm))
 				break ;
+		
 		// if (print_update)
 		// 	print_game_state(vm);
 		i++;
