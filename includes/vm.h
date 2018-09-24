@@ -236,5 +236,6 @@ int			aff_jump(char *program);
 void	init_curses(t_vm *vm);
 void	n_print_core(t_vm *vm);
 void	n_print_game_state(t_vm *vm);
+void	n_print_cursor(t_vm *vm, int cursor);
 
 #endif

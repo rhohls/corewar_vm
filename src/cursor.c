@@ -60,6 +60,7 @@ void	update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 	// //printf("Memesize: %d\n", MEM_SIZE);
 	
 	// //printf("old pc %d - ", cursor->pc);
+	n_print_cursor(vm, cursor->pc);
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
 	// //printf("new pc %d \n", cursor->pc);	
 	cursor->op_code = CORE_PC_PLUS(0);

@@ -14,13 +14,41 @@
 #include "../includes/cwv.h"
 
 
-static void	n_putnbr_hex(t_vm *vm, int octet, int rem, int x, int y)
+static void	n_putnbr_hex(t_vm *vm, int octet, int x, int y)
 {
-	char const *base = "0123456789abcdef";
+	// char const *base = "0123456789abcdef";
+	
+	mvwprintw(DISPLAY(0), y, x, "%c", BASE[((octet/16) % 16)]);
+	// mvwprintw(DISPLAY(0), y, *x, "%d", ((octet/16) % 16));
+	// mvwprintw(DISPLAY(1), 1, 1, "%d", ((octet/16) % 16));
+	x += 1;
+	mvwprintw(DISPLAY(0), y, x, "%c", BASE[(octet % 16)]);
+	// mvwprintw(DISPLAY(1), 1, 4, "%c", BASE[(octet % 16)]);
 
-	if (rem > 1)
-		n_putnbr_hex(vm, octet >> 4, rem - 1, x, y);
-	mvwprintw(DISPLAY(0), y, x, base + (octet % 16));
+	// mvwprintw(DISPLAY(1), 1, 4, "%d", BASE[16]);
+	// mvwprintw(DISPLAY(0), y, *x, "%d", (octet % 16));
+
+	
+}
+
+void	n_print_cursor(t_vm *vm, int cursor)
+{
+	int y;
+	
+	y = 1;
+	while (cursor > OCTET)
+	{
+		cursor /= OCTET;
+		y++;
+	}
+	mvwprintw(DISPLAY(1), 1, 1, "c: %d y: %d", cursor, y);
+	attron(A_REVERSE);
+	mvwprintw(DISPLAY(0), y, (cursor * 3), "");
+	cursor++;
+	mvwprintw(DISPLAY(0), y, (cursor * 3), "");
+	attroff(A_REVERSE);
+	refresh();
+	wrefresh(DISPLAY(1));
 }
 
 void	n_print_core(t_vm *vm)
@@ -28,22 +56,27 @@ void	n_print_core(t_vm *vm)
 	int i;
 	int x;
 	int y;
+	int	cunt;
 
 	x = 1;
 	y = 1;
 	i = 0;
+	cunt = 0;
 	werase(DISPLAY(0));
 	box(DISPLAY(0), 0, 0);
 	while (y < OCTET)
 	{
 		x = 1;
-		while (x < OCTET)
+		cunt = 0;
+		while (cunt < OCTET)
 		{
-			n_putnbr_hex(vm, vm->core[i], 2, x, y);
-			if (x % 3 == 0)
-				x++;
+			n_putnbr_hex(vm, (unsigned char)vm->core[i], x, y);
+			x += 2;
+			// if (x % 3 == 0 && x > 0)
+			mvwprintw(DISPLAY(0), y, x, "%c", ' ');
 			x++;
 			i++;
+			cunt++;
 		}
 		y++;
 	}
@@ -69,7 +102,7 @@ void	n_print_names(t_vm *vm)
 		wattron(DISPLAY(1), A_BOLD | COLOR_PAIR(col));
 		mvwprintw(DISPLAY(1), i++, 5, "%s", player->name);
 		wattroff(DISPLAY(1), A_BOLD | COLOR_PAIR(col++));
-		mvwprintw(DISPLAY(1), i++, 5, "Size: %d", player->program_size);
+		mvwprintw(DISPLAY(1), i++, 5, "Size: %d bytes", player->program_size);
 		mvwprintw(DISPLAY(1), i, 5, "Lives: %d", player->nbr_lives);
 		node = node->next;
 		i++;
@@ -88,8 +121,8 @@ void	n_print_life_info(t_vm *vm)
 void	n_print_cycles(t_vm *vm)
 {
 	mvwprintw(DISPLAY(1), SECTION(1).size_x / 2 - 1, 1, "Total cycles: %d", vm->total_cycle);
-	wmove(DISPLAY(1),  SECTION(1).size_x / 2, 1);
-	// werase(DISPLAY(1));
+	wmove(DISPLAY(1),  (SECTION(1).size_x / 2) + 15, 1);
+	wclrtobot(DISPLAY(1));
 	mvwprintw(DISPLAY(1), SECTION(1).size_x / 2, 1, "Current cycle: %d", vm->curr_cycle);
 	mvwprintw(DISPLAY(1), (SECTION(1).size_x / 2) + 1, 1, "Cycles to die: %d", vm->cycle_to_die);
 	mvwprintw(DISPLAY(1), (SECTION(1).size_x / 2) + 2, 1, "Cycle delta: %d", CYCLE_DELTA);
@@ -154,12 +187,15 @@ void	n_print_game_state(t_vm *vm)
 	n_print_names(vm);
 	n_print_cycles(vm);
 	n_print_life_info(vm);
+	timeout(vm->cwv.speed);
+	getch();
 	n_refresh_all(vm);
 }
 
 void	init_curses(t_vm *vm)
 {
 	vm->cwv.mode = 1;
+	vm->cwv.speed = 6;
 	initscr();
 	// cbreak();
 	// raw();

@@ -65,7 +65,8 @@ void	vm_loop(t_vm *vm)
 	// print_game_state(vm);
 	while(1)
 	{
-		n_print_game_state(vm);
+		if (vm->cwv.mode)
+			n_print_game_state(vm);
 		print_update = 0;
 		// printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
