@@ -138,6 +138,7 @@ void		store_core_int(int number, int core_dest_start, t_vm *vm);
 int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor);
 int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size);
 int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor);
+int			get_ind_nomod(int relative_pc, t_vm *vm, t_cursor *cursor);
 
 void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);

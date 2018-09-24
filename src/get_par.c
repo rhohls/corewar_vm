@@ -54,3 +54,10 @@ int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor)
 	indirect = get_half_c_int(CORE_PC_PLUS(2), vm) % IDX_MOD;
 	return (get_core_int(CORE_PC_PLUS(indirect), vm));	
 }
+
+int			get_ind_nomod(int relative_pc, t_vm *vm, t_cursor *cursor)
+{
+	int	indirect;
+	indirect = get_half_c_int(CORE_PC_PLUS(2), vm);
+	return (get_core_int(CORE_PC_PLUS(indirect), vm));	
+}
