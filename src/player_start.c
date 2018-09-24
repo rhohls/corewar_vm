@@ -12,6 +12,33 @@
 
 #include "../includes/vm.h"
 
+/*
+**	Sorry for the terrible function name following this comment.
+**	This function uses a cursors owner number to find
+** the appropriate colour index to print in ncurses
+*/
+
+#include <unistd.h>
+
+int		player_num_to_colour_num(t_vm *vm, int num)
+{
+	int			i;
+	t_player    *player;
+    t_list      *player_node;
+
+	i = 0;
+	player_node = vm->player_list->start;
+    while (player_node)
+    {
+        player = (t_player *)(player_node->content);
+		if (player->player_num == num)
+			return (i);
+        player_node = player_node->next;
+		i++;
+    }
+	return (0);
+}
+
 void    player(t_vm *vm)
 {
     t_player    *player;

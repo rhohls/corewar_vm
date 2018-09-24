@@ -13,42 +13,62 @@
 #include "../includes/vm.h"
 #include "../includes/cwv.h"
 
-
-static void	n_putnbr_hex(t_vm *vm, int octet, int x, int y)
+void	n_print_cursor(t_vm *vm)
 {
-	// char const *base = "0123456789abcdef";
+	int			y;
+	int			col;
+	int			hold;
+	t_cursor	*cursor;
+	t_list		*stack;
 	
-	mvwprintw(DISPLAY(0), y, x, "%c", BASE[((octet/16) % 16)]);
-	// mvwprintw(DISPLAY(0), y, *x, "%d", ((octet/16) % 16));
-	// mvwprintw(DISPLAY(1), 1, 1, "%d", ((octet/16) % 16));
-	x += 1;
-	mvwprintw(DISPLAY(0), y, x, "%c", BASE[(octet % 16)]);
-	// mvwprintw(DISPLAY(1), 1, 4, "%c", BASE[(octet % 16)]);
+	int	i;
 
-	// mvwprintw(DISPLAY(1), 1, 4, "%d", BASE[16]);
-	// mvwprintw(DISPLAY(0), y, *x, "%d", (octet % 16));
-
-	
+	i = 0;
+	stack = vm->cursor_stack->start;
+	while (stack)
+	{
+		cursor = stack->content;
+		col = player_num_to_colour_num(vm, cursor->player_num);
+		y = 1;
+		hold = cursor->pc;
+		while (hold > OCTET)
+		{
+			hold /= OCTET;
+			y++;
+		}
+		if (col)
+			wattron(DISPLAY(0), A_REVERSE | COLOR_PAIR(col));
+		n_putnbr_hex(vm, vm->core[hold], y, hold, col);
+		wattroff(DISPLAY(0), A_REVERSE | COLOR_PAIR(col));
+		wmove(DISPLAY(2), i, 2);
+		wclrtoeol(DISPLAY(2));
+		mvwprintw(DISPLAY(2), i, 2, "cursor no: |%d|\tpc: |%d|", i, cursor->pc);
+		box(DISPLAY(2), 0, 0);
+		i++;
+		stack = stack->next;
+	}
 }
 
-void	n_print_cursor(t_vm *vm, int cursor)
+int		get_colour(t_vm *vm, int core_index)
 {
-	int y;
-	
-	y = 1;
-	while (cursor > OCTET)
+
+	int 		i;
+	t_list		*player_node;
+	t_player	*player;
+
+	player_node = vm->player_list->start;
+	i = 1;
+
+	while (player_node)
 	{
-		cursor /= OCTET;
-		y++;
+		player = player_node->content;
+		if ((core_index >= player->start_location) && 
+			(core_index <= (player->start_location + player->program_size)))
+			return (i);
+		player_node = player_node->next;
+		i++;
 	}
-	mvwprintw(DISPLAY(1), 1, 1, "c: %d y: %d", cursor, y);
-	attron(A_REVERSE);
-	mvwprintw(DISPLAY(0), y, (cursor * 3), "");
-	cursor++;
-	mvwprintw(DISPLAY(0), y, (cursor * 3), "");
-	attroff(A_REVERSE);
-	refresh();
-	wrefresh(DISPLAY(1));
+	return (0);
 }
 
 void	n_print_core(t_vm *vm)
@@ -57,6 +77,7 @@ void	n_print_core(t_vm *vm)
 	int x;
 	int y;
 	int	cunt;
+	int colour;
 
 	x = 1;
 	y = 1;
@@ -70,9 +91,12 @@ void	n_print_core(t_vm *vm)
 		cunt = 0;
 		while (cunt < OCTET)
 		{
-			n_putnbr_hex(vm, (unsigned char)vm->core[i], x, y);
+			colour = get_colour(vm, i);
+			// wattron(DISPLAY(2), COLOR_PAIR(colour));
+			// mvwprintw(DISPLAY(2), colour, 1, "%d", colour);
+			// wattroff(DISPLAY(2), COLOR_PAIR(colour));
+			n_putnbr_hex(vm, (unsigned char)vm->core[i], x, y, colour);
 			x += 2;
-			// if (x % 3 == 0 && x > 0)
 			mvwprintw(DISPLAY(0), y, x, "%c", ' ');
 			x++;
 			i++;
@@ -91,7 +115,7 @@ void	n_print_names(t_vm *vm)
 	t_list		*node;
 	t_player	*player;
 
-	i = 2;
+	i = 4;
 	col = 1;
 	node = vm->player_list->start;
 	box(DISPLAY(1), 0, 0);
@@ -115,98 +139,71 @@ void	n_print_life_info(t_vm *vm)
 	t_list *temp;
 
 	node = vm->life_info;
-	mvwprintw(DISPLAY(1), 20, 1, "Live calls: %d", node.nbr_live_calls);
+	mvwprintw(DISPLAY(1), 30, 1, "Live calls: %d", node.nbr_live_calls);
 }
 
 void	n_print_cycles(t_vm *vm)
 {
-	mvwprintw(DISPLAY(1), SECTION(1).size_x / 2 - 1, 1, "Total cycles: %d", vm->total_cycle);
-	wmove(DISPLAY(1),  (SECTION(1).size_x / 2) + 15, 1);
-	wclrtobot(DISPLAY(1));
-	mvwprintw(DISPLAY(1), SECTION(1).size_x / 2, 1, "Current cycle: %d", vm->curr_cycle);
-	mvwprintw(DISPLAY(1), (SECTION(1).size_x / 2) + 1, 1, "Cycles to die: %d", vm->cycle_to_die);
-	mvwprintw(DISPLAY(1), (SECTION(1).size_x / 2) + 2, 1, "Cycle delta: %d", CYCLE_DELTA);
+	mvwprintw(DISPLAY(1), 32, 1, "Total cycles: %d", vm->total_cycle);
+	wmove(DISPLAY(1),  33, 1);
+	wclrtoeol(DISPLAY(1));
+	mvwprintw(DISPLAY(1), 33, 1, "Current cycle: %d", vm->curr_cycle);
+	mvwprintw(DISPLAY(1), 34, 1, "Cycles to die: %d", vm->cycle_to_die);
+	mvwprintw(DISPLAY(1), 35, 1, "Cycle delta: %d", CYCLE_DELTA);
+	mvwprintw(DISPLAY(1), 36, 1, "Max checks: %d", MAX_CHECKS);
+	box(DISPLAY(1), 0, 0);
 }
 
-void	init_windows(t_vm *vm, int win)
+void	n_key_get(t_vm *vm)
 {
-	int a[4];
-	
-	a[0] = vm->cwv.section[win].start_x;
-	a[1] = vm->cwv.section[win].start_y;
-	a[2] = vm->cwv.section[win].size_x;
-	a[3] = vm->cwv.section[win].size_y;
-	vm->cwv.window[win] = newwin(a[2], a[3], a[0], a[1]);
-}
+	int c;
 
-void	init_sizes(t_vm *vm)
-{
-	int		octet;
-
-	vm->cwv.section[0].start_x = 0;
-	vm->cwv.section[0].start_y = 0;
-	vm->cwv.section[0].size_y = (OCTET * 3) + 2;
-	vm->cwv.section[0].size_x = (OCTET + 4);
-
-	vm->cwv.section[1].start_x = 0;
-	vm->cwv.section[1].start_y = (OCTET * 3) + 3;
-	vm->cwv.section[1].size_x = (OCTET / 2 + (OCTET / 6)) + 4;
-	vm->cwv.section[1].size_y = 48;
-
-	vm->cwv.section[2].start_x = (OCTET / 2 + (OCTET / 6)) + 4;
-	vm->cwv.section[2].start_y = (OCTET * 3) + 3;
-	vm->cwv.section[2].size_x = (OCTET - (OCTET / 2 + (OCTET / 6)));
-	vm->cwv.section[2].size_y = 48;
-
-	init_windows(vm, 0);
-	init_windows(vm, 1);
-	init_windows(vm, 2);
-}
-
-void	init_color_pairs()
-{
-	start_color();
-	init_pair(1, COLOR_BLUE, COLOR_BLACK);
-	init_pair(2, COLOR_RED, COLOR_BLACK);
-	init_pair(3, COLOR_GREEN, COLOR_BLACK);
-	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-}
-
-void	n_refresh_all(t_vm *vm)
-{
-	refresh();
-	wrefresh(DISPLAY(0));
-	wrefresh(DISPLAY(1));
-	wrefresh(DISPLAY(2));
+	timeout(1);
+	c = getch();
+	if (c == KEY_LEFT)
+		vm->cwv.speed--;
+	else if (c == KEY_RIGHT)
+		vm->cwv.speed++;
 }
 
 void	n_print_game_state(t_vm *vm)
 {
+	char c;
+
+	// n_key_get(vm);
 	n_print_core(vm);
 	n_print_names(vm);
 	n_print_cycles(vm);
 	n_print_life_info(vm);
+	n_print_cursor(vm);
 	timeout(vm->cwv.speed);
-	getch();
+	c = getch();
+	if (c == ' ')
+	{
+		timeout(-1);
+		getch();
+	}
 	n_refresh_all(vm);
 }
 
-void	init_curses(t_vm *vm)
+void	n_init_curses(t_vm *vm)
 {
 	vm->cwv.mode = 1;
-	vm->cwv.speed = 6;
+	vm->cwv.speed = 1;
 	initscr();
-	// cbreak();
-	// raw();
+	cbreak();
+	keypad(stdscr, TRUE);
 	noecho();
 	curs_set(0);
-	init_sizes(vm);
-	init_color_pairs();
+	n_init_sizes(vm);
+	n_init_color_pairs();
 	box(DISPLAY(0), 0, 0);
 	box(DISPLAY(1), 0, 0);
 	box(DISPLAY(2), 0, 0);
+	wattron(DISPLAY(1), A_UNDERLINE);
 	mvwprintw(DISPLAY(1), 1, 14, "CORE WAR");
+	wattroff(DISPLAY(1), A_UNDERLINE);
 	mvwprintw(DISPLAY(2), 1, 14, "CORE CHAT");
+	mvwprintw(DISPLAY(1), 2, 1, "MEM_SIZE: %d bytes", MEM_SIZE);
 	n_print_game_state(vm);
 }

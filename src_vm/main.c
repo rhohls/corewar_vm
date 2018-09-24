@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 	add_flags(&args, &vm);
 	init_players(&args, &vm);
 	
-	print_flags(&vm);
+	// print_flags(&vm);
 	// //printf("player_list length %zu\n", vm.player_list->length);
 	
 	ft_bzero(vm.core, MEM_SIZE);
@@ -106,7 +106,8 @@ int main(int argc, char **argv)
 	
 	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	//printf("\n~~~~~~~\n");
-	init_curses(&vm);
+	n_init_curses(&vm);
+	n_print_core(&vm);
 	vm_loop(&vm);
 	
 	//printf("\n---Final Board ---\n");

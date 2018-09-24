@@ -57,6 +57,7 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 		}
 		
 		add_initial_player_cursor(vm, offset[1], (t_player *)(players->content));
+		((t_player *)(players->content))->start_location = offset[1];
 		// //printf("adding cursor at %d\n", offset[1]);
 		offset[1] += offset[0];
 		players = players->next;

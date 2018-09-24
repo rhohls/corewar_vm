@@ -145,6 +145,7 @@ void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
 t_player	*make_player(t_args *args, int *player_num, t_vm *vm);
+int			player_num_to_colour_num(t_vm *vm, int num);
 void		set_op_tab(t_vm *vm_data);
 void		display_winner(t_vm *vm);
 
@@ -233,9 +234,14 @@ int			aff_jump(char *program);
 /*
 **	Visualiser functions
 */
-void	init_curses(t_vm *vm);
+void	n_init_curses(t_vm *vm);
+void	n_init_windows(t_vm *vm, int win);
+void	n_init_sizes(t_vm *vm);
+void	n_init_color_pairs();
 void	n_print_core(t_vm *vm);
 void	n_print_game_state(t_vm *vm);
-void	n_print_cursor(t_vm *vm, int cursor);
+void	n_print_cursor(t_vm *vm);
+void	n_refresh_all(t_vm *vm);
+void	n_putnbr_hex(t_vm *vm, int octet, int x, int y, int col);
 
 #endif

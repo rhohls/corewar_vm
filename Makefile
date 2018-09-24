@@ -36,6 +36,8 @@ SRC_FILE =	op.c	\
 			jump_function.c \
 			store_int.c	\
 			visualiser.c \
+			visual_utils.c \
+			player_start.c \
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\
