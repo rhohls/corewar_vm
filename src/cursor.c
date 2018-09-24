@@ -17,7 +17,7 @@ t_cursor *create_cursor(t_vm *vm, int pc)
 	t_cursor *cursor;
 	int i;
 	
-	cursor = (t_cursor *)malloc(sizeof(t_cursor));
+	cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 	cursor->pc = pc;
 	i = 0;
 	while (i < REG_NUMBER)

@@ -103,7 +103,9 @@ int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 			location_info = location_info % IDX_MOD;
 		info_to_load = get_core_int(PC_PLUS(location_info), vm);
 		*reg_to_load = info_to_load;
-		if (*reg_to_load)
+		if (info_to_load)
+			cursor->carry = 0;
+		else
 			cursor->carry = 1;
 	}
 	return (jump);

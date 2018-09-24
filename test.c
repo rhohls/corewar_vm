@@ -71,4 +71,12 @@ int main()
 	n_putnbr_hex(a[0]);
 	return (0);	
 	
+	
+	
+	char prog[50];
+	
+	p
+	
+	
+	
 }
