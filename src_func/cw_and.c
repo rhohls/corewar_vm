@@ -27,18 +27,18 @@ int	cw_and(t_vm *vm, t_cursor *cursor)
 {
 	//printf("- in and -\n");
 	int		jump;
-	t_param	param;
-	jump = cw_bitop(vm, cursor, &param);
+	t_param	bitop;
+	jump = cw_bitop(vm, cursor, &bitop);
 	
 	// //printf("123\n");
-	// //printf("-- succ? %d\n",param.success);
-	if (param.success && param.reg_store)
+	// //printf("-- succ? %d\n",bitop.success);
+	if (bitop.success && bitop.reg_store)
 	{
-		// //printf("reg_store address %p \n", param.reg_store);
-		// //printf("par1: %d\n", param.par1);
-		// //printf("par2: %d\n", param.par2);
-		*(param.reg_store) = param.par1 & param.par2;
-		if (*(param.reg_store) == 0)
+		// //printf("reg_store address %p \n", bitop.reg_store);
+		// //printf("par1: %d\n", bitop.par1);
+		// //printf("par2: %d\n", bitop.par2);
+		*(bitop.reg_store) = bitop.par1 & bitop.par2;
+		if (*(bitop.reg_store) == 0)
 			cursor->carry = 1;
 		else
 			cursor->carry = 0;			

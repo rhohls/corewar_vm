@@ -14,6 +14,7 @@
 #include <stdio.h>
 static char g_strings[4][10] = {"test", "str2", "fsef", "\0"};
 
+#define BASE "0123456789abcdef"
 int add(int a, int b)
 {
 	if (a >b)
@@ -23,12 +24,51 @@ int add(int a, int b)
 		return (a/b);
 }
 
+static void    n_putnbr_hex(int octet)
+{
+    // char const *base = "0123456789abcdef";
+    
+    // mvwprintw(DISPLAY(0), y, *x, "%c", BASE[((octet/16) % 16)]);
+    printf("%c", BASE[((octet/16) % 16)]);
+    // mvwprintw(DISPLAY(1), 1, 1, "%d", ((octet/16) % 16));
+
+    // mvwprintw(DISPLAY(0), y, *x, "%c", BASE[(octet % 16)]);
+    // mvwprintw(DISPLAY(1), 1, 4, "%c", BASE[(octet % 16)]);
+
+    // mvwprintw(DISPLAY(1), 1, 4, "%d", BASE[16]);
+    printf("%c", BASE[(octet % 16)]);
+
+
+
+}
+
 int main()
 {
-	int a;
+	// printf("char: %c\n", BASE[0]);
+	// printf("char: %c\n", BASE[1]);
+	// printf("char: %c\n", BASE[2]);
+	// printf("char: %c\n", BASE[3]);
+	// printf("char: %c\n", BASE[4]);
+	// printf("char: %c\n", BASE[5]);
+	// printf("char: %c\n", BASE[6]);
+	// printf("char: %c\n", BASE[7]);
+	// printf("char: %c\n", BASE[8]);
+	// printf("char: %c\n", BASE[9]);
+	// printf("char: %c\n", BASE[10]);
+	// printf("char: %c\n", BASE[11]);
+	// printf("char: %c\n", BASE[12]);
+	// printf("char: %c\n", BASE[13]);
+	// printf("char: %c\n", BASE[14]);
+	// printf("char: %c\n", BASE[15]);
+	// printf("char: %c\n", BASE[16]);
+	// // printf("char: %c\n", BASE[17]);
+	// printf("string: %s\n", BASE);
+	unsigned char a[3];
 	
-	a = add(10, 5);
-	//printf("result %d\n",a);
+	a[0] = -5;
+	
+	printf("%02x\n",a[0]);
+	n_putnbr_hex(a[0]);
 	return (0);	
 	
 }
