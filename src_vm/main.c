@@ -61,10 +61,10 @@ void	add_flags(t_args *args, t_vm *vm)
 
 void	print_flags(t_vm *vm)
 {
-	//printf("dump: %d\n", vm->flags.dump);
-	//printf("continue: %d\n", vm->flags.contin);
-	//printf("verbose: %d\n", vm->flags.verbose);
-	//printf("visual: %d\n", vm->flags.visual);
+	printf("dump: %d\n", vm->flags.dump);
+	printf("continue: %d\n", vm->flags.contin);
+	printf("verbose: %d\n", vm->flags.verbose);
+	printf("visual: %d\n", vm->flags.visual);
 }
 
 int main(int argc, char **argv)

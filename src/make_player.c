@@ -113,9 +113,9 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 		ret_player->name[i] = header[i + 4];
 		i++;		
 	}
-	//printf("player name: %s\n", ret_player->name);
-	//printf("player num: %d\n", *player_num);
-	//printf("player start: %d\n\n", player_start);
+	// printf("player name: %s\n", ret_player->name);
+	// printf("player num: %d\n", *player_num);
+	// printf("player start: %d\n\n", player_start);
 	
 	ret_player->program = program;
 	ret_player->player_num = *player_num;
