@@ -26,7 +26,7 @@ int		player_num_to_colour_num(t_vm *vm, int num)
 	t_player    *player;
     t_list      *player_node;
 
-	i = 0;
+	i = 1;
 	player_node = vm->player_list->start;
     while (player_node)
     {

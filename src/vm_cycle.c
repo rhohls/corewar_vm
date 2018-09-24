@@ -19,9 +19,21 @@ void	display_winner(t_vm *vm)
 	// printf("%d\n", vm->life_info.last_live_playernum);
 	player = get_player(vm, vm->life_info.last_live_playernum);
 	if (player)
-		ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
+	{
+		if (vm->cwv.mode)
+		{
+			n_display_winner(vm, player);
+		}
+		else
+			ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
+	}
 	else
-		ft_printf("No one called any live comands\n");
+	{
+		if (vm->cwv.mode)
+			n_display_winner(vm, player);
+		else
+			ft_printf("No one called any live comands\n");
+	}
 	// t_player	*player;
 	// t_list		*node;
 	
@@ -87,7 +99,6 @@ void	vm_loop(t_vm *vm)
 		i++;
 	}
 	// print_game_state(vm);
-	getch();
 	display_winner(vm);
 	// free everything?
 }

@@ -243,5 +243,6 @@ void	n_print_game_state(t_vm *vm);
 void	n_print_cursor(t_vm *vm);
 void	n_refresh_all(t_vm *vm);
 void	n_putnbr_hex(t_vm *vm, int octet, int x, int y, int col);
+void	n_display_winner(t_vm *vm, t_player *player);
 
 #endif

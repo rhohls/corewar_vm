@@ -17,7 +17,7 @@ void	n_print_cursor(t_vm *vm)
 {
 	int			y;
 	int			col;
-	int			hold;
+	int			x;
 	t_cursor	*cursor;
 	t_list		*stack;
 	
@@ -25,24 +25,25 @@ void	n_print_cursor(t_vm *vm)
 
 	i = 0;
 	stack = vm->cursor_stack->start;
+	werase(DISPLAY(2));
 	while (stack)
 	{
 		cursor = stack->content;
 		col = player_num_to_colour_num(vm, cursor->player_num);
 		y = 1;
-		hold = cursor->pc;
-		while (hold > OCTET)
+		x = cursor->pc;
+		while (x > OCTET)
 		{
-			hold /= OCTET;
+			x -= OCTET;
 			y++;
 		}
 		if (col)
-			wattron(DISPLAY(0), A_REVERSE | COLOR_PAIR(col));
-		n_putnbr_hex(vm, vm->core[hold], y, hold, col);
-		wattroff(DISPLAY(0), A_REVERSE | COLOR_PAIR(col));
+			wattron(DISPLAY(0), A_REVERSE);
+		n_putnbr_hex(vm, (unsigned char)vm->core[x], (x * 3) + 1, y, col);
+		if (col)
+			wattroff(DISPLAY(0), A_REVERSE);
 		wmove(DISPLAY(2), i, 2);
-		wclrtoeol(DISPLAY(2));
-		mvwprintw(DISPLAY(2), i, 2, "cursor no: |%d|\tpc: |%d|", i, cursor->pc);
+		mvwprintw(DISPLAY(2), i, 2, "player %d curs %d looking at x:%d y:%d", cursor->player_num, cursor->pc, x, y);
 		box(DISPLAY(2), 0, 0);
 		i++;
 		stack = stack->next;
@@ -139,7 +140,7 @@ void	n_print_life_info(t_vm *vm)
 	t_list *temp;
 
 	node = vm->life_info;
-	mvwprintw(DISPLAY(1), 30, 1, "Live calls: %d", node.nbr_live_calls);
+	mvwprintw(DISPLAY(1), 30, 1, "Total turns: %d", node.nbr_checkups);
 }
 
 void	n_print_cycles(t_vm *vm)
@@ -166,6 +167,26 @@ void	n_key_get(t_vm *vm)
 		vm->cwv.speed++;
 }
 
+void	n_display_winner(t_vm *vm, t_player *player)
+{
+	int		x;
+	int		y;
+	WINDOW	*display;
+	getmaxyx(stdscr, y, x);
+	display = newwin(10, 5, y / 2, x / 2);
+	getmaxyx(display, y, x);
+	box(display, 0, 0);
+	if (player)
+		mvwprintw(display, 5, 5, "Winner is %s", player->name);
+	else
+		mvwprintw(display, 5, 5, "Everybody loses");
+	mvwprintw(display, 5, 6, "Press any key to quit");
+	refresh();
+	wrefresh(display);
+	timeout(-1);
+	getch();
+}
+
 void	n_print_game_state(t_vm *vm)
 {
 	char c;
@@ -176,6 +197,8 @@ void	n_print_game_state(t_vm *vm)
 	n_print_cycles(vm);
 	n_print_life_info(vm);
 	n_print_cursor(vm);
+	n_refresh_all(vm);
+
 	timeout(vm->cwv.speed);
 	c = getch();
 	if (c == ' ')
@@ -183,7 +206,6 @@ void	n_print_game_state(t_vm *vm)
 		timeout(-1);
 		getch();
 	}
-	n_refresh_all(vm);
 }
 
 void	n_init_curses(t_vm *vm)
