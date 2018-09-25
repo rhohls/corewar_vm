@@ -21,9 +21,7 @@ void	display_winner(t_vm *vm)
 	if (player)
 	{
 		if (vm->cwv.mode)
-		{
 			n_display_winner(vm, player);
-		}
 		else
 			ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
 	}
