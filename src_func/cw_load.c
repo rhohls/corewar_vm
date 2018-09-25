@@ -28,7 +28,7 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 	int		*reg;
 	int 	jump;
 	int		indirect;
-	//shits fucked, fix it
+	
 	jump = 1;
 	if (cursor->encoding == DR)
 	{
@@ -38,10 +38,10 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 	}
 	else if (cursor->encoding == IR)
 	{
-		indirect = get_half_c_int(CORE_PC_PLUS(2), vm);
 		if (long_ld)
-			indirect = indirect % IDX_MOD;
-		info_to_load = get_core_int(CORE_PC_PLUS(indirect), vm);
+			info_to_load = get_ind_nomod(2, vm, cursor);
+		else
+			info_to_load = get_ind(2, vm, cursor);
 		reg = get_reg(4, vm, cursor);
 		jump = 5;
 	}

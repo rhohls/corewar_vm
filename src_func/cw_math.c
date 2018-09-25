@@ -46,5 +46,5 @@ int	cw_math(t_vm *vm, t_cursor *cursor, t_param *param)
 		param->reg_store = reg_store;
 		param->success = 1;
 	}
-	return (jump);
+	return (jump);	
 }

@@ -190,7 +190,7 @@ void	print_cursor_register(t_cursor *cursor)
 	ft_putstr("\tRegister info:\n");
 	while (i < REG_NUMBER)
 	{
-		ft_printf("\t\treg[%d]: %d\n", i, cursor->reg[i]);
+		ft_printf("\t\treg[%d]: %d\n", i + 1, cursor->reg[i]);
 		i++;
 	}
 }

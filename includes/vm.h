@@ -32,7 +32,7 @@
 # define RIR 0b01110100 //116	74		
 # define RDR 0b01100100 //100	64		
 # define IRR 0b11010100 //212	d4		
-# define IIR 0b11110100 //224	e0		
+# define IIR 0b11110100 //244	f4		
 # define IDR 0b11100100 //228	e4		
 # define DRR 0b10010100 //148	94		
 # define DIR 0b10110100 //180	b4		
