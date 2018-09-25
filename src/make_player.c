@@ -93,7 +93,7 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 	if (read(fd, header, HEADER_SIZE) < 1)
 		exit_errnostr("Error reading file\n");
 		
-	prog_size = get_prog_size(&header[136]);
+	prog_size = get_prog_size(&header[136]); //check if empty
 	if (prog_size >= CHAMP_MAX_SIZE || prog_size <= 0)
 		exit_str("Error: Champ size incorrect\n");
 	program = (char *)ft_memalloc(prog_size);
@@ -108,7 +108,7 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 	
 	ret_player = ft_memalloc(sizeof(t_player));
 	i = 0;
-	while (header[i + 4])
+	while (header[i + 4]) //use filename if none given && check length
 	{
 		ret_player->name[i] = header[i + 4];
 		i++;		

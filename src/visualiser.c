@@ -212,6 +212,24 @@ void	n_print_game_state(t_vm *vm)
 		timeout(-1);
 		getch();
 	}
+	// 	c = getch();
+	// if (c == ' ')
+	// {
+	// 	timeout(-1);
+	// 	getch();
+	// }
+	// 	c = getch();
+	// if (c == ' ')
+	// {
+	// 	timeout(-1);
+	// 	getch();
+	// }
+	// c = getch();
+	// if (c == ' ')
+	// {
+	// 	timeout(-1);
+	// 	getch();
+	// }
 }
 
 void	n_init_colour_ref(t_vm *vm)
@@ -229,8 +247,11 @@ void	n_init_colour_ref(t_vm *vm)
 
 void	n_init_curses(t_vm *vm)
 {
-	vm->cwv.mode = 1;
-	vm->cwv.speed = 1;
+	if (vm->flags.visual)
+		vm->cwv.mode = 1;
+	else
+		vm->cwv.mode = 0;		
+	vm->cwv.speed = 0;
 	initscr();
 	cbreak();
 	keypad(stdscr, TRUE);

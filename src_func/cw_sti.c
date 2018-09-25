@@ -80,7 +80,8 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	}
 	if (jump > 0 && reg_info_toload)
 	{
-		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD), vm, cursor->player_num);
+		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD),
+							vm, cursor->player_num);
 	}
 	return (jump);
 }

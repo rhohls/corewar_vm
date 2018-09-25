@@ -5,3 +5,12 @@ start:
 	st r1,-4		#cp player num to pc + player num
 	st r1,r2		#copy player num into where pc is
 	st r3,:start	#copy 0 to pc
+	
+	ldi %-5, %0 , r7
+	
+	sti r7, %0, %10
+	
+	
+	
+	
+	
