@@ -26,17 +26,14 @@
 
 int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 {
-	//printf("- in ldi -\n");
 	int		info_to_load;
 	int		location_info;
-	int		indirect;
 	int		*reg_to_load;
 	int		*reg;
-	int 	jump;
+	int		jump;
 
 	jump = 1;
 	location_info = 0;
-	// , vm, cursor
 	if (cursor->encoding == RRR)
 	{
 		jump = 5;
@@ -60,7 +57,6 @@ int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 	else if (cursor->encoding == IRR)
 	{
 		jump = 6;
-		
 		if (long_ld)
 			location_info += get_ind_nomod(2, vm, cursor);
 		else
@@ -96,7 +92,6 @@ int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 		location_info += get_dir(4, vm, cursor, 1);
 		reg_to_load = get_reg(6, vm, cursor);
 	}
-	
 	if (jump > 1 && reg_to_load)
 	{
 		if (!long_ld)

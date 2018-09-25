@@ -56,7 +56,6 @@ FUNC_FILE = cw_add.c	\
 			cw_sub.c	\
 			cw_xor.c	\
 			cw_zjmp.c	\
-			cw_memcpy.c	\
 			cw_bitop.c	\
 			cw_math.c	\
 			cw_load.c	\

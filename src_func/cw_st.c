@@ -22,17 +22,13 @@
 
 int	cw_st(t_vm *vm, t_cursor *cursor)
 {
-	//printf("- in st -\n");
-	// int reg_num;
 	int		*reg;
 	int		*reg_info;
 	int		dest;
-	int 	jump;
-
+	int		jump;
 
 	jump = 1;
 	reg_info = get_reg(2, vm, cursor);
-	
 	if (cursor->encoding == RR)
 	{
 		if (!(reg = get_reg(3, vm, cursor)))
@@ -47,7 +43,7 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	}
 	if (jump > 1 && reg_info)
 	{
-		store_core_int(*reg_info, PC_PLUS(dest %IDX_MOD), vm);
+		store_core_int(*reg_info, PC_PLUS(dest % IDX_MOD), vm);
 	}
 	return (jump);
 }

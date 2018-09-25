@@ -17,6 +17,7 @@
 static void	do_print(va_list var_list, char *input, int index)
 {
 	char		*str;
+	char		c;
 	int			num;
 
 	if (input[index] == 's')
@@ -28,6 +29,11 @@ static void	do_print(va_list var_list, char *input, int index)
 	{
 		num = va_arg(var_list, int);
 		ft_putnbr(num);
+	}
+	else if (input[index] == 'c')
+	{
+		c = va_arg(var_list, int);
+		ft_putchar(c);
 	}
 }
 
@@ -44,7 +50,7 @@ int			ft_printf(char *input, ...)
 		{
 			index++;
 			if (input[index] == 's' || input[index] == 'i'
-			|| input[index] == 'd')
+			|| input[index] == 'd' || input[index] == 'c')
 				do_print(var_list, input, index);
 			else
 			{

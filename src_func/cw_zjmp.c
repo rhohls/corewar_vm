@@ -14,12 +14,11 @@
 
 int	cw_zjmp(t_vm *vm, t_cursor *cursor)
 {
-	//printf("- in zjump -\n");
 	int jump;
-	
+
 	if (cursor->carry)
 	{
-		jump = get_dir(1, vm, cursor, 1); 
+		jump = get_dir(1, vm, cursor, 1);
 		jump = jump % IDX_MOD;
 	}
 	else

@@ -69,9 +69,6 @@ void	cycle_dump(t_vm *vm)
 		exit(0);
 }
 
-
-
-
 void	vm_loop(t_vm *vm)
 {
 	int i = 0;

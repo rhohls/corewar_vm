@@ -16,16 +16,14 @@
 **	ld par1, par2
 **	par1 = dir or ind
 **	par2 = reg
-**	ld coppies REG_SIZE bytes from par1 (PC + (par1 % IDX_MOD)) 
+**	ld coppies REG_SIZE bytes from par1 (PC + (par1 % IDX_MOD))
 **	into par2(reg)
 */
 
 int	cw_ld(t_vm *vm, t_cursor *cursor)
 {
-	// printf("- in ld -\n");
-	int 	jump;
-	
-	jump = cw_load(vm, cursor, 0);
+	int	jump;
 
+	jump = cw_load(vm, cursor, 0);
 	return (jump);
 }
