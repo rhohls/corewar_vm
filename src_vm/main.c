@@ -85,7 +85,7 @@ int main(int argc, char **argv)
 	add_flags(&args, &vm);
 	init_players(&args, &vm);
 	
-	print_flags(&vm);
+	// print_flags(&vm);
 	// //printf("player_list length %zu\n", vm.player_list->length);
 	
 	ft_bzero(vm.core, MEM_SIZE);

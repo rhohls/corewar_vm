@@ -57,15 +57,12 @@ void	cycle_dump(t_vm *vm)
 		exit(0);
 }
 
-
-
-
 void	vm_loop(t_vm *vm)
 {
 	int i = 0;
 	int print_update;
 
-	print_game_state(vm);
+	// print_game_state(vm);
 	while(1)
 	{
 		print_update = 0;

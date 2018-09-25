@@ -67,16 +67,12 @@ int main()
 	
 	a[0] = -5;
 	
+	ft_printf("cahr is %c\n", 'h');
+	
+	
 	printf("%02x\n",a[0]);
 	n_putnbr_hex(a[0]);
 	return (0);	
-	
-	
-	
-	char prog[50];
-	
-	p
-	
 	
 	
 }

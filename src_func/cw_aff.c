@@ -14,11 +14,10 @@
 
 int	cw_aff(t_vm *vm, t_cursor *cursor)
 {
-	printf("- in aff -\n");
 	int				jump;
 	int				*reg_info;
 	unsigned char	print_char;
-	
+
 	jump = 1;
 	if ((cursor->encoding & R) == R)
 	{
@@ -27,12 +26,11 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 			return (jump);
 		//change to print printable character?
 		// %256 & ABS to get char
-		
-		print_char = (unsigned char)(*reg_info);
-		
-		ft_printf("aff operation from cursor at %d from register %d and player number %d\n",
-					cursor->pc, CORE_PC_PLUS(2), cursor->player_num);
+		// print_char = (unsigned char)(*reg_info);
+		ft_printf("aff operation from cursor at %d from register %d ",
+					cursor->pc, CORE_PC_PLUS(2));
+		ft_printf("and player number %d\n", cursor->player_num);
 		ft_printf("The info: %c (%d)\n", print_char, *reg_info);
-		}
+	}
 	return (3);
 }

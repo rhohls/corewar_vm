@@ -28,7 +28,6 @@ t_player *get_player(t_vm *vm, int player_num)
 	return (NULL);
 }
 
-
 static void apply_life(t_vm *vm, int player_num)
 {
 	t_player	*player;
@@ -46,9 +45,8 @@ static void apply_life(t_vm *vm, int player_num)
 // “A process shows that player X (champion_name) is alive”
 int	cw_live(t_vm *vm, t_cursor *cursor)
 {
-	//printf("- in live -\n");
 	int player_num;
-	
+
 	cursor->live_call = 1;
 	player_num = get_dir(1, vm, cursor, 0);
 	apply_life(vm, player_num);

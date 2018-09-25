@@ -25,19 +25,9 @@
 
 int	cw_sub(t_vm *vm, t_cursor *cursor)
 {
-	//printf("- in sub -\n");
 	int		jump;
 	t_param	param;
-	
-	jump = cw_math(vm, cursor, &param);
-	
-	if (param.success && param.reg_store != NULL)
-	{
-		*(param.reg_store) = param.par1 - param.par2;
-		if (!(*(param.reg_store)))
-			cursor->carry = 1;
-		else
-			cursor->carry = 0;
-	}
+
+	jump = cw_math(vm, cursor, &param, 0);
 	return (jump);
 }

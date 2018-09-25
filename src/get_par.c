@@ -52,8 +52,6 @@ int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor)
 {
 	int	indirect;
 	indirect = get_half_c_int(PC_PLUS(relative_pc), vm) % IDX_MOD;
-	printf("inderect: %d  | ans: %d\n", indirect,
-					get_core_int(PC_PLUS(indirect), vm));
 	return (get_core_int(PC_PLUS(indirect), vm));	
 }
 

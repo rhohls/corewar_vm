@@ -84,7 +84,7 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 		jump = 11;
 		bitop->par1 = get_dir(2, vm, cursor, 0);
 		bitop->par2 = get_dir(6, vm, cursor, 0);
-		bitop->reg_store = get_reg(10, vm, cursor);	
+		bitop->reg_store = get_reg(10, vm, cursor);
 	}	
 	else if (cursor->encoding == DIR)
 	{
@@ -93,7 +93,7 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 		bitop->par2 = get_ind(6, vm, cursor);
 		bitop->reg_store = get_reg(8, vm, cursor);
 	}
-	else if (cursor->encoding == IDR)	
+	else if (cursor->encoding == IDR)
 	{
 		jump = 9;
 		bitop->par1 = get_ind(2, vm, cursor);

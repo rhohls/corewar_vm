@@ -25,35 +25,22 @@
 
 int	cw_sti(t_vm *vm, t_cursor *cursor)
 {
-	//printf("- in sti -\n");
-	
-	// int reg_num;
 	int		*reg;
 	int		*reg_info_toload;
 	int		dest;
-	int 	jump;
-	
+	int		jump;
+
 	dest = 0;
 	jump = 1;
 	reg_info_toload = get_reg(2, vm, cursor);
-	
-	
-	//printf("cursor pc %d\n", cursor->pc);
-	//printf("register num for info %d  -  val: %d\n", CORE_PC_PLUS(2), *reg_info_toload);
-	
-	
-	
-	
 	if (cursor->encoding == RRR)
-	{	
+	{
 		jump = 5;
 		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
-		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
 		dest += *(reg);
 		if (!(reg = get_reg(4, vm, cursor)))
 			return (jump);
-		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(4), *reg);
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RRD)
@@ -61,48 +48,40 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 		jump = 6;
 		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
-		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(3), *reg);
 		dest += *(reg);
 		dest += get_dir(4, vm, cursor, 1);
 	}
 	else if (cursor->encoding == RIR)
 	{
 		jump = 6;
-		dest += get_ind(3, vm, cursor);	
+		dest += get_ind(3, vm, cursor);
 		if (!(reg = get_reg(5, vm, cursor)))
 			return (jump);
-		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(5), *reg);
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RDR)
 	{
 		jump = 6;
-		dest += get_dir(3, vm, cursor, 1);		
+		dest += get_dir(3, vm, cursor, 1);
 		if (!(reg = get_reg(5, vm, cursor)))
 			return (jump);
-		// //printf("register num %d  -  val: %d\n", CORE_PC_PLUS(5), *reg);
 		dest += *(reg);
 	}
 	else if (cursor->encoding == RID)
 	{
 		jump = 7;
-		dest += get_ind(3, vm, cursor);	
+		dest += get_ind(3, vm, cursor);
 		dest += get_dir(5, vm, cursor, 1);
 	}
 	else if (cursor->encoding == RDD)
 	{
 		jump = 7;
 		dest += get_dir(3, vm, cursor, 1);
-		dest += get_ind(5, vm, cursor);	
+		dest += get_ind(5, vm, cursor);
 	}
-	
 	if (jump > 0 && reg_info_toload)
 	{
-		// marking sheet says idx mod here
-		store_core_int(*reg_info_toload, PC_PLUS(dest %IDX_MOD), vm);
+		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD), vm);
 	}
-	// //printf("relative to pc where to stor info %d with mod %d\n", dest, dest%IDX_MOD);
-	
-	// print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
 	return (jump);
 }
