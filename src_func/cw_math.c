@@ -42,7 +42,7 @@ static void	opperate(t_param *param, t_cursor *cursor, int type)
 	}
 }
 
-int	cw_math(t_vm *vm, t_cursor *cursor, t_param *param, int type)
+int			cw_math(t_vm *vm, t_cursor *cursor, t_param *param, int type)
 {
 	int		jump;
 	int		*reg_info_1;

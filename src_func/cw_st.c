@@ -43,7 +43,8 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	}
 	if (jump > 1 && reg_info)
 	{
-		printf("dest stor location %d with number %d\n", PC_PLUS(dest % IDX_MOD), *reg_info);
+		// printf("dest stor location %d with number %d\n",
+		// PC_PLUS(dest % IDX_MOD), *reg_info);
 		store_core_int(*reg_info, PC_PLUS(dest % IDX_MOD), vm);
 	}
 	return (jump);

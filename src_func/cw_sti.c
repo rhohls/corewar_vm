@@ -22,7 +22,6 @@
 **	their contents are used as indexes.
 */
 
-
 int	cw_sti(t_vm *vm, t_cursor *cursor)
 {
 	int		*reg;

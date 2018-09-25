@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cw_bitop.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/25 16:18:03 by rhohls            #+#    #+#             */
+/*   Updated: 2018/09/25 16:18:08 by rhohls           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -17,7 +27,6 @@
 
 int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 {
-	//printf("- in bitop -\n");
 	int		jump;
 	int		info_location;
 	int		indirect;
@@ -85,7 +94,7 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 		bitop->par1 = get_dir(2, vm, cursor, 0);
 		bitop->par2 = get_dir(6, vm, cursor, 0);
 		bitop->reg_store = get_reg(10, vm, cursor);
-	}	
+	}
 	else if (cursor->encoding == DIR)
 	{
 		jump = 9;

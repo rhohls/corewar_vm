@@ -12,11 +12,11 @@
 
 #include "../includes/vm.h"
 
-t_player *get_player(t_vm *vm, int player_num)
+t_player	*get_player(t_vm *vm, int player_num)
 {
 	t_player	*player;
 	t_list		*node;
-	
+
 	node = vm->player_list->start;
 	while (node)
 	{
@@ -28,10 +28,10 @@ t_player *get_player(t_vm *vm, int player_num)
 	return (NULL);
 }
 
-static void apply_life(t_vm *vm, int player_num)
+static void	apply_life(t_vm *vm, int player_num)
 {
 	t_player	*player;
-	
+
 	player = get_player(vm, player_num);
 	if (player && player->alive)
 	{
@@ -41,9 +41,7 @@ static void apply_life(t_vm *vm, int player_num)
 	}
 }
 
-// For each valid execution of the live instruction, the machine must display:
-// “A process shows that player X (champion_name) is alive”
-int	cw_live(t_vm *vm, t_cursor *cursor)
+int			cw_live(t_vm *vm, t_cursor *cursor)
 {
 	int player_num;
 

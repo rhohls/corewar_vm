@@ -16,7 +16,7 @@
 **	ld par1, par2
 **	par1 = dir or ind
 **	par2 = reg
-**	ld coppies REG_SIZE bytes from par1 (PC + (par1 % IDX_MOD)) 
+**	ld coppies REG_SIZE bytes from par1 (PC + (par1 % IDX_MOD))
 **	into par2(reg)
 */
 

@@ -12,6 +12,11 @@
 
 #include "../includes/vm.h"
 
+/*
+** change to print printable character?
+** %256 & ABS to get char
+*/
+
 int	cw_aff(t_vm *vm, t_cursor *cursor)
 {
 	int				jump;
@@ -24,9 +29,7 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 		jump = 3;
 		if (!(reg_info = get_reg(2, vm, cursor)))
 			return (jump);
-		//change to print printable character?
-		// %256 & ABS to get char
-		// print_char = (unsigned char)(*reg_info);
+		print_char = (unsigned char)(*reg_info);
 		ft_printf("aff operation from cursor at %d from register %d ",
 					cursor->pc, CORE_PC_PLUS(2));
 		ft_printf("and player number %d\n", cursor->player_num);
