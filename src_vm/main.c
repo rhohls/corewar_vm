@@ -77,7 +77,9 @@ int main(int argc, char **argv)
 	marco_saftey();
 	if (argc < 2)
 		print_usage();
-
+	// set visualiser on or off
+	
+	
 	args.argv = argv;
 	args.argc = argc;
 	args.index = 1;
@@ -104,6 +106,8 @@ int main(int argc, char **argv)
 	
 	// print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	//printf("\n~~~~~~~\n");
+	n_init_curses(&vm);
+	n_print_core(&vm);
 	
 	// printf("test val %d\n",get_core_int(7, &vm));
 	
@@ -114,6 +118,7 @@ int main(int argc, char **argv)
 	
 	
 	//printf("\n---Final Board ---\n");
-	print_game_state(&vm);	
+	endwin();
+	// print_game_state(&vm);	
 	return (0);
 }

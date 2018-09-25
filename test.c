@@ -67,11 +67,27 @@ int main()
 	
 	a[0] = -5;
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	a = add(10, 5);
+<<<<<<< HEAD
+<<<<<<< HEAD
+	// printf("result %d\n",a);
+=======
+	//printf("result %d\n",a);
+>>>>>>> cbe397eb1b616fa8c7654e19f1f6e90679fa8c83
+=======
+	// printf("result %d\n",a);
+>>>>>>> 66e37c935ff95297bc98b93b22b8e3338032e559
+=======
+=======
 	ft_printf("cahr is %c\n", 'h');
 	
 	
+>>>>>>> ae97f6f83d308af68e86413eafb4a05a17944166
 	printf("%02x\n",a[0]);
 	n_putnbr_hex(a[0]);
+>>>>>>> db1ea8f27a6b45f7a2709d2ae69028f2940f9668
 	return (0);	
 	
 	

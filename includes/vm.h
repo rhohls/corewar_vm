@@ -14,6 +14,7 @@
 # define VM_H
 
 # include "op.h"
+# include "cwv.h"
 # include "../libft/includes/libft.h"
 
 # include <stdlib.h>
@@ -91,6 +92,7 @@ typedef struct	s_vm
 	t_stack		*player_list;
 	t_flags		flags;
 	t_life		life_info;
+	t_visual	cwv;
 }				t_vm;
 
 typedef struct	s_player
@@ -133,7 +135,7 @@ int			get_point_int(char *pointer_to_int);
 int			get_half_p_int(char *pointer_to_int);
 int			get_core_int(int start_of_int, t_vm *vm);
 int			get_half_c_int(int start_of_int, t_vm *vm);
-void		store_core_int(int number, int core_dest_start, t_vm *vm);
+void		store_core_int(int number, int core_dest_start, t_vm *vm, int player_num);
 
 int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor);
 int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size);
@@ -144,6 +146,7 @@ void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
 t_player	*make_player(t_args *args, int *player_num, t_vm *vm);
+int			get_colour_ref(t_vm *vm, int num);
 void		set_op_tab(t_vm *vm_data);
 void		display_winner(t_vm *vm);
 
@@ -153,6 +156,7 @@ t_cursor	*create_cursor(t_vm *vm, int pc);
 void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
+void 		replace_live(t_vm *vm, t_list *players); 
 void		init_players(t_args *args, t_vm *vm);
 void		name_replacer(t_vm *vm, t_list *player);
 void		incr_all_cursor(t_vm *vm, int *print);
@@ -228,5 +232,22 @@ int			lld_jump(char *program);
 int			lldi_jump(char *program);
 int			lfork_jump(char *program);
 int			aff_jump(char *program);
+
+/*
+**	Visualiser functions
+*/
+void	n_init_curses(t_vm *vm);
+void	n_init_windows(t_vm *vm, int win);
+void	n_init_sizes(t_vm *vm);
+void	n_init_color_pairs();
+void	n_print_core(t_vm *vm);
+void	n_print_game_state(t_vm *vm);
+void	n_print_cursor(t_vm *vm);
+void	n_refresh_all(t_vm *vm);
+void	n_putnbr_hex(t_vm *vm, int octet, int x, int y, int col);
+void	n_display_winner(t_vm *vm, t_player *player);
+void	n_reset_cursor(t_vm *vm);
+void	n_print_one_cursor(t_vm *vm, t_cursor *cursor);
+int		get_colour(t_vm *vm, int core_index);
 
 #endif

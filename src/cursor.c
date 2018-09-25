@@ -25,6 +25,7 @@ t_cursor	*create_cursor(t_vm *vm, int pc)
 		cursor->reg[i] = 0;
 		i++;
 	}
+	cursor->live_call = 1;
 	update_cursor_info(cursor, vm, 0);
 	return (cursor);
 }
@@ -59,7 +60,11 @@ void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 	// printf(": old_pc-%d  jump-%d\t wrapped-%d\t",cursor->pc, cursor_jump, WRAP(cursor->pc + cursor_jump));
 	// printf("Memesize: %d\n", MEM_SIZE);
 	
-	// printf("old pc %d - ", cursor->pc);
+	// //printf("old pc %d - ", cursor->pc);
+	// if (vm->cwv.mode)
+		// n_print_cursor(vm);
+	refresh();
+	wrefresh(DISPLAY(0));
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
 	// printf("new pc %d \n", cursor->pc);	
 	// printf("core info = %02x\t", EBYTE(vm->core[WRAP(cursor->pc)]));

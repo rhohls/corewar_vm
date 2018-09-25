@@ -19,6 +19,7 @@
 
 int	cw_aff(t_vm *vm, t_cursor *cursor)
 {
+	// printf("- in aff -\n");
 	int				jump;
 	int				*reg_info;
 	unsigned char	print_char;

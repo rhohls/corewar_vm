@@ -12,8 +12,6 @@
 
 #include "../includes/vm.h"
 
-void replace_live(t_vm *vm, t_list *players); // TO BE MOVED TO HEADER
-
 void init_vm(t_vm *vm)
 {
 	ft_bzero(vm, sizeof(t_vm));
