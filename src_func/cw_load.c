@@ -45,7 +45,7 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 		reg = get_reg(4, vm, cursor);
 		jump = 5;
 	}
-	printf("\nld info to load: %d  @ location %d\n", info_to_load, PC_PLUS(2));
+	// printf("\nld info to load: %d  @ location %d\n", info_to_load, PC_PLUS(2));
 	if (jump > 1 && reg)
 	{
 		
