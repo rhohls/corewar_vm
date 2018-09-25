@@ -32,7 +32,7 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 		
 		ft_printf("aff operation from cursor at %d from register %d and player number %d\n",
 					cursor->pc, CORE_PC_PLUS(2), cursor->player_num);
-		printf("The info: %c (%d)\n", print_char, *reg_info);
+		ft_printf("The info: %c (%d)\n", print_char, *reg_info);
 		}
 	return (3);
 }

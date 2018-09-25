@@ -102,8 +102,8 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 	}
 	else
 		return (jump);
-	printf("bitop->par1 : %d\n",bitop->par1);
-	printf("bitop->par2 : %d\n",bitop->par2);
+	// printf("bitop->par1 : %d\n",bitop->par1);
+	// printf("bitop->par2 : %d\n",bitop->par2);
 	bitop->success = 1;
 	return (jump);
 }
