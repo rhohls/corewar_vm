@@ -60,29 +60,10 @@ static void		size_balance(t_vm *vm, unsigned int size)
 	player_node = vm->player_list->start;
 	while (player_node)
 	{
-<<<<<<< HEAD
-		i = 0;
-		x = offset[1];
-		
-		
-		while (i < ((t_player *)(players->content))->program_size)
-		{
-			vm->core[x] = ((t_player *)(players->content))->program[i];
-			x++;
-			i++;
-		}
-		
-		add_initial_player_cursor(vm, offset[1], (t_player *)(players->content));
-		((t_player *)(players->content))->start_location = offset[1];
-		// //printf("adding cursor at %d\n", offset[1]);
-		offset[1] += offset[0];
-		players = players->next;
-=======
 		player = player_node->content;
 		insert_player(vm, start_location, player);
 		start_location += offset;		
 		player_node = player_node->next;
->>>>>>> 9bcc2d998f0981cde763deabc5dda41606b8f5d3
 	}
 }
 

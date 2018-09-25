@@ -25,6 +25,7 @@ t_cursor *create_cursor(t_vm *vm, int pc)
 		cursor->reg[i] = 0;
 		i++;
 	}
+	cursor->live_call = 1;
 	update_cursor_info(cursor, vm, 0);
 	return (cursor);
 }

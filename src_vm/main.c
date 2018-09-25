@@ -106,14 +106,11 @@ int main(int argc, char **argv)
 	
 	// print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	//printf("\n~~~~~~~\n");
-<<<<<<< HEAD
 	n_init_curses(&vm);
 	n_print_core(&vm);
-=======
 	
 	// printf("test val %d\n",get_core_int(7, &vm));
 	
->>>>>>> 9bcc2d998f0981cde763deabc5dda41606b8f5d3
 	vm_loop(&vm);
 	
 	
@@ -121,7 +118,7 @@ int main(int argc, char **argv)
 	
 	
 	//printf("\n---Final Board ---\n");
-	print_game_state(&vm);	
 	endwin();
+	// print_game_state(&vm);	
 	return (0);
 }

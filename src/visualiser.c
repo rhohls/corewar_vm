@@ -30,16 +30,16 @@ void	n_print_cursor(t_vm *vm)
 	{
 		cursor = stack->content;
 		col = player_num_to_colour_num(vm, cursor->player_num);
-		y = 1;
+		y = 0;
 		x = cursor->pc;
-		while (x > OCTET)
+		while (x >= OCTET)
 		{
 			x -= OCTET;
 			y++;
 		}
 		if (col)
 			wattron(DISPLAY(0), A_REVERSE);
-		n_putnbr_hex(vm, (unsigned char)vm->core[x], (x * 3) + 1, y, col);
+		n_putnbr_hex(vm, (unsigned char)vm->core[x], (x * 3) + 1, y + 1, col);
 		if (col)
 			wattroff(DISPLAY(0), A_REVERSE);
 		wmove(DISPLAY(2), i, 2);
@@ -125,19 +125,22 @@ void	n_print_names(t_vm *vm)
 		mvwprintw(DISPLAY(1), i++, 5, "%s", player->name);
 		wattroff(DISPLAY(1), A_BOLD | COLOR_PAIR(col++));
 		mvwprintw(DISPLAY(1), i++, 5, "Size: %d bytes", player->program_size);
+		wmove(DISPLAY(1),  i, 5);
+		wclrtoeol(DISPLAY(1));
 		mvwprintw(DISPLAY(1), i, 5, "Lives: %d", player->nbr_lives);
+		box(DISPLAY(1), 0, 0);
 		node = node->next;
 		i++;
 	}
 }
 
+
 void	n_print_life_info(t_vm *vm)
 {
 	t_life node;
 	t_list *temp;
-
 	node = vm->life_info;
-	mvwprintw(DISPLAY(1), 30, 1, "Total turns: %d", node.nbr_checkups);
+	mvwprintw(DISPLAY(1), 30, 1, "Total turns: %d", node.nbr_live_calls);
 }
 
 void	n_print_cycles(t_vm *vm)
@@ -146,6 +149,8 @@ void	n_print_cycles(t_vm *vm)
 	wmove(DISPLAY(1),  33, 1);
 	wclrtoeol(DISPLAY(1));
 	mvwprintw(DISPLAY(1), 33, 1, "Current cycle: %d", vm->curr_cycle);
+	wmove(DISPLAY(1),  34, 1);
+	wclrtoeol(DISPLAY(1));
 	mvwprintw(DISPLAY(1), 34, 1, "Cycles to die: %d", vm->cycle_to_die);
 	mvwprintw(DISPLAY(1), 35, 1, "Cycle delta: %d", CYCLE_DELTA);
 	mvwprintw(DISPLAY(1), 36, 1, "Max checks: %d", MAX_CHECKS);
@@ -158,6 +163,8 @@ void	n_key_get(t_vm *vm)
 
 	timeout(1);
 	c = getch();
+	if (c == 'p')
+		timeout(1);
 	if (c == KEY_LEFT)
 		vm->cwv.speed--;
 	else if (c == KEY_RIGHT)
@@ -167,17 +174,19 @@ void	n_key_get(t_vm *vm)
 void	n_display_winner(t_vm *vm, t_player *player)
 {
 	int		x;
+	int		x2;
 	int		y;
+	int		y2;
 	WINDOW	*display;
 	getmaxyx(stdscr, y, x);
-	display = newwin(10, 5, y / 2, x / 2);
+	display = newwin(y / 2, x / 2, (y / 5) / 2, (x / 5) / 2);
 	getmaxyx(display, y, x);
 	box(display, 0, 0);
 	if (player)
 		mvwprintw(display, 5, 5, "Winner is %s", player->name);
 	else
 		mvwprintw(display, 5, 5, "Everybody loses");
-	mvwprintw(display, 5, 6, "Press any key to quit");
+	mvwprintw(display, 6, 5, "Press any key to quit");
 	refresh();
 	wrefresh(display);
 	timeout(-1);
@@ -188,14 +197,13 @@ void	n_print_game_state(t_vm *vm)
 {
 	char c;
 
-	// n_key_get(vm);
-	n_print_core(vm);
+	n_key_get(vm);
+	// n_print_core(vm);
 	n_print_names(vm);
 	n_print_cycles(vm);
 	n_print_life_info(vm);
 	n_print_cursor(vm);
 	n_refresh_all(vm);
-
 	timeout(vm->cwv.speed);
 	c = getch();
 	if (c == ' ')
@@ -211,6 +219,7 @@ void	n_init_curses(t_vm *vm)
 	vm->cwv.speed = 1;
 	initscr();
 	cbreak();
+	// raw();
 	keypad(stdscr, TRUE);
 	noecho();
 	curs_set(0);
