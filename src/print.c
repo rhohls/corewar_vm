@@ -182,12 +182,26 @@ void	print_cycle_info(t_vm *vm)
 	// ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
 }
 
+void	print_cursor_register(t_cursor *cursor)
+{
+	int i;
+	
+	i = 0;
+	ft_putstr("\tRegister info:\n");
+	while (i < REG_NUMBER)
+	{
+		ft_printf("\t\treg[%d]: %d\n", i + 1, cursor->reg[i]);
+		i++;
+	}
+}
+
 void	print_one_cursor(t_cursor *cursor)
 {
 	ft_printf("\tCursor location\t- %d\n", cursor->pc);
 	ft_printf("\tCurrent OP code\t- %d\n", cursor->op_code);
 	ft_printf("\tAmt cycles left\t- %d\n", cursor->curr_cycle);
-	ft_printf("\tLive call\t- %d\n", cursor->live_call);	
+	ft_printf("\tLive call\t- %d\n", cursor->live_call);
+	print_cursor_register(cursor);
 }
 
 void	print_cursor_info(t_vm *vm)

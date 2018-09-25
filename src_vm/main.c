@@ -96,19 +96,29 @@ int main(int argc, char **argv)
 	
 	if (vm.player_list->length < 2)
 	{
-		vm.life_info.last_live_playernum = 
-			((t_player *)(vm.player_list->start->content))->player_num;
-		display_winner(&vm);
-		exit(0);
+		// vm.life_info.last_live_playernum = 
+		// 	((t_player *)(vm.player_list->start->content))->player_num;
+		// display_winner(&vm);
+		// exit(0);
 	}
 	else if (vm.player_list->length > MAX_PLAYERS)
 		exit_str("Error: Too many champions\n");
 	
-	print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
+	// print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	//printf("\n~~~~~~~\n");
+<<<<<<< HEAD
 	n_init_curses(&vm);
 	n_print_core(&vm);
+=======
+	
+	// printf("test val %d\n",get_core_int(7, &vm));
+	
+>>>>>>> 9bcc2d998f0981cde763deabc5dda41606b8f5d3
 	vm_loop(&vm);
+	
+	
+	
+	
 	
 	//printf("\n---Final Board ---\n");
 	print_game_state(&vm);	

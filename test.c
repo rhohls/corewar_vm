@@ -84,4 +84,12 @@ int main()
 >>>>>>> db1ea8f27a6b45f7a2709d2ae69028f2940f9668
 	return (0);	
 	
+	
+	
+	char prog[50];
+	
+	p
+	
+	
+	
 }

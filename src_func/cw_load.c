@@ -24,10 +24,11 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 {
 	//printf("- in ld -\n");
 	int		info_to_load;
-	int		location_info;
+	// int		location_info;
 	int		*reg;
 	int 	jump;
-
+	int		indirect;
+	
 	jump = 1;
 	if (cursor->encoding == DR)
 	{
@@ -37,18 +38,17 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 	}
 	else if (cursor->encoding == IR)
 	{
-		location_info = get_ind(2, vm, cursor);		
+		if (long_ld)
+			info_to_load = get_ind_nomod(2, vm, cursor);
+		else
+			info_to_load = get_ind(2, vm, cursor);
 		reg = get_reg(4, vm, cursor);
 		jump = 5;
 	}
-	
-	//printf("cursor pc %d\n", cursor->pc);	
-	//printf("location for info %d (rel PC)-%d actual info: %d\n", location_info, location_info % IDX_MOD, info_to_load);
-	
+	printf("\nld info to load: %d  @ location %d\n", info_to_load, PC_PLUS(2));
 	if (jump > 1 && reg)
 	{
-		if (!long_ld)
-			location_info = location_info % IDX_MOD;
+		
 		*reg = info_to_load;
 		if (info_to_load)
 			cursor->carry = 1;

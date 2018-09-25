@@ -93,9 +93,6 @@ void	n_print_core(t_vm *vm)
 		while (cunt < OCTET)
 		{
 			colour = get_colour(vm, i);
-			// wattron(DISPLAY(2), COLOR_PAIR(colour));
-			// mvwprintw(DISPLAY(2), colour, 1, "%d", colour);
-			// wattroff(DISPLAY(2), COLOR_PAIR(colour));
 			n_putnbr_hex(vm, (unsigned char)vm->core[i], x, y, colour);
 			x += 2;
 			mvwprintw(DISPLAY(0), y, x, "%c", ' ');

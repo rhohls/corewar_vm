@@ -47,7 +47,8 @@ int	cw_forking(t_vm *vm, t_cursor *cursor, int long_fk)
 	if (!long_fk)
 		new_pc = new_pc % IDX_MOD;
 	new_pc = PC_PLUS(new_pc);
-	new_cursor = duplicate_cursor(vm, cursor, new_pc);	
+	new_cursor = duplicate_cursor(vm, cursor, new_pc);
+	update_cursor_info(new_cursor, vm, 0); //???
 	add_cursor_to_cursorlist(vm, new_cursor);	
 	//printf("new pc location: %d with mod rel to pc: %d\n", get_half_c_int(PC_PLUS(1), vm), new_pc);
 	return (3);

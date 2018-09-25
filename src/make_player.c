@@ -117,6 +117,14 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 	// printf("player num: %d\n", *player_num);
 	// printf("player start: %d\n\n", player_start);
 	
+	// int fd2 = open("testprg", O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
+	
+	// program[0] = 03;
+	// program[1] = 84;
+	// program[2] = 7;
+	// write(fd2, program, prog_size);
+	// close(fd2);
+	
 	ret_player->program = program;
 	ret_player->player_num = *player_num;
 	ret_player->start_location = player_start;

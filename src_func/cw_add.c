@@ -24,7 +24,7 @@
 
 int	cw_add(t_vm *vm, t_cursor *cursor)
 {
-	//printf("- in add -\n");
+	printf("- in add -\n");
 	int		jump;
 	t_param	param;
 	
@@ -32,6 +32,7 @@ int	cw_add(t_vm *vm, t_cursor *cursor)
 	
 	if (param.success && param.reg_store != NULL)
 	{
+		printf("param1: %d, param2: %d\n", param.par1, param.par2);
 		*(param.reg_store) = param.par1 + param.par2;
 		if (!(*(param.reg_store)))
 			cursor->carry = 1;

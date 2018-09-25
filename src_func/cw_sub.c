@@ -33,7 +33,7 @@ int	cw_sub(t_vm *vm, t_cursor *cursor)
 	
 	if (param.success && param.reg_store != NULL)
 	{
-		*(param.reg_store) = param.par1 + param.par2;
+		*(param.reg_store) = param.par1 - param.par2;
 		if (!(*(param.reg_store)))
 			cursor->carry = 1;
 		else

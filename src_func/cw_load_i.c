@@ -60,7 +60,11 @@ int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 	else if (cursor->encoding == IRR)
 	{
 		jump = 6;
-		location_info += get_ind(2, vm, cursor);
+		
+		if (long_ld)
+			location_info += get_ind_nomod(2, vm, cursor);
+		else
+			location_info += get_ind(2, vm, cursor);
 		if (!(reg = get_reg(4, vm, cursor)))
 			return (jump);
 		location_info += *(reg);
@@ -75,11 +79,21 @@ int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 		location_info += get_dir(3, vm, cursor, 1);
 		reg_to_load = get_reg(5, vm, cursor);
 	}
-	else if (cursor->encoding == DDR || cursor->encoding == IDR)
+	else if (cursor->encoding == DDR)
 	{
 		jump = 7;
-		location_info += get_ind(2, vm, cursor);
-		location_info += get_dir(5, vm, cursor, 1);
+		location_info += get_dir(2, vm, cursor, 1);
+		location_info += get_dir(4, vm, cursor, 1);
+		reg_to_load = get_reg(6, vm, cursor);
+	}
+	else if (cursor->encoding == IDR)
+	{
+		jump = 7;
+		if (long_ld)
+			location_info += get_ind_nomod(2, vm, cursor);
+		else
+			location_info += get_ind(2, vm, cursor);
+		location_info += get_dir(4, vm, cursor, 1);
 		reg_to_load = get_reg(6, vm, cursor);
 	}
 	
@@ -87,11 +101,13 @@ int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 	{
 		if (!long_ld)
 			location_info = location_info % IDX_MOD;
+		printf("location to get info: %d\n",info_to_load );
 		info_to_load = get_core_int(PC_PLUS(location_info), vm);
 		*reg_to_load = info_to_load;
-		if (*reg_to_load)
+		if (info_to_load)
+			cursor->carry = 0;
+		else
 			cursor->carry = 1;
 	}
-	
 	return (jump);
 }

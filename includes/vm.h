@@ -33,7 +33,7 @@
 # define RIR 0b01110100 //116	74		
 # define RDR 0b01100100 //100	64		
 # define IRR 0b11010100 //212	d4		
-# define IIR 0b11110100 //224	e0		
+# define IIR 0b11110100 //244	f4		
 # define IDR 0b11100100 //228	e4		
 # define DRR 0b10010100 //148	94		
 # define DIR 0b10110100 //180	b4		
@@ -140,6 +140,7 @@ void		store_core_int(int number, int core_dest_start, t_vm *vm);
 int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor);
 int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size);
 int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor);
+int			get_ind_nomod(int relative_pc, t_vm *vm, t_cursor *cursor);
 
 void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);

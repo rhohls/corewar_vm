@@ -30,21 +30,37 @@ void init_vm(t_vm *vm)
 /*
 ** offset[0] = size of offset between player starts
 ** offset[1] = index of player start
+** 
+** Nested while loads players onto board
 */
 
-static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int count)
+static void		insert_player(t_vm *vm, int player_start, t_player *player)
 {
-	t_list			*start;
-	u_int			offset[2];
-	int				i;
-	int				x;
-
-	offset[0] = MEM_SIZE / count;
-	offset[1] = 0;
-	start = players;
-	x = 0;
-	while (players)
+	int i;
+	
+	i = 0;
+	while (i < player->program_size)
 	{
+		vm->core[i + player_start] = player->program[i];
+		i++;
+	}
+	add_initial_player_cursor(vm, player_start, player);
+	player->start_location = player_start;	
+}
+
+static void		size_balance(t_vm *vm, unsigned int size)
+{
+	t_list			*player_node;
+	int				offset;
+	int				start_location;
+	t_player		*player;
+
+	offset = MEM_SIZE / vm->player_list->length;
+	start_location = 0;
+	player_node = vm->player_list->start;
+	while (player_node)
+	{
+<<<<<<< HEAD
 		i = 0;
 		x = offset[1];
 		
@@ -61,30 +77,28 @@ static void		size_balance(t_vm *vm, t_list *players, unsigned int size, int coun
 		// //printf("adding cursor at %d\n", offset[1]);
 		offset[1] += offset[0];
 		players = players->next;
+=======
+		player = player_node->content;
+		insert_player(vm, start_location, player);
+		start_location += offset;		
+		player_node = player_node->next;
+>>>>>>> 9bcc2d998f0981cde763deabc5dda41606b8f5d3
 	}
-	players = start;
-	
-	// print_cursor_info(vm);
 }
-// also need to load players cursors @ location
-// ft_sta
+
 void		load_players(t_vm *vm, char *board, t_list *player)
 {
 	unsigned int	size;
-	int				count;
 	t_list 			*start;
 	
 	size = 0;
-	count = 0;
 	start = player;
 	while (player)
 	{
 		size += ((t_player *)(player->content))->program_size;
 		name_replacer(vm, player);
 		player = player->next;
-		count++;
 	}
 	player = start;
-	size_balance(vm, player, size, count);
-	
+	size_balance(vm, size);
 }
