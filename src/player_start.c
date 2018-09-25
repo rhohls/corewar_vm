@@ -20,6 +20,12 @@
 
 #include <unistd.h>
 
+int		get_colour_ref(t_vm *vm, int byte_index)
+{
+	return (vm->cwv.colour_ref[byte_index]);
+}
+
+/*
 int		player_num_to_colour_num(t_vm *vm, int num)
 {
 	int			i;
@@ -38,7 +44,7 @@ int		player_num_to_colour_num(t_vm *vm, int num)
     }
 	return (0);
 }
-
+*/
 void    player(t_vm *vm)
 {
     t_player    *player;

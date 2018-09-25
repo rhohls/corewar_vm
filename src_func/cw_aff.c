@@ -14,10 +14,7 @@
 
 int	cw_aff(t_vm *vm, t_cursor *cursor)
 {
-<<<<<<< HEAD
 	// printf("- in aff -\n");
-=======
->>>>>>> ae97f6f83d308af68e86413eafb4a05a17944166
 	int				jump;
 	int				*reg_info;
 	unsigned char	print_char;
@@ -30,7 +27,6 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 			return (jump);
 		//change to print printable character?
 		// %256 & ABS to get char
-<<<<<<< HEAD
 		
 		print_char = (unsigned char)(*reg_info);
 		
@@ -38,13 +34,5 @@ int	cw_aff(t_vm *vm, t_cursor *cursor)
 					// cursor->pc, CORE_PC_PLUS(2), cursor->player_num);
 		// ft_printf("The info: %c (%d)\n", print_char, *reg_info);
 		}
-=======
-		// print_char = (unsigned char)(*reg_info);
-		ft_printf("aff operation from cursor at %d from register %d ",
-					cursor->pc, CORE_PC_PLUS(2));
-		ft_printf("and player number %d\n", cursor->player_num);
-		ft_printf("The info: %c (%d)\n", print_char, *reg_info);
-	}
->>>>>>> ae97f6f83d308af68e86413eafb4a05a17944166
 	return (3);
 }

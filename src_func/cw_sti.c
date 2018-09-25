@@ -33,16 +33,8 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	dest = 0;
 	jump = 1;
 	reg_info_toload = get_reg(2, vm, cursor);
-<<<<<<< HEAD
-	
-	
-	//printf("register num for info %d  -  val: %d\n", CORE_PC_PLUS(2), *reg_info_toload);
-	
-	{	
-=======
 	if (cursor->encoding == RRR)
 	{
->>>>>>> ae97f6f83d308af68e86413eafb4a05a17944166
 		jump = 5;
 		if (!(reg = get_reg(3, vm, cursor)))
 			return (jump);
@@ -89,7 +81,7 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	}
 	if (jump > 0 && reg_info_toload)
 	{
-		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD), vm);
+		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD), vm, cursor->player_num);
 	}
 	return (jump);
 }

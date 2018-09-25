@@ -41,7 +41,12 @@ int		verify_cursor(t_cursor *cursor, t_vm *vm)
 void	excute_instruction(t_cursor *cursor, t_vm *vm)
 {
 	int cursor_jump;
-	
+	int	colour;
+
+	int y = cursor->pc / 64;
+	int x = cursor->pc % 64;
+	colour = get_colour(vm, cursor->pc);
+	n_putnbr_hex(vm, CORE_PC_PLUS(0), (x * 3) + 1, y + 1, colour);
 	if (verify_cursor(cursor, vm))
 		cursor_jump = (*(g_func_ptr[cursor->op_code]))(vm,cursor);
 	else
@@ -52,6 +57,7 @@ void	excute_instruction(t_cursor *cursor, t_vm *vm)
 	//printf("  Updating cursor\n");
 	// print_one_cursor(cursor);
 	update_cursor_info(cursor, vm, cursor_jump);
-	
+	n_print_one_cursor(vm, cursor);
+	n_refresh_all(vm);
 }
 

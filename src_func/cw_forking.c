@@ -26,14 +26,8 @@ static t_cursor	*duplicate_cursor(t_vm *vm, t_cursor *cursor, int new_pc)
 	new_cursor = create_cursor(vm, new_pc);
 	new_cursor->player_num = cursor->player_num;
 	new_cursor->carry = cursor->carry;
-<<<<<<< HEAD
-	// new_cursor->live_call = cursor->live_call; //??
-	// new_cursor->live_call = 0;
-
-=======
 	new_cursor->live_call = cursor->live_call; //??
 	new_cursor->live_call = 0;
->>>>>>> ae97f6f83d308af68e86413eafb4a05a17944166
 	i = 0;
 	while (i < REG_NUMBER)
 	{

@@ -39,6 +39,7 @@ typedef struct	s_visual
 	int			mode;
 	int			speed;
 	int			fd;
+	int			colour_ref[MEM_SIZE];
 }				t_visual;
 
 #endif

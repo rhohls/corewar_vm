@@ -13,6 +13,22 @@
 #include "../includes/vm.h"
 #include "../includes/cwv.h"
 
+void	n_print_one_cursor(t_vm *vm, t_cursor *cursor)
+{
+	int col;
+	int y;
+	int x;
+
+	col = get_colour_ref(vm, cursor->pc);
+	if (col)
+		wattron(DISPLAY(0), A_REVERSE);
+	y = cursor->pc / 64;
+	x = cursor->pc % 64;
+	n_putnbr_hex(vm, cursor->op_code, (x * 3) + 1, y + 1, col);
+	if (col)
+		wattroff(DISPLAY(0), A_REVERSE);
+}
+
 void	n_print_cursor(t_vm *vm)
 {
 	int			y;
@@ -21,34 +37,22 @@ void	n_print_cursor(t_vm *vm)
 	t_cursor	*cursor;
 	t_list		*stack;
 	
-	int	i;
-
-	i = 0;
 	stack = vm->cursor_stack->start;
-	werase(DISPLAY(2));
 	while (stack)
 	{
 		cursor = stack->content;
-		col = player_num_to_colour_num(vm, cursor->player_num);
-		y = 0;
-		x = cursor->pc;
-		while (x >= OCTET)
-		{
-			x -= OCTET;
-			y++;
-		}
-		if (col)
-			wattron(DISPLAY(0), A_REVERSE);
-		n_putnbr_hex(vm, (unsigned char)vm->core[x], (x * 3) + 1, y + 1, col);
-		if (col)
-			wattroff(DISPLAY(0), A_REVERSE);
-		wmove(DISPLAY(2), i, 2);
-		mvwprintw(DISPLAY(2), i, 2, "player %d curs %d looking at x:%d y:%d", cursor->player_num, cursor->pc, x, y);
-		box(DISPLAY(2), 0, 0);
-		i++;
+		n_print_one_cursor(vm, cursor);
 		stack = stack->next;
 	}
 }
+
+/*
+** get_colour seems to not have wrapping protection
+** i.e. if a player's program will wrap around to the start of the core mem
+** However, without custom start locations, the first player will always start 
+** at index 0, so wrap around will never be possible, and will error out
+** beforehand if a player's program needs to wrap around
+*/
 
 int		get_colour(t_vm *vm, int core_index)
 {
@@ -80,19 +84,16 @@ void	n_print_core(t_vm *vm)
 	int	cunt;
 	int colour;
 
-	x = 1;
 	y = 1;
 	i = 0;
 	cunt = 0;
-	werase(DISPLAY(0));
-	box(DISPLAY(0), 0, 0);
 	while (y < OCTET)
 	{
 		x = 1;
 		cunt = 0;
 		while (cunt < OCTET)
 		{
-			colour = get_colour(vm, i);
+			colour = get_colour_ref(vm, i);
 			n_putnbr_hex(vm, (unsigned char)vm->core[i], x, y, colour);
 			x += 2;
 			mvwprintw(DISPLAY(0), y, x, "%c", ' ');
@@ -102,8 +103,8 @@ void	n_print_core(t_vm *vm)
 		}
 		y++;
 	}
-	refresh();
-	wrefresh(DISPLAY(0));
+	// refresh();
+	// wrefresh(DISPLAY(0));
 }
 
 void	n_print_names(t_vm *vm)
@@ -140,7 +141,7 @@ void	n_print_life_info(t_vm *vm)
 	t_life node;
 	t_list *temp;
 	node = vm->life_info;
-	mvwprintw(DISPLAY(1), 30, 1, "Total turns: %d", node.nbr_live_calls);
+	mvwprintw(DISPLAY(1), 30, 1, "Number of live calls: %d", node.nbr_live_calls);
 }
 
 void	n_print_cycles(t_vm *vm)
@@ -179,14 +180,14 @@ void	n_display_winner(t_vm *vm, t_player *player)
 	int		y2;
 	WINDOW	*display;
 	getmaxyx(stdscr, y, x);
-	display = newwin(y / 2, x / 2, (y / 5) / 2, (x / 5) / 2);
+	display = newwin(y / 3, x / 3, (y / 5) / 2, (x / 5) / 2);
 	getmaxyx(display, y, x);
 	box(display, 0, 0);
 	if (player)
-		mvwprintw(display, 5, 5, "Winner is %s", player->name);
+		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Winner is %s", player->name);
 	else
-		mvwprintw(display, 5, 5, "Everybody loses");
-	mvwprintw(display, 6, 5, "Press any key to quit");
+		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Everybody loses");
+	mvwprintw(display, ((y / 2) / 2) + 1, (x / 2) / 2, "Press any key to quit");
 	refresh();
 	wrefresh(display);
 	timeout(-1);
@@ -197,8 +198,8 @@ void	n_print_game_state(t_vm *vm)
 {
 	char c;
 
-	n_key_get(vm);
-	// n_print_core(vm);
+	// n_key_get(vm);
+	n_print_core(vm);
 	n_print_names(vm);
 	n_print_cycles(vm);
 	n_print_life_info(vm);
@@ -213,18 +214,31 @@ void	n_print_game_state(t_vm *vm)
 	}
 }
 
+void	n_init_colour_ref(t_vm *vm)
+{
+	int	x;
+
+	x = 0;
+	ft_bzero(vm->cwv.colour_ref, MEM_SIZE);
+	while (x < MEM_SIZE)
+	{
+		vm->cwv.colour_ref[x] = get_colour(vm, x);
+		x++;
+	}
+}
+
 void	n_init_curses(t_vm *vm)
 {
 	vm->cwv.mode = 1;
 	vm->cwv.speed = 1;
 	initscr();
 	cbreak();
-	// raw();
 	keypad(stdscr, TRUE);
 	noecho();
 	curs_set(0);
 	n_init_sizes(vm);
 	n_init_color_pairs();
+	n_init_colour_ref(vm);
 	box(DISPLAY(0), 0, 0);
 	box(DISPLAY(1), 0, 0);
 	box(DISPLAY(2), 0, 0);
