@@ -22,7 +22,7 @@
 ** stores the result in par3
 ** This operation modifies the carry
 **
-** Universal for - or xor and -
+** Universal for < or xor and >
 */
 
 int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)

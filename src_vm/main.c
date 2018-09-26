@@ -20,9 +20,10 @@ void marco_saftey(void)
 
 void print_usage(void)
 {
-	ft_putstr("Usage: ./corewar [-visual] [-dump N [-c -v]]  <[-n N -a N] champion.cor>  <...>\n\n");
+	ft_putstr("Usage: ./corewar [-visual [-s N]] [-dump N [-c -v]]  <[-n N -a N] champion.cor>  <...>\n\n");
 	ft_putstr("|--------VM Settings:--------\n");
 	ft_putstr("|  -visual: Enables the viualiser mode\n");
+	ft_putstr("|  -s N: sets initial speed for the visualiser\n");	
 	ft_putstr("|  -dump N: Dumps the memory after N execution cycles (if the game isn’t already over)\n");
 	ft_putstr("|  -c: Continue, will allow you to continue after dumping\n");
 	ft_putstr("|  -v: Verbose, will dump extra info about the game state\n");
@@ -105,9 +106,12 @@ int main(int argc, char **argv)
 	
 	// print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	//printf("\n~~~~~~~\n");
-	n_init_curses(&vm);
-	n_print_core(&vm);
 	
+	if (vm.flags.visual)
+	{
+		n_init_curses(&vm);
+		n_print_core(&vm);
+	}
 	// printf("test val %d\n",get_core_int(7, &vm));
 	
 	vm_loop(&vm);

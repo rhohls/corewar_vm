@@ -93,6 +93,7 @@ typedef struct	s_vm
 	t_flags		flags;
 	t_life		life_info;
 	t_visual	cwv;
+	int			last_curs;
 }				t_vm;
 
 typedef struct	s_player

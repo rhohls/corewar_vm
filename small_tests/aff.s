@@ -1,13 +1,12 @@
 .name "aff the useless instruction"
 
-ld %82,r2
-ld %105,r3
+ld %90,r2
+ld %97,r3
 ld %99,r4
-ld %104,r5
-ld %33,r6
-aff r2 #R
-aff r3 #i
-aff r4 #c
-aff r5 #h
-aff r6 #!
-
+ld %107,r5
+ld %10,r6
+aff r2
+aff r3
+aff r4
+aff r5
+aff r6

@@ -25,7 +25,6 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 	int		info_to_load;
 	int		*reg;
 	int		jump;
-	int		indirect;
 
 	jump = 1;
 	if (cursor->encoding == DR)
@@ -48,9 +47,9 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 	{
 		*reg = info_to_load;
 		if (info_to_load)
-			cursor->carry = 1;
-		else
 			cursor->carry = 0;
+		else
+			cursor->carry = 1;
 	}
 	return (jump);
 }

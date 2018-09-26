@@ -51,7 +51,7 @@ int			cw_math(t_vm *vm, t_cursor *cursor, t_param *param, int type)
 
 	jump = 1;
 	param->success = 0;
-	if ((cursor->encoding & RRR) == RRR)
+	if (cursor->encoding == RRR)
 	{
 		jump = 5;
 		if (!(reg_info_1 = get_reg(2, vm, cursor)))

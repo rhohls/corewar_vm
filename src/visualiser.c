@@ -238,7 +238,10 @@ void	n_init_colour_ref(t_vm *vm)
 
 void	n_init_curses(t_vm *vm)
 {
-	vm->cwv.mode = 1;
+	if (vm->flags.visual)
+		vm->cwv.mode = 1;
+	else
+		vm->cwv.mode = 0;		
 	vm->cwv.speed = 0;
 	initscr();
 	cbreak();

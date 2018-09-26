@@ -26,8 +26,8 @@ static t_cursor	*duplicate_cursor(t_vm *vm, t_cursor *cursor, int new_pc)
 	new_cursor = create_cursor(vm, new_pc);
 	new_cursor->player_num = cursor->player_num;
 	new_cursor->carry = cursor->carry;
-	new_cursor->live_call = cursor->live_call; //??
-	new_cursor->live_call = 0;
+	// new_cursor->live_call = cursor->live_call; //??
+	// new_cursor->live_call = 1; //set in create cursor
 	i = 0;
 	while (i < REG_NUMBER)
 	{
@@ -47,8 +47,10 @@ int				cw_forking(t_vm *vm, t_cursor *cursor, int long_fk)
 		new_pc = new_pc % IDX_MOD;
 	new_pc = PC_PLUS(new_pc);
 	new_cursor = duplicate_cursor(vm, cursor, new_pc);
-	update_cursor_info(new_cursor, vm, 0);
+	if (vm->last_curs)
+		new_cursor->curr_cycle++;
+	// update_cursor_info(new_cursor, vm, 0); //done in the create_cursor
 	add_cursor_to_cursorlist(vm, new_cursor);
-	//printf("new pc location: %d with mod rel to pc: %d\n", get_half_c_int(PC_PLUS(1), vm), new_pc);
+	// printf("new pc location: %d with mod rel to pc: %d\n", get_half_c_int(PC_PLUS(1), vm), new_pc);
 	return (3);
 }
