@@ -105,6 +105,7 @@ typedef struct	s_player
 	u_int		program_size;
 	int			nbr_lives;
 	int			alive;
+	int			col_num;
 }				t_player;
 
 typedef struct	s_cursor

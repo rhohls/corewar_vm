@@ -61,6 +61,8 @@ void	n_init_sizes(t_vm *vm)
 void	n_init_color_pairs()
 {
 	start_color();
+	init_color(99, 180, 180, 180);
+	init_pair(99, 99, COLOR_BLACK);
 	init_pair(1, COLOR_BLUE, COLOR_BLACK);
 	init_pair(2, COLOR_RED, COLOR_BLACK);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);

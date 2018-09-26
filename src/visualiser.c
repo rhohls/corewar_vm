@@ -68,12 +68,12 @@ int		get_colour(t_vm *vm, int core_index)
 	{
 		player = player_node->content;
 		if ((core_index >= player->start_location) && 
-			(core_index <= (player->start_location + player->program_size)))
+			(core_index < (player->start_location + player->program_size)))
 			return (i);
 		player_node = player_node->next;
 		i++;
 	}
-	return (0);
+	return (99);
 }
 
 void	n_print_core(t_vm *vm)
@@ -121,6 +121,7 @@ void	n_print_names(t_vm *vm)
 	while (node)
 	{
 		player = node->content;
+		player->col_num = col;
 		mvwprintw(DISPLAY(1), i++, 1, "Player %d:", player->player_num);
 		wattron(DISPLAY(1), A_BOLD | COLOR_PAIR(col));
 		mvwprintw(DISPLAY(1), i++, 5, "%s", player->name);
@@ -170,7 +171,11 @@ void	n_display_winner(t_vm *vm, t_player *player)
 	getmaxyx(display, y, x);
 	box(display, 0, 0);
 	if (player)
-		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Winner is %s", player->name);
+	{
+		wattron(display, COLOR_PAIR(player->col_num));
+		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "%s is win", player->name);
+		wattroff(display, COLOR_PAIR(player->col_num));
+	}
 	else
 		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Lord Geff wins");
 	mvwprintw(display, ((y / 2) / 2) + 1, (x / 2) / 2, "Press any key to quit");
@@ -224,7 +229,7 @@ void	n_init_colour_ref(t_vm *vm)
 	int	x;
 
 	x = 0;
-	ft_bzero(vm->cwv.colour_ref, MEM_SIZE);
+	ft_memset(vm->cwv.colour_ref, 99, MEM_SIZE);
 	while (x < MEM_SIZE)
 	{
 		vm->cwv.colour_ref[x] = get_colour(vm, x);
@@ -254,6 +259,6 @@ void	n_init_curses(t_vm *vm)
 	mvwprintw(DISPLAY(1), 1, 14, "CORE WAR");
 	wattroff(DISPLAY(1), A_UNDERLINE);
 	mvwprintw(DISPLAY(2), 1, 14, "CORE CHAT");
-	mvwprintw(DISPLAY(1), 2, 1, "MEM_SIZE: %d bytes", MEM_SIZE);
+	mvwprintw(DISPLAY(1), 3, 1, "MEM_SIZE: %d bytes", MEM_SIZE);
 	n_print_game_state(vm);
 }
