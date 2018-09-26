@@ -183,8 +183,8 @@ void	n_display_winner(t_vm *vm, t_player *player)
 void	n_key_get(t_vm *vm)
 {
 	int c;
-
-	timeout(1);
+	
+	timeout(0);
 	c = getch();
 	if (c == ' ')
 	{
@@ -192,11 +192,12 @@ void	n_key_get(t_vm *vm)
 		getch();
 	}
 	if (c == KEY_LEFT)
-		vm->cwv.speed += 1000;
-	else if (c == KEY_RIGHT && vm->cwv.speed > 0)
-		vm->cwv.speed -= 1000;
+		vm->cwv.speed += 10000;
+	else if (c == KEY_RIGHT && vm->cwv.speed - 10000 >= 0)
+		vm->cwv.speed -= 10000;
 	else if (c == KEY_DOWN)
-		vm->cwv.speed = 1000;
+		vm->cwv.speed = 0;
+	flushinp();
 	wmove(DISPLAY(2), 2, 2);
 	wclrtoeol(DISPLAY(2));
 	mvwprintw(DISPLAY(2), 2, 2, "%d", vm->cwv.speed);
@@ -215,7 +216,6 @@ void	n_print_game_state(t_vm *vm)
 	n_print_life_info(vm);
 	n_print_cursor(vm);
 	n_refresh_all(vm);
-	n_key_get(vm);
 	usleep(vm->cwv.speed);
 }
 
@@ -235,7 +235,7 @@ void	n_init_colour_ref(t_vm *vm)
 void	n_init_curses(t_vm *vm)
 {
 	vm->cwv.mode = 1;
-	vm->cwv.speed = 1000;
+	vm->cwv.speed = 0;
 	initscr();
 	cbreak();
 	keypad(stdscr, TRUE);

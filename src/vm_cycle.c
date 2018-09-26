@@ -73,10 +73,16 @@ void	vm_loop(t_vm *vm)
 	int print_update;
 
 	// print_game_state(vm);
+	//log init time
 	while(1)
 	{
+		//log new time
+		//if new time - init time > frame delay :: then do everything and init time = new time
 		if (vm->cwv.mode)
+		{
+			n_key_get(vm);
 			n_print_game_state(vm);
+		}
 		print_update = 0;
 		// printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
 		incr_all_cursor(vm, &print_update);
