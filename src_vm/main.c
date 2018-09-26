@@ -107,9 +107,12 @@ int main(int argc, char **argv)
 	
 	// print_board_location((const unsigned char *)(&(vm.core[0])), MEM_SIZE);
 	//printf("\n~~~~~~~\n");
-	n_init_curses(&vm);
-	n_print_core(&vm);
 	
+	if (vm.flags.visual)
+	{
+		n_init_curses(&vm);
+		n_print_core(&vm);
+	}
 	// printf("test val %d\n",get_core_int(7, &vm));
 	
 	vm_loop(&vm);

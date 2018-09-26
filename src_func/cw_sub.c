@@ -28,5 +28,14 @@ int	cw_sub(t_vm *vm, t_cursor *cursor)
 	t_param	param;
 
 	jump = cw_math(vm, cursor, &param, 0);
+	if (param.success && param.reg_store != NULL)
+	{
+		*(param.reg_store) = param.par1 - param.par2;
+		if ((*(param.reg_store)) == 0)
+			cursor->carry = 1;
+		else
+			cursor->carry = 0;
+	}
+	
 	return (jump);
 }

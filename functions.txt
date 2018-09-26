@@ -23,7 +23,7 @@ cw_and:Y - C
 		IRR		6
 		RIR		6
 		IIR		7
-		DRR		8
+		DRR		8 
 		RDR		8
 		DDR		11
 		DIR		9

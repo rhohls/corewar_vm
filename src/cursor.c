@@ -36,7 +36,7 @@ void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor)
 
 	node = ft_lstnew(0, 0);
 	node->content = new_cursor;
-	ft_stackpush(vm->cursor_stack, node);
+	ft_stackqueue(vm->cursor_stack, node);
 }
 
 void		add_initial_player_cursor(t_vm *vm, int pc, t_player *player)
@@ -86,11 +86,13 @@ void		incr_all_cursor(t_vm *vm, int *print)
 	cursor_node = vm->cursor_stack->start;
 	while (cursor_node)
 	{
+		if (cursor_node->next == NULL)		//put in forking function
+			vm->last_curs = 1;
 		cursor = cursor_node->content;
 		cursor->curr_cycle--;
 		if (cursor->curr_cycle <= 0)
 		{
-			// //printf("updating cursor at %d\n", cursor->pc);
+			// printf("updating cursor at %d\n", cursor->pc);
 			excute_instruction(cursor, vm);
 			*print = 1;
 		}

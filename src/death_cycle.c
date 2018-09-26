@@ -94,9 +94,9 @@ int		cycle_checkup(t_vm *vm)
 		vm->cycle_to_die -= CYCLE_DELTA;
 		kill_players(vm);
 		kill_cursors(vm);
-		if (vm->nbr_dead >= (int)vm->player_list->length - 1) // or cursors
-			return (1);
-		else if (vm->cycle_to_die <= 0)
+		// if (vm->nbr_dead >= (int)vm->player_list->length - 1) // or cursors
+		// 	return (1);
+		if (vm->cycle_to_die <= 0)
 			return (1);
 	}
 	vm->curr_cycle = 0;
