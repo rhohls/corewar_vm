@@ -34,9 +34,17 @@ void	display_winner(t_vm *vm)
 }
 
 
-void	dump_to_file(int cycle_number)
+void	dump_to_file(int cycle_number, t_vm *vm)
 {
+	int fd;
+	char *file_name;
 	
+	file_name = ft_itoa(cycle_number);
+	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
+	if (vm->flags.verbose)
+		print_game_state(vm);
+	else
+		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);	
 }
 
 void	cycle_dump(t_vm *vm)
