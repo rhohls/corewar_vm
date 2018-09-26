@@ -15,7 +15,7 @@
 void	display_winner(t_vm *vm)
 {
 	t_player	*player;
-	
+
 	player = get_player(vm, vm->life_info.last_live_playernum);
 	if (player)
 	{
@@ -38,13 +38,13 @@ void	dump_to_file(int cycle_number, t_vm *vm)
 {
 	int fd;
 	char *file_name;
-	
+
 	file_name = ft_itoa(cycle_number);
 	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
 	if (vm->flags.verbose)
 		print_game_state(vm);
 	else
-		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);	
+		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
 }
 
 void	n_dump_popup(t_vm *vm)
@@ -53,7 +53,7 @@ void	n_dump_popup(t_vm *vm)
 	int		x;
 	char	str[128];
 	WINDOW *display;
-	
+
 	getmaxyx(stdscr, y, x);
 	y /= 2;
 	x /= 2;
@@ -88,7 +88,7 @@ void	cycle_dump(t_vm *vm)
 {
 	char *line;
 	char c;
-	
+
 	if (vm->flags.visual)
 	{
 		n_dump_popup(vm);
@@ -112,12 +112,9 @@ void	cycle_dump(t_vm *vm)
 
 void	vm_loop(t_vm *vm)
 {
-	int i = 0;
 	int print_update;
 	int dump_reached = 0;
 
-	// print_game_state(vm);
-	//log init time
 	while(1)
 	{
 		//log new time
@@ -133,7 +130,6 @@ void	vm_loop(t_vm *vm)
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		vm->total_cycle++;
-		
 		// curr_cycle gets set to 0 during checkup
 		// for dump count absolute cycles?
 		if (vm->flags.dump == vm->total_cycle)	//do this before cycle to die or it breaks 
@@ -141,16 +137,11 @@ void	vm_loop(t_vm *vm)
 			cycle_dump(vm);
 			dump_reached = 1;
 		}
-			
 		if (vm->curr_cycle >= vm->cycle_to_die) // at start or at end?!?!
 			if (cycle_checkup(vm))
 				break ;
-		
 		if (print_update && !vm->flags.visual && dump_reached)
 			print_game_state(vm);
-		i++;
 	}
-	// print_game_state(vm);
 	display_winner(vm);
-	// free everything?
 }

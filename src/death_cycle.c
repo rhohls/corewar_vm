@@ -46,8 +46,8 @@ void	remove_cursor_from_list(t_cursor *cursor, t_vm *vm)
 				prev_node->next = curr_node->next;
 			else
 				vm->cursor_stack->start = curr_node->next;
-			free (curr_node->content);
-			free (curr_node);
+			free(curr_node->content);
+			free(curr_node);
 			return ;
 		}
 		prev_node = curr_node;
@@ -84,7 +84,6 @@ void		kill_cursors(t_vm *vm)
 
 int		cycle_checkup(t_vm *vm)
 {
-	
 	vm->life_info.nbr_checkups++;
 	if (vm->life_info.nbr_live_calls >= NBR_LIVE ||
 			vm->life_info.nbr_checkups >= MAX_CHECKS)
@@ -94,14 +93,10 @@ int		cycle_checkup(t_vm *vm)
 		vm->cycle_to_die -= CYCLE_DELTA;
 		kill_players(vm);
 		kill_cursors(vm);
-		// if (vm->nbr_dead >= (int)vm->player_list->length - 1) // or cursors
-		// 	return (1);
-		if (vm->cycle_to_die <= 0)
-			return (1);
 	}
 	vm->curr_cycle = 0;
-	// //printf("cycle to die: %d\n", vm->cycle_to_die);
-	// //printf("cycle checkups: %d\n", vm->life_info.nbr_checkups);
-	// //printf("nbr live calls: %d\n", vm->life_info.nbr_live_calls);
-	return (0);
+	if (vm->cycle_to_die <= 0)
+		return (1);
+	else
+		return (0);
 }

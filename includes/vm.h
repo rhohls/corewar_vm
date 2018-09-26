@@ -180,7 +180,6 @@ int			is_duplicate_player_num(int number, t_vm *vm);
 
 void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump);
 void		add_initial_player_cursor(t_vm *vm, int pc, t_player *player);
-int			get_op_code(t_cursor *cursor, t_vm *vm);
 void		kill_cursor(t_cursor *cursor, t_vm *vm);
 void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);
 

@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include "../includes/vm.h"
 
-
 void	ft_putnbr_hex(int octet, int rem)
 {
 	char const *base = "0123456789abcdef";
@@ -37,16 +36,15 @@ int		check_line(unsigned char const *addr)
 {
 	int ret;
 	int i;
-	
+
 	i = 0;
 	ret = 0;
-	
 	while (i < 16)
 	{
 		ret += addr[i];
 		i++;
 	}
-	return(ret == 0 ? 1 : 0);		
+	return (ret == 0 ? 1 : 0);
 }
 
 void	print_memory(const void *addr, size_t size, int printable, int location)
@@ -109,7 +107,7 @@ void	print_board_location(unsigned char const *core, size_t size)
 	size_t	ind;
 	size_t	a;
 	size_t	stop;
-	
+
 	stop = 32; // 4096 ^ 0.5
 	ind = 0;
 	size_t location;
@@ -120,7 +118,7 @@ void	print_board_location(unsigned char const *core, size_t size)
 		while (location < 1000)
 		{
 			write(1, "0", 1);
-			location *=10;
+			location *= 10;
 		}
 		ft_putnbr(ind);
 		write(1, ": ", 3);
@@ -140,7 +138,7 @@ void	print_board(unsigned char const *core, size_t size)
 	size_t	ind;
 	size_t	a;
 	size_t	stop;
-	
+
 	stop = 64; // 4096 ^ 0.5
 	ind = 0;
 	while (ind < size)
@@ -166,11 +164,12 @@ void	print_player_live(t_vm *vm)
 	while (node)
 	{
 		player = node->content;
-		ft_printf("Player: \"%s\" number: %i ", player->name, player->player_num);
+		ft_printf("Player: \"%s\" number: %i ", player->name,
+					player->player_num);
 		if (player->alive == 0)
 			ft_printf("is dead\n");
 		else
-			ft_printf("has %d lives\n", player->nbr_lives);		
+			ft_printf("has %d lives\n", player->nbr_lives);
 		node = node->next;
 	}
 }
@@ -185,7 +184,7 @@ void	print_cycle_info(t_vm *vm)
 void	print_cursor_register(t_cursor *cursor)
 {
 	int i;
-	
+
 	i = 0;
 	ft_putstr("\tRegister info:\n");
 	while (i < REG_NUMBER)
@@ -201,7 +200,7 @@ void	print_one_cursor(t_cursor *cursor)
 	if (cursor->op_code < 16)
 		ft_printf("\tCurrent OP code\t- 0%x\n", cursor->op_code);
 	else
-		ft_printf("\tCurrent OP code\t- %x\n", cursor->op_code);	
+		ft_printf("\tCurrent OP code\t- %x\n", cursor->op_code);
 	ft_printf("\tAmt cycles left\t- %d\n", cursor->curr_cycle);
 	ft_printf("\tLive call\t- %d\n", cursor->live_call);
 	ft_printf("\tCarry\t\t- %d\n", cursor->carry);
@@ -213,16 +212,14 @@ void	print_cursor_info(t_vm *vm)
 	t_list		*node;
 	t_cursor	*cursor;
 	int			i;
-	
+
 	i = vm->cursor_stack->length;
-	
 	node = vm->cursor_stack->start;
 	while (node)
 	{
 		cursor = node->content;
 		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
 		print_one_cursor(cursor);
-		
 		node = node->next;
 		i--;
 	}

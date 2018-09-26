@@ -23,7 +23,7 @@ int			reg_check(t_cursor *cursor, int reg_num)
 int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor)
 {
 	int reg_num;
-	
+
 	reg_num = CORE_PC_PLUS(relative_pc) - 1;
 	if (reg_check(cursor, reg_num))
 		return (&(cursor->reg[reg_num]));
@@ -51,7 +51,7 @@ int			get_dir(int relative_pc, t_vm *vm, t_cursor *cursor, int half_size)
 int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor)
 {
 	int	indirect;
-	
+
 	indirect = get_half_c_int(PC_PLUS(relative_pc), vm) % IDX_MOD;
 	return (get_half_c_int(PC_PLUS(indirect), vm));
 }
@@ -59,7 +59,7 @@ int			get_ind(int relative_pc, t_vm *vm, t_cursor *cursor)
 int			get_ind_nomod(int relative_pc, t_vm *vm, t_cursor *cursor)
 {
 	int	indirect;
-	
+
 	indirect = get_half_c_int(PC_PLUS(relative_pc), vm);
 	return (get_half_c_int(PC_PLUS(indirect), vm));
 }

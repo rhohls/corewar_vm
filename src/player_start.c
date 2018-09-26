@@ -30,36 +30,36 @@ int		player_num_to_colour_num(t_vm *vm, int num)
 {
 	int			i;
 	t_player    *player;
-    t_list      *player_node;
+	t_list      *player_node;
 
 	i = 1;
 	player_node = vm->player_list->start;
-    while (player_node)
-    {
-        player = (t_player *)(player_node->content);
+	while (player_node)
+	{
+		player = (t_player *)(player_node->content);
 		if (player->player_num == num)
 			return (i);
-        player_node = player_node->next;
+		player_node = player_node->next;
 		i++;
-    }
+	}
 	return (0);
 }
 */
 void    player(t_vm *vm)
 {
-    t_player    *player;
-    t_list      *player_node;
+	t_player    *player;
+	t_list      *player_node;
 	u_int		start;
-    
-    player_node = vm->player_list->start;
+
+	player_node = vm->player_list->start;
 	start = 1;
-    while (player_node)
-    {
-        player = (t_player *)(player_node->content);
+	while (player_node)
+	{
+		player = (t_player *)(player_node->content);
 		if (player->start_location < 0)
 			player->start_location = start++;
-        player_node = player_node->next;
-    }
+		player_node = player_node->next;
+	}
 }
 
 void	set_player_start(t_vm *vm)

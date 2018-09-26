@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
-/*
-typedef struct		s_op
-{
-	char	name[5];
-	int		nb_params;
-	char	params_type[3];
-	int		id;
-	int		cycles;
-	char	description[50];
-	int		acb;
-	int		label_size;
-}					t_op;
-*/
-// index of op starting at 1 ??? NANI!!
-// check also id ret
 
 static t_op	op_tab[17] =
 {
@@ -51,7 +36,7 @@ static t_op	op_tab[17] =
 void	set_op_tab(t_vm *vm_data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < 17)
 	{
@@ -59,17 +44,3 @@ void	set_op_tab(t_vm *vm_data)
 		i++;
 	}
 }
-
-// int		get_id_by_name(t_vm *vm_data, char *name)
-// {
-// 	int		i;
-//  
-// 	i = 0;
-// 	while (i < 17)
-// 	{
-// 		if (!ft_strcmp(name, vm_data->op_table[i].name))
-// 			return (vm_data->op_table[i].id);
-// 		i++;
-// 	}
-// 	return (i);
-// }

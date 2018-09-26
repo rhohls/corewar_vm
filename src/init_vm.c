@@ -12,15 +12,15 @@
 
 #include "../includes/vm.h"
 
-void init_vm(t_vm *vm)
+/*
+** optab only endded up being used for no.  cycles :/
+*/
+
+void			init_vm(t_vm *vm)
 {
 	ft_bzero(vm, sizeof(t_vm));
-	set_op_tab(vm);//  (its for the no. cycles)
+	set_op_tab(vm);
 	vm->cursor_stack = ft_stacknew();
-	// vm->file_lines = NULL;
-	// vm->curr_cycle = 0;
-	// vm->nbr_dead = 0;
-	
 	vm->player_list = ft_stacknew();
 	vm->cycle_to_die = CYCLE_TO_DIE;
 }
@@ -28,14 +28,14 @@ void init_vm(t_vm *vm)
 /*
 ** offset[0] = size of offset between player starts
 ** offset[1] = index of player start
-** 
+**
 ** Nested while loads players onto board
 */
 
 static void		insert_player(t_vm *vm, int player_start, t_player *player)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < player->program_size)
 	{
@@ -43,7 +43,7 @@ static void		insert_player(t_vm *vm, int player_start, t_player *player)
 		i++;
 	}
 	add_initial_player_cursor(vm, player_start, player);
-	player->start_location = player_start;	
+	player->start_location = player_start;
 }
 
 static void		size_balance(t_vm *vm, unsigned int size)
@@ -60,16 +60,16 @@ static void		size_balance(t_vm *vm, unsigned int size)
 	{
 		player = player_node->content;
 		insert_player(vm, start_location, player);
-		start_location += offset;		
+		start_location += offset;
 		player_node = player_node->next;
 	}
 }
 
-void		load_players(t_vm *vm, char *board, t_list *player)
+void			load_players(t_vm *vm, char *board, t_list *player)
 {
 	unsigned int	size;
-	t_list 			*start;
-	
+	t_list			*start;
+
 	size = 0;
 	start = player;
 	while (player)
