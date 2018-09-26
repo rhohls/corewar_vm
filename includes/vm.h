@@ -115,7 +115,7 @@ typedef struct	s_cursor
 	int			pc;
 	int			op_code;
 	int			encoding;
-	int			reg[REG_NUMBER];	
+	int			reg[REG_NUMBER];
 	int			curr_cycle;
 	int			carry;
 }				t_cursor;
@@ -128,6 +128,14 @@ typedef struct	s_param
 	int			success;
 }				t_param;
 
+typedef struct	s_ldi
+{
+	int			info_to_load;
+	int			location_info;
+	int			*reg_to_load;
+	int			*reg;
+	int			jump;
+}				t_ldi;
 
 void		exit_str(char *str);
 void		exit_errno(void);

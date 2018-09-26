@@ -16,8 +16,8 @@
 **	st par1, par2
 **	par1 = dir or ind
 **	par2 = reg
-**	st coppies REG_SIZE bytes from par2 (reg) into 
-**	par1 (PC + (par1 % IDX_MOD)) 
+**	st coppies REG_SIZE bytes from par2 (reg) into
+**	par1 (PC + (par1 % IDX_MOD))
 */
 
 int	cw_st(t_vm *vm, t_cursor *cursor)
@@ -42,8 +42,7 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 		jump = 5;
 	}
 	if (jump > 1 && reg_info)
-	{
-		store_core_int(*reg_info, PC_PLUS(dest % IDX_MOD), vm, cursor->player_num);
-	}
+		store_core_int(*reg_info, PC_PLUS(dest % IDX_MOD),
+						vm, cursor->player_num);
 	return (jump);
 }

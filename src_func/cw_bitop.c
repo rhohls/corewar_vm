@@ -28,8 +28,6 @@
 int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 {
 	int		jump;
-	int		info_location;
-	int		indirect;
 	int		*reg;
 
 	jump = 1;
@@ -111,8 +109,6 @@ int	cw_bitop(t_vm *vm, t_cursor *cursor, t_param *bitop)
 	}
 	else
 		return (jump);
-	// printf("bitop->par1 : %d\n",bitop->par1);
-	// printf("bitop->par2 : %d\n",bitop->par2);
 	bitop->success = 1;
 	return (jump);
 }

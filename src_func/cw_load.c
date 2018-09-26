@@ -20,7 +20,16 @@
 **	into par2(reg)
 */
 
-int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
+static void	load_it(int *reg, int info_to_load, t_cursor *cursor)
+{
+	*reg = info_to_load;
+	if (info_to_load)
+		cursor->carry = 0;
+	else
+		cursor->carry = 1;
+}
+
+int			cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 {
 	int		info_to_load;
 	int		*reg;
@@ -42,14 +51,7 @@ int	cw_load(t_vm *vm, t_cursor *cursor, int long_ld)
 		reg = get_reg(4, vm, cursor);
 		jump = 5;
 	}
-	// printf("\nld info to load: %d  @ location %d\n", info_to_load, PC_PLUS(2));
 	if (jump > 1 && reg)
-	{
-		*reg = info_to_load;
-		if (info_to_load)
-			cursor->carry = 0;
-		else
-			cursor->carry = 1;
-	}
+		load_it(reg, info_to_load, cursor);
 	return (jump);
 }

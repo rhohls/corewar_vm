@@ -36,6 +36,5 @@ int	cw_sub(t_vm *vm, t_cursor *cursor)
 		else
 			cursor->carry = 0;
 	}
-	
 	return (jump);
 }
