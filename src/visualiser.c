@@ -142,30 +142,29 @@ void	n_print_life_info(t_vm *vm)
 	t_life node;
 	t_list *temp;
 	node = vm->life_info;
-	mvwprintw(DISPLAY(1), 30, 1, "Number of live calls: %d", node.nbr_live_calls);
+	mvwprintw(DISPLAY(1), 30, 1, "Number of live calls:\t%d", node.nbr_live_calls);
 }
 
 void	n_print_cycles(t_vm *vm)
 {
-	mvwprintw(DISPLAY(1), 32, 1, "Total cycles: %d", vm->total_cycle);
+	mvwprintw(DISPLAY(1), 32, 1, "Total cycles:\t\t%d", vm->total_cycle);
 	wmove(DISPLAY(1),  33, 1);
 	wclrtoeol(DISPLAY(1));
-	mvwprintw(DISPLAY(1), 33, 1, "Current cycle: %d", vm->curr_cycle);
+	mvwprintw(DISPLAY(1), 33, 1, "Current cycle:\t\t%d", vm->curr_cycle);
 	wmove(DISPLAY(1),  34, 1);
 	wclrtoeol(DISPLAY(1));
-	mvwprintw(DISPLAY(1), 34, 1, "Cycles to die: %d", vm->cycle_to_die);
-	mvwprintw(DISPLAY(1), 35, 1, "Cycle delta: %d", CYCLE_DELTA);
-	mvwprintw(DISPLAY(1), 36, 1, "Max checks: %d", MAX_CHECKS);
+	mvwprintw(DISPLAY(1), 34, 1, "Cycles to die:\t\t%d", vm->cycle_to_die);
+	mvwprintw(DISPLAY(1), 35, 1, "Cycle delta:\t\t%d", CYCLE_DELTA);
+	mvwprintw(DISPLAY(1), 36, 1, "Max checks:\t\t%d", MAX_CHECKS);
 	box(DISPLAY(1), 0, 0);
 }
 
 void	n_display_winner(t_vm *vm, t_player *player)
 {
 	int		x;
-	int		x2;
 	int		y;
-	int		y2;
 	WINDOW	*display;
+
 	getmaxyx(stdscr, y, x);
 	display = newwin(y / 3, x / 3, (y / 5) / 2, (x / 5) / 2);
 	getmaxyx(display, y, x);
