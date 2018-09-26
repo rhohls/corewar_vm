@@ -196,7 +196,7 @@ void	n_key_get(t_vm *vm)
 	else if (c == KEY_RIGHT && vm->cwv.speed > 0)
 		vm->cwv.speed -= 1000;
 	else if (c == KEY_DOWN)
-		vm->cwv.speed = 1;
+		vm->cwv.speed = 1000;
 	wmove(DISPLAY(2), 2, 2);
 	wclrtoeol(DISPLAY(2));
 	mvwprintw(DISPLAY(2), 2, 2, "%d", vm->cwv.speed);
