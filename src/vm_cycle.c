@@ -49,6 +49,43 @@ void	display_winner(t_vm *vm)
 	// }	
 }
 
+void	n_dump_popup(t_vm *vm)
+{
+	int		y;
+	int		x;
+	char	str[128];
+	WINDOW *display;
+	
+	getmaxyx(stdscr, y, x);
+	y /= 2;
+	x /= 2;
+	display = newwin(15, 135, y - 15, x - 85);
+	getmaxyx(display, y, x);
+	box(display, 0, 0);
+	if (vm->flags.contin)
+	{
+		mvwprintw(display, ((y / 2) / 2) + 1, (x / 2) / 2, "Please enter the next cycle to dump at, or press Enter to continue");
+		mvwprintw(display, ((y / 2) / 2) + 2, (x / 2) / 2, "Press spacebar to hide this popup");
+		wmove(display, ((y / 2) / 2) + 3, (x / 2) / 2);
+		wgetstr(display, str);
+		vm->flags.dump = ft_atoi(str);
+		refresh();
+		wrefresh(display);
+		timeout(-1);
+		getch();
+		n_print_game_state(vm);
+	}
+	else
+	{
+		endwin();
+		if (vm->flags.verbose)
+			print_game_state(vm);
+		else
+			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
+		exit(0);
+	}
+}
+
 void	cycle_dump(t_vm *vm)
 {
 	char *line;
@@ -56,9 +93,7 @@ void	cycle_dump(t_vm *vm)
 	
 	if (vm->flags.visual)
 	{
-		timeout(-1);
-		c = getch();
-		timeout(1);
+		n_dump_popup(vm);
 	}
 	else
 	{
