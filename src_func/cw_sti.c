@@ -76,12 +76,16 @@ int	cw_sti(t_vm *vm, t_cursor *cursor)
 	{
 		jump = 7;
 		dest += get_dir(3, vm, cursor, 1);
-		dest += get_ind(5, vm, cursor);
+		dest += get_dir(5, vm, cursor, 1);
 	}
-	if (jump > 0 && reg_info_toload)
+	// printf("\n~~~~~~~\n");
+	// printf("dest: %d  -  idx: %d\n", dest, dest % IDX_MOD);
+	if (jump > 1 && reg_info_toload)
 	{
 		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD),
 							vm, cursor->player_num);
 	}
+	// printf("\n~~~~~~~\n");
+	
 	return (jump);
 }

@@ -199,10 +199,11 @@ void	print_one_cursor(t_cursor *cursor)
 {
 	ft_printf("\tCursor location\t- %d\n", cursor->pc);
 	// ft_printf("\tCurrent OP code\t- %d\n", cursor->op_code);
-	printf("\tCurrent OP code\t- %x\n", cursor->op_code);
+	printf("\tCurrent OP code\t- %02x\n", cursor->op_code);
 	ft_printf("\tAmt cycles left\t- %d\n", cursor->curr_cycle);
 	ft_printf("\tLive call\t- %d\n", cursor->live_call);
-	// print_cursor_register(cursor);
+	ft_printf("\tCarry\t\t- %d\n", cursor->carry);
+	print_cursor_register(cursor);
 }
 
 void	print_cursor_info(t_vm *vm)

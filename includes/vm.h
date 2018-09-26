@@ -250,5 +250,6 @@ void	n_display_winner(t_vm *vm, t_player *player);
 void	n_reset_cursor(t_vm *vm);
 void	n_print_one_cursor(t_vm *vm, t_cursor *cursor);
 int		get_colour(t_vm *vm, int core_index);
+void	n_key_get(t_vm *vm);
 
 #endif

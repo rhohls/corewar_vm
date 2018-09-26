@@ -87,7 +87,7 @@ void	n_print_core(t_vm *vm)
 	y = 1;
 	i = 0;
 	cunt = 0;
-	while (y < OCTET)
+	while (y <= OCTET)
 	{
 		x = 1;
 		cunt = 0;
@@ -103,8 +103,8 @@ void	n_print_core(t_vm *vm)
 		}
 		y++;
 	}
-	// refresh();
-	// wrefresh(DISPLAY(0));
+	refresh();
+	wrefresh(DISPLAY(0));
 }
 
 void	n_print_names(t_vm *vm)
@@ -158,20 +158,6 @@ void	n_print_cycles(t_vm *vm)
 	box(DISPLAY(1), 0, 0);
 }
 
-void	n_key_get(t_vm *vm)
-{
-	int c;
-
-	timeout(1);
-	c = getch();
-	if (c == 'p')
-		timeout(1);
-	if (c == KEY_LEFT)
-		vm->cwv.speed--;
-	else if (c == KEY_RIGHT)
-		vm->cwv.speed++;
-}
-
 void	n_display_winner(t_vm *vm, t_player *player)
 {
 	int		x;
@@ -186,7 +172,7 @@ void	n_display_winner(t_vm *vm, t_player *player)
 	if (player)
 		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Winner is %s", player->name);
 	else
-		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Everybody loses");
+		mvwprintw(display, (y / 2) / 2, (x / 2) / 2, "Lord Geff wins");
 	mvwprintw(display, ((y / 2) / 2) + 1, (x / 2) / 2, "Press any key to quit");
 	refresh();
 	wrefresh(display);
@@ -194,42 +180,43 @@ void	n_display_winner(t_vm *vm, t_player *player)
 	getch();
 }
 
-void	n_print_game_state(t_vm *vm)
+void	n_key_get(t_vm *vm)
 {
-	char c;
-
-	// n_key_get(vm);
-	n_print_core(vm);
-	n_print_names(vm);
-	n_print_cycles(vm);
-	n_print_life_info(vm);
-	n_print_cursor(vm);
-	n_refresh_all(vm);
-	timeout(vm->cwv.speed);
+	int c;
+	
+	timeout(0);
 	c = getch();
 	if (c == ' ')
 	{
 		timeout(-1);
 		getch();
 	}
-	// 	c = getch();
-	// if (c == ' ')
-	// {
-	// 	timeout(-1);
-	// 	getch();
-	// }
-	// 	c = getch();
-	// if (c == ' ')
-	// {
-	// 	timeout(-1);
-	// 	getch();
-	// }
-	// c = getch();
-	// if (c == ' ')
-	// {
-	// 	timeout(-1);
-	// 	getch();
-	// }
+	if (c == KEY_LEFT)
+		vm->cwv.speed += 10000;
+	else if (c == KEY_RIGHT && vm->cwv.speed - 10000 >= 0)
+		vm->cwv.speed -= 10000;
+	else if (c == KEY_DOWN)
+		vm->cwv.speed = 0;
+	flushinp();
+	wmove(DISPLAY(2), 2, 2);
+	wclrtoeol(DISPLAY(2));
+	mvwprintw(DISPLAY(2), 2, 2, "%d", vm->cwv.speed);
+	box(DISPLAY(2), 0, 0);
+}
+
+#include <unistd.h>
+
+void	n_print_game_state(t_vm *vm)
+{
+	char c;
+
+	n_print_core(vm);
+	n_print_names(vm);
+	n_print_cycles(vm);
+	n_print_life_info(vm);
+	n_print_cursor(vm);
+	n_refresh_all(vm);
+	usleep(vm->cwv.speed);
 }
 
 void	n_init_colour_ref(t_vm *vm)

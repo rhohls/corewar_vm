@@ -84,10 +84,16 @@ void	vm_loop(t_vm *vm)
 	int dump_reached = 0;
 
 	// print_game_state(vm);
+	//log init time
 	while(1)
 	{
+		//log new time
+		//if new time - init time > frame delay :: then do everything and init time = new time
 		if (vm->cwv.mode)
+		{
+			n_key_get(vm);
 			n_print_game_state(vm);
+		}
 		print_update = 0;
 		if (!vm->flags.visual)
 			printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
@@ -115,4 +121,3 @@ void	vm_loop(t_vm *vm)
 	display_winner(vm);
 	// free everything?
 }
-
