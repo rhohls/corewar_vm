@@ -97,6 +97,8 @@ SRC_FILE =	ft_stacknew.c	\
 			ft_stackdup.c	\
 			ft_stackrev.c	\
 			ft_strstack.c	\
+			ft_puthex.c		\
+			ft_puthex_fd.c	\
 			
 
 OBJ_FILE = $(SRC_FILE:%.c=%.o)

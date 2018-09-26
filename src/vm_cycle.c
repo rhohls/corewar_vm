@@ -16,7 +16,6 @@ void	display_winner(t_vm *vm)
 {
 	t_player	*player;
 	
-	// printf("%d\n", vm->life_info.last_live_playernum);
 	player = get_player(vm, vm->life_info.last_live_playernum);
 	if (player)
 	{
@@ -32,21 +31,12 @@ void	display_winner(t_vm *vm)
 		else
 			ft_printf("No one called any live comands\n");
 	}
-	// t_player	*player;
-	// t_list		*node;
+}
+
+
+void	dump_to_file(int cycle_number)
+{
 	
-	// node = vm->player_list->start;
-	// while(node)
-	// {
-	// 	player = node->content;
-	// 	if (player->alive == 1)
-	// 	{
-	// 		ft_// printf("The winer is ...\n\tPlayer \"%s\" number: %d\n", player->name,
-	// 					player->player_num);
-	// 		break ;
-	// 	}
-	// 	node = node->next;
-	// }	
 }
 
 void	cycle_dump(t_vm *vm)

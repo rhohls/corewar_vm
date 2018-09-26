@@ -14,23 +14,28 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-static void	do_print(va_list var_list, char *input, int index)
+static void	do_print(va_list var_list, char *input, int ind)
 {
 	char		*str;
 	char		c;
 	int			num;
 
-	if (input[index] == 's')
+	if (input[ind] == 's')
 	{
 		str = va_arg(var_list, char *);
 		ft_putstr(str);
 	}
-	else if (input[index] == 'i' || input[index] == 'd')
+	else if (input[ind] == 'i' || input[ind] == 'd')
 	{
 		num = va_arg(var_list, int);
 		ft_putnbr(num);
 	}
-	else if (input[index] == 'c')
+	else if (input[ind] == 'x')
+	{
+		num = va_arg(var_list, int);
+		ft_puthex(num);
+	}
+	else if (input[ind] == 'c')
 	{
 		c = va_arg(var_list, int);
 		ft_putchar(c);
@@ -40,27 +45,27 @@ static void	do_print(va_list var_list, char *input, int index)
 int			ft_printf(char *input, ...)
 {
 	va_list	var_list;
-	int		index;
+	int		ind;
 
-	index = 0;
+	ind = 0;
 	va_start(var_list, input);
-	while (input[index])
+	while (input[ind])
 	{
-		if (input[index] == '%')
+		if (input[ind] == '%')
 		{
-			index++;
-			if (input[index] == 's' || input[index] == 'i'
-			|| input[index] == 'd' || input[index] == 'c')
-				do_print(var_list, input, index);
+			ind++;
+			if (input[ind] == 's' || input[ind] == 'i'  || input[ind] == 'x'
+			|| input[ind] == 'd' || input[ind] == 'c')
+				do_print(var_list, input, ind);
 			else
 			{
-				index--;
+				ind--;
 				ft_putchar('%');
 			}
 		}
 		else
-			ft_putchar(input[index]);
-		index++;
+			ft_putchar(input[ind]);
+		ind++;
 	}
 	va_end(var_list);
 	return (1);
