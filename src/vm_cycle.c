@@ -42,9 +42,9 @@ void	dump_to_file(int cycle_number, t_vm *vm)
 	file_name = ft_itoa(cycle_number);
 	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
 	if (vm->flags.verbose)
-		print_game_state(vm);
+		print_game_state(vm, fd);
 	else
-		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
+		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
 }
 
 void	n_dump_popup(t_vm *vm)
@@ -77,9 +77,9 @@ void	n_dump_popup(t_vm *vm)
 	{
 		endwin();
 		if (vm->flags.verbose)
-			print_game_state(vm);
+			print_game_state(vm, 0);
 		else
-			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
+			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
 		exit(0);
 	}
 }
@@ -96,9 +96,9 @@ void	cycle_dump(t_vm *vm)
 	else
 	{
 		if (vm->flags.verbose)
-			print_game_state(vm);
+			print_game_state(vm, 0);
 		else
-			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE);
+			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
 		if (vm->flags.contin)
 		{
 			ft_putendl("Please enter the next cycle to dump at, or 0 to continue to game end");
@@ -141,7 +141,7 @@ void	vm_loop(t_vm *vm)
 			if (cycle_checkup(vm))
 				break ;
 		if (print_update && !vm->flags.visual && dump_reached)
-			print_game_state(vm);
+			print_game_state(vm, 0);
 	}
 	display_winner(vm);
 }

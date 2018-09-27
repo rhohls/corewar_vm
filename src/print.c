@@ -13,23 +13,23 @@
 #include <unistd.h>
 #include "../includes/vm.h"
 
-void	ft_putnbr_hex(int octet, int rem)
+void	putnbr_hex(int octet, int rem, int fd)
 {
 	char const *base = "0123456789abcdef";
 
 	if (rem > 1)
-		ft_putnbr_hex(octet >> 4, rem - 1);
-	write(1, base + (octet % 16), 1);
+		putnbr_hex(octet >> 4, rem - 1, fd);
+	write(fd, base + (octet % 16), 1);
 }
 
-void	sp_putchar(unsigned char const *ptr)
+void	mem_putchar(unsigned char const *ptr, int fd)
 {
 	char const c = *ptr;
 
 	if (' ' <= c && c <= '~')
-		write(1, ptr, 1);
+		write(fd, ptr, 1);
 	else
-		write(1, ".", 1);
+		write(fd, ".", 1);
 }
 
 int		check_line(unsigned char const *addr)
@@ -46,7 +46,8 @@ int		check_line(unsigned char const *addr)
 	}
 	return (ret == 0 ? 1 : 0);
 }
-
+/*
+// delete this
 void	print_memory(const void *addr, size_t size, int printable, int location)
 {
 	size_t	ind;
@@ -63,28 +64,28 @@ void	print_memory(const void *addr, size_t size, int printable, int location)
 		if (skip && !skip_prev)
 		{
 			skip_prev = 1;
-			write(1, "*\n", 2);
+			write(fd, "*\n", 2);
 		}
 		else if (!skip)
 		{
 			skip_prev = 0;
 			if (location)
 			{
-				ft_putnbr_hex(ind,7);
-				write(1, " ", 1);
+				putnbr_hex(ind, 7);
+				write(fd, " ", 1);
 			}
 			a = 0;
 			while (a < 16 && a + ind < size)
 			{
-				ft_putnbr_hex(*(ptr + ind + a), 2);
-				write(1, " ", 1);
+				putnbr_hex(*(ptr + ind + a), 2);
+				write(fd, " ", 1);
 				a++;
 			}
 			while (a < 16)
 			{
-				write(1, "  ", 2);
+				write(fd, "  ", 2);
 				if (a % 2)
-					write(1, " ", 1);
+					write(fd, " ", 1);
 				a++;
 			}
 			if (printable)
@@ -92,17 +93,17 @@ void	print_memory(const void *addr, size_t size, int printable, int location)
 				a = 0;
 				while (a < 16 && a + ind < size)
 				{
-					sp_putchar(ptr + a + ind);
+					mem_putchar(ptr + a + ind);
 					a++;
 				}
 			}
-			write(1, "\n", 1);
+			write(fd, "\n", 1);
 		}
 		ind += 16;
 	}
 }
 
-void	print_board_location(unsigned char const *core, size_t size)
+void	print_board_location(unsigned char const *core, size_t size, int fd)
 {
 	size_t	ind;
 	size_t	a;
@@ -117,23 +118,23 @@ void	print_board_location(unsigned char const *core, size_t size)
 		location = ind + 1;
 		while (location < 1000)
 		{
-			write(1, "0", 1);
+			write(fd, "0", 1);
 			location *= 10;
 		}
-		ft_putnbr(ind);
-		write(1, ": ", 3);
+		ft_putnbr_fd(ind, fd);//remove this???
+		write(fd, ": ", 3);
 		while (a < stop && a + ind < size)
 		{
-			ft_putnbr_hex(*(core + ind + a), 2);
-			write(1, " ", 1);
+			putnbr_hex(*(core + ind + a), 2, fd);
+			write(fd, " ", 1);
 			a++;
 		}
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 		ind += stop;
 	}
 }
-
-void	print_board(unsigned char const *core, size_t size)
+*/
+void	print_board(unsigned char const *core, size_t size, int fd)
 {
 	size_t	ind;
 	size_t	a;
@@ -146,16 +147,16 @@ void	print_board(unsigned char const *core, size_t size)
 		a = 0;
 		while (a < stop && a + ind < size)
 		{
-			ft_putnbr_hex(*(core + ind + a), 2);
-			write(1, " ", 1);
+			putnbr_hex(*(core + ind + a), 2, fd);
+			write(fd, " ", 1);
 			a++;
 		}
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 		ind += stop;
 	}
 }
 
-void	print_player_live(t_vm *vm)
+void	print_player_live(t_vm *vm, int fd)
 {
 	t_list		*node;
 	t_player	*player;
@@ -164,50 +165,50 @@ void	print_player_live(t_vm *vm)
 	while (node)
 	{
 		player = node->content;
-		ft_printf("Player: \"%s\" number: %i ", player->name,
+		ft_dprintf(fd, "Player: \"%s\" number: %i ", player->name,
 					player->player_num);
 		if (player->alive == 0)
-			ft_printf("is dead\n");
+			ft_dprintf(fd, "is dead\n");
 		else
-			ft_printf("has %d lives\n", player->nbr_lives);
+			ft_dprintf(fd, "has %d lives\n", player->nbr_lives);
 		node = node->next;
 	}
 }
 
-void	print_cycle_info(t_vm *vm)
+void	print_cycle_info(t_vm *vm, int fd)
 {
-	ft_printf("Current cycle: %d\t", vm->curr_cycle);
-	ft_printf("Cycle to die: %d\t", vm->cycle_to_die);
-	ft_printf("Cycle delta: %d\n", CYCLE_DELTA);
+	ft_dprintf(fd, "Current cycle: %d\t", vm->curr_cycle);
+	ft_dprintf(fd, "Cycle to die: %d\t", vm->cycle_to_die);
+	ft_dprintf(fd, "Cycle delta: %d\n", CYCLE_DELTA);
 }
 
-void	print_cursor_register(t_cursor *cursor)
+void	print_cursor_register(t_cursor *cursor, int fd)
 {
 	int i;
 
 	i = 0;
-	ft_putstr("\tRegister info:\n");
+	ft_putstr_fd("\tRegister info:\n", fd);
 	while (i < REG_NUMBER)
 	{
-		ft_printf("\t\treg[%d]: %d\n", i + 1, cursor->reg[i]);
+		ft_dprintf(fd, "\t\treg[%d]: %d\n", i + 1, cursor->reg[i]);
 		i++;
 	}
 }
 
-void	print_one_cursor(t_cursor *cursor)
+void	print_one_cursor(t_cursor *cursor, int fd)
 {
-	ft_printf("\tCursor location\t- %d\n", cursor->pc);
+	ft_dprintf(fd, "\tCursor location\t- %d\n", cursor->pc);
 	if (cursor->op_code < 16)
-		ft_printf("\tCurrent OP code\t- 0%x\n", cursor->op_code);
+		ft_dprintf(fd, "\tCurrent OP code\t- 0%x\n", cursor->op_code);
 	else
-		ft_printf("\tCurrent OP code\t- %x\n", cursor->op_code);
-	ft_printf("\tAmt cycles left\t- %d\n", cursor->curr_cycle);
-	ft_printf("\tLive call\t- %d\n", cursor->live_call);
-	ft_printf("\tCarry\t\t- %d\n", cursor->carry);
-	print_cursor_register(cursor);
+		ft_dprintf(fd, "\tCurrent OP code\t- %x\n", cursor->op_code);
+	ft_dprintf(fd, "\tAmt cycles left\t- %d\n", cursor->curr_cycle);
+	ft_dprintf(fd, "\tLive call\t- %d\n", cursor->live_call);
+	ft_dprintf(fd, "\tCarry\t\t- %d\n", cursor->carry);
+	print_cursor_register(cursor, fd);
 }
 
-void	print_cursor_info(t_vm *vm)
+void	print_cursor_info(t_vm *vm, int fd)
 {
 	t_list		*node;
 	t_cursor	*cursor;
@@ -218,8 +219,8 @@ void	print_cursor_info(t_vm *vm)
 	while (node)
 	{
 		cursor = node->content;
-		ft_printf("Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
-		print_one_cursor(cursor);
+		ft_dprintf(fd, "Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
+		print_one_cursor(cursor, fd);
 		node = node->next;
 		i--;
 	}
@@ -230,11 +231,11 @@ void	print_cursor_info(t_vm *vm)
 // and quit the game. The memory must be dumped in the hexadecimal format with
 // 32 octets per line.
 
-void	print_game_state(t_vm *vm)
+void	print_game_state(t_vm *vm, int fd)
 {
 	printf("\n");
-	print_board((unsigned const char *)(&(vm->core[0])), MEM_SIZE);
-	print_cycle_info(vm);
-	print_player_live(vm);
-	print_cursor_info(vm);
+	print_board((unsigned const char *)(&(vm->core[0])), MEM_SIZE, fd);
+	print_cycle_info(vm, fd);
+	print_player_live(vm, fd);
+	print_cursor_info(vm, fd);
 }

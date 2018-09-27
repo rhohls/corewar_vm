@@ -187,11 +187,9 @@ void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);
 **	Printing
 */
 void		print_memory(const void *addr, size_t size, int printable, int location);
-void		print_game_state(t_vm *vm);
-void		print_cursor_info(t_vm *vm);
-void		print_one_cursor(t_cursor *cursor);
-void		print_board_location(unsigned char const *core, size_t size);
-void		print_board(unsigned char const *core, size_t size);
+void		print_game_state(t_vm *vm, int fd);
+void		print_board_location(unsigned char const *core, size_t size, int fd);
+void		print_board(unsigned char const *core, size_t size, int fd);
 
 /*
 **	Functions

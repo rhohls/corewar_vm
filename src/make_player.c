@@ -94,7 +94,7 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 		exit_str("Error: Champ size incorrect\n");
 	program = (char *)ft_memalloc(prog_size);
 	if (read(fd, program, prog_size) < 1)
-		exit_errnostr("Error reading file\n");
+		exit_errnostr("Error reading file:\n");
 	if (get_point_int(header) != COREWAR_EXEC_MAGIC)
 		exit_str("Error: Magic numbers don't match\n");
 
@@ -110,7 +110,7 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 	}
 	ret_player->program = program;
 	ret_player->player_num = *player_num;
-	ret_player->start_location = player_start;
+	ret_player->start_location = -1;
 	ret_player->program_size = prog_size;
 	ret_player->alive = 1;
 	ret_player->nbr_lives = 0;

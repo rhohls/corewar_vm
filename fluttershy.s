@@ -3,11 +3,11 @@
 
 #init
 entry:
-fork %:coregeni
-	st		r1, 6
+	fork	%:coregeni
+	st	r1,6 as
 	live	%42
 	fork	%:torpgeni
-	st		r1, 6
+	st	r1,	6
 	live	%42
 	fork	%:avdefgeni
 

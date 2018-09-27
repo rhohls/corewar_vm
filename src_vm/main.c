@@ -15,12 +15,14 @@
 void marco_saftey(void)
 {
 	if (REG_SIZE != 4)
-		exit_str("REG_SIZE can not be anything other than 4\n");
+		exit_str("Please reset REG_SIZE to 4\n");
+	if (MEM_SIZE != 4)
+		exit_str("Please reset MEM_SIZE to 4096\n");
 }
 
 void print_usage(void)
 {
-	ft_putstr("Usage: ./corewar [-visual [-s N]] [-dump N [-c -v]]  <[-n N -a N] champion.cor>  <...>\n\n");
+	ft_putstr("Usage: ./corewar [-visual] [-dump N [-c -v]]  <[-n N] champion.cor>  <...>\n\n");
 	ft_putstr("|--------VM Settings:--------\n");
 	ft_putstr("|  -visual: Enables the viualiser mode\n");
 	ft_putstr("|  -s N: sets initial speed for the visualiser\n");	
@@ -30,7 +32,6 @@ void print_usage(void)
 	// ft_putstr("#####################################################################\n");	
 	ft_putstr("|\n|--------Player Settings:--------\n");	
 	ft_putstr("|  -n N: Sets the number of the next program. By default, it will be the next available number, in parameter order.\n");
-	ft_putstr("|  -a N: Sets the load address of the next program. When no address is specified, the programs will be evenly sapced.\n");
 	exit(0);
 }
 
