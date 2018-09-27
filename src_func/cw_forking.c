@@ -45,8 +45,6 @@ int				cw_forking(t_vm *vm, t_cursor *cursor, int long_fk)
 		new_pc = new_pc % IDX_MOD;
 	new_pc = PC_PLUS(new_pc);
 	new_cursor = duplicate_cursor(vm, cursor, new_pc);
-	if (vm->last_curs)
-		new_cursor->curr_cycle++;
 	add_cursor_to_cursorlist(vm, new_cursor);
 	return (3);
 }

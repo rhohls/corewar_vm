@@ -53,7 +53,7 @@
 # define CORE_PC_PLUS(x)	EBYTE(vm->core[WRAP(cursor->pc + x)])
 # define PC_PLUS(x)			WRAP(cursor->pc + x)
 # define ABS(x)				x >= 0 ? x : x * -1
-
+# define STR_CMP(x)			ft_strcmp(args->argv[args->index] + 1, (x)) == 0
 
 typedef struct	s_args
 {
@@ -68,7 +68,7 @@ typedef struct	s_flags
 	int			contin;
 	int			verbose;
 	int			visual;
-
+	int			update;
 }				t_flags;
 
 typedef struct	s_life

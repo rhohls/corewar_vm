@@ -22,7 +22,8 @@ void	display_winner(t_vm *vm)
 		if (vm->cwv.mode)
 			n_display_winner(vm, player);
 		else
-			ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n", player->player_num, player->name);
+			ft_printf("The winner is ...\n\tPlayer %d with name \"%s\"\n",
+						player->player_num, player->name);
 	}
 	else
 	{
@@ -33,20 +34,19 @@ void	display_winner(t_vm *vm)
 	}
 }
 
-
 void	dump_to_file(int cycle_number, t_vm *vm)
 {
 	int fd;
-    char *file_name;
+	char *file_name;
 
-    file_name = ft_itoa(cycle_number);
-    file_name = ft_strjoinfree(file_name, ".dump");
-    fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
-    if (vm->flags.verbose)
-        print_game_state(vm, fd);
-    else
-        print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
-    free(file_name);
+	file_name = ft_itoa(cycle_number);
+	file_name = ft_strjoinfree(file_name, ".dump");
+	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
+	if (vm->flags.verbose)
+		print_game_state(vm, fd);
+	else
+		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
+	free(file_name);
 }
 
 void	n_dump_popup(t_vm *vm)
@@ -115,12 +115,9 @@ void	cycle_dump(t_vm *vm)
 void	vm_loop(t_vm *vm)
 {
 	int print_update;
-	int dump_reached = 0;
 
-	while(1)
+	while (1)
 	{
-		//log new time
-		//if new time - init time > frame delay :: then do everything and init time = new time
 		if (vm->cwv.mode)
 		{
 			n_key_get(vm);
@@ -135,14 +132,11 @@ void	vm_loop(t_vm *vm)
 		// curr_cycle gets set to 0 during checkup
 		// for dump count absolute cycles?
 		if (vm->flags.dump == vm->total_cycle)	//do this before cycle to die or it breaks 
-		{
 			cycle_dump(vm);
-			dump_reached = 1;
-		}
 		if (vm->curr_cycle >= vm->cycle_to_die) // at start or at end?!?!
 			if (cycle_checkup(vm))
 				break ;
-		if (print_update && !vm->flags.visual && dump_reached)
+		if (print_update && !vm->flags.visual)// && vm->flags.verbose)
 			print_game_state(vm, 0);
 	}
 	display_winner(vm);
