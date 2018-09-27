@@ -44,7 +44,7 @@ void	n_init_sizes(t_vm *vm)
 	n_init_windows(vm, 2);
 }
 
-void	n_init_color_pairs()
+void	n_init_color_pairs(void)
 {
 	start_color();
 	init_color(99, 180, 180, 180);

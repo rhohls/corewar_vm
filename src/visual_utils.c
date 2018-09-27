@@ -34,26 +34,26 @@ void	n_pause(t_vm *vm)
 
 void	n_key_get(t_vm *vm)
 {
-    int	c;
-    int	mult;
+	int	c;
+	int	mult;
 
-    timeout(0);
-    c = getch();
-    if (c == ' ')
+	timeout(0);
+	c = getch();
+	if (c == ' ')
 		n_pause(vm);
-    mult = vm->cwv.speed < 100000 ? 5000 : 10000;
-    if (c == KEY_LEFT)
-        vm->cwv.speed += mult;
-    else if (c == KEY_RIGHT && vm->cwv.speed - mult >= 0)
-        vm->cwv.speed -= mult;
-    else if (c == KEY_DOWN)
-        vm->cwv.speed = 0;
-    flushinp();
-    wmove(DISPLAY(1), 4, 1);
-    wclrtoeol(DISPLAY(1));
+	mult = vm->cwv.speed < 100000 ? 5000 : 10000;
+	if (c == KEY_LEFT)
+		vm->cwv.speed += mult;
+	else if (c == KEY_RIGHT && vm->cwv.speed - mult >= 0)
+		vm->cwv.speed -= mult;
+	else if (c == KEY_DOWN)
+		vm->cwv.speed = 0;
+	flushinp();
+	wmove(DISPLAY(1), 4, 1);
+	wclrtoeol(DISPLAY(1));
 	c = 1000;
-    mvwprintw(DISPLAY(1), 4, 1, "Game speed delay: %dms", vm->cwv.speed / c);
-    box(DISPLAY(1), 0, 0);
+	mvwprintw(DISPLAY(1), 4, 1, "Game speed delay: %dms", vm->cwv.speed / c);
+	box(DISPLAY(1), 0, 0);
 }
 
 void	n_print_game_state(t_vm *vm)

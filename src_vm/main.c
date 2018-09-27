@@ -56,5 +56,6 @@ int main(int argc, char **argv)
 	}
 	vm_loop(&vm);
 	endwin();
+	exit(0);
 	return (0);
 }

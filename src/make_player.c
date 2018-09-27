@@ -112,7 +112,6 @@ t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
 	return (ret_player);
 }
 
-
 int		is_duplicate_player_num(int number, t_vm *vm)
 {
 	t_list	*player_node;

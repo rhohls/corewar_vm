@@ -12,12 +12,12 @@
 
 #include "../includes/vm.h"
 
-int	lfork_jump(char *program)
+int		lfork_jump(char *program)
 {
 	return (3);
 }
 
-int aff_jump(char *program)
+int		aff_jump(char *program)
 {
 	return (3);
 }

@@ -16,9 +16,11 @@ void	n_print_life_info(t_vm *vm)
 {
 	t_life node;
 	t_list *temp;
+
 	node = vm->life_info;
 	box(DISPLAY(1), 0, 0);
-	mvwprintw(DISPLAY(1), 6, 1, "Number of live calls:\t%d", node.nbr_live_calls);
+	mvwprintw(DISPLAY(1), 6, 1, "Number of live calls:\t%d",
+		node.nbr_live_calls);
 	mvwprintw(DISPLAY(1), 7, 1,
 		"Number of processes:\t%d", vm->cursor_stack->length);
 	refresh();

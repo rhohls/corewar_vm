@@ -52,15 +52,15 @@ void	print_board_location(unsigned char const *core, size_t size, int fd)
 	size_t	ind;
 	size_t	a;
 	size_t	stop;
-	size_t location;
-	
+	size_t	location;
+
 	stop = 64;
 	ind = 0;
 	while (ind < size)
 	{
 		a = 0;
 		location = ind + 1;
-		write(fd, "0x", 2);		
+		write(fd, "0x", 2);
 		while (location < 4096)
 		{
 			write(fd, "0", 1);
@@ -164,17 +164,19 @@ void	print_cursor_info(t_vm *vm, int fd)
 	while (node)
 	{
 		cursor = node->content;
-		ft_dprintf(fd, "Cursor no. %i is at |%d| with values:\n", i, cursor->pc);
+		ft_dprintf(fd, "Cursor no. %i is at |%d| with values:\n",
+			i, cursor->pc);
 		print_one_cursor(cursor, fd);
 		node = node->next;
 		i--;
 	}
 }
 
-// -dump nbr_cycles
-// at the end of nbr_cycles of executions, dump the memory on the standard output
-// and quit the game. The memory must be dumped in the hexadecimal format with
-// 32 octets per line.
+/* -dump nbr_cycles
+** at the end of nbr_cycles of executions, dump the memory on the standard output
+** and quit the game. The memory must be dumped in the hexadecimal format with
+** 32 octets per line.
+*/
 
 void	print_game_state(t_vm *vm, int fd)
 {

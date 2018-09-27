@@ -66,7 +66,7 @@ static void		size_balance(t_vm *vm, unsigned int size)
 }
 
 /*
-** Removed name replacer 
+** Removed name replacer
 ** Seemed to cause HUGE issues to some players (ala sti ldi - modify carry etc.)
 **
 ** size += ((t_player *)(player->content))->program_size;

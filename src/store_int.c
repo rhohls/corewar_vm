@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   store_int.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ppreez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/27 15:46:44 by ppreez            #+#    #+#             */
+/*   Updated: 2018/09/27 15:46:45 by ppreez           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -20,15 +30,15 @@ void	n_print_stored_int(int core_dest_start, t_vm *vm, int player_num)
 	n_refresh_all(vm);
 }
 
-void	store_core_int(int number, int core_dest_start, t_vm *vm, int player_num)
+void	store_core_int(int number, int core_dst_start, t_vm *vm, int p_num)
 {
 	char *num;
-	num = (char *)(&number);
 
-	vm->core[WRAP(core_dest_start + 0)] = num[3];
-	vm->core[WRAP(core_dest_start + 1)] = num[2];
-	vm->core[WRAP(core_dest_start + 2)] = num[1];
-	vm->core[WRAP(core_dest_start + 3)] = num[0];
+	num = (char *)(&number);
+	vm->core[WRAP(core_dst_start + 0)] = num[3];
+	vm->core[WRAP(core_dst_start + 1)] = num[2];
+	vm->core[WRAP(core_dst_start + 2)] = num[1];
+	vm->core[WRAP(core_dst_start + 3)] = num[0];
 	if (vm->flags.visual && vm->cwv.mode)
-		n_print_stored_int(core_dest_start, vm, player_num);
+		n_print_stored_int(core_dst_start, vm, p_num);
 }
