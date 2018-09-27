@@ -69,6 +69,7 @@ FUNC_FILE = cw_add.c	\
 			cw_load.c	\
 			cw_load_i.c	\
 			cw_forking.c	\
+			cw_bitop_func.c	\
 
 # Manipulate
 OBJ_FILE = $(SRC_FILE:%.c=%.o)

@@ -221,7 +221,7 @@ int			cw_math(t_vm *vm, t_cursor *cursor, t_param *param, int type);
 int			cw_load(t_vm *vm, t_cursor *cursor, int long_ld);
 int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld);
 int			cw_forking(t_vm *vm, t_cursor *cursor, int long_fk);
-
+int			bit1(t_vm *vm, t_cursor *cursor, t_param *bitop, t_ldi *bit);
 /*
 **	Jump functions
 */
