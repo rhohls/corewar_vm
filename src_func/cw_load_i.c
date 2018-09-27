@@ -24,84 +24,94 @@
 **	This operation modifies the carry.
 */
 
-int	cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
+static void	ldi_4(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
 {
-	int		info_to_load;
-	int		location_info;
-	int		*reg_to_load;
-	int		*reg;
-	int		jump;
-
-	jump = 1;
-	location_info = 0;
-	if (cursor->encoding == RRR)
+	if (cursor->encoding == DDR)
 	{
-		jump = 5;
-		if (!(reg = get_reg(2, vm, cursor)))
-			return (jump);
-		location_info += *(reg);
-		if (!(reg = get_reg(3, vm, cursor)))
-			return (jump);
-		location_info += *(reg);
-		reg_to_load = get_reg(4, vm, cursor);
-	}
-	else if (cursor->encoding == DRR)
-	{
-		jump = 6;
-		location_info += get_dir(2, vm, cursor, 1);
-		if (!(reg = get_reg(4, vm, cursor)))
-			return (jump);
-		location_info += *(reg);
-		reg_to_load = get_reg(5, vm, cursor);
-	}
-	else if (cursor->encoding == IRR)
-	{
-		jump = 6;
-		if (long_ld)
-			location_info += get_ind_nomod(2, vm, cursor);
-		else
-			location_info += get_ind(2, vm, cursor);
-		if (!(reg = get_reg(4, vm, cursor)))
-			return (jump);
-		location_info += *(reg);
-		reg_to_load = get_reg(5, vm, cursor);
-	}
-	else if (cursor->encoding == RDR)
-	{
-		jump = 6;
-		if (!(reg = get_reg(2, vm, cursor)))
-			return (jump);
-		location_info += *(reg);
-		location_info += get_dir(3, vm, cursor, 1);
-		reg_to_load = get_reg(5, vm, cursor);
-	}
-	else if (cursor->encoding == DDR)
-	{
-		jump = 7;
-		location_info += get_dir(2, vm, cursor, 1);
-		location_info += get_dir(4, vm, cursor, 1);
-		reg_to_load = get_reg(6, vm, cursor);
+		ldi->jump = 7;
+		ldi->location_info += get_dir(2, vm, cursor, 1);
+		ldi->location_info += get_dir(4, vm, cursor, 1);
+		ldi->reg_to_load = get_reg(6, vm, cursor);
 	}
 	else if (cursor->encoding == IDR)
 	{
-		jump = 7;
+		ldi->jump = 7;
 		if (long_ld)
-			location_info += get_ind_nomod(2, vm, cursor);
+			ldi->location_info += get_ind_nomod(2, vm, cursor);
 		else
-			location_info += get_ind(2, vm, cursor);
-		location_info += get_dir(4, vm, cursor, 1);
-		reg_to_load = get_reg(6, vm, cursor);
+			ldi->location_info += get_ind(2, vm, cursor);
+		ldi->location_info += get_dir(4, vm, cursor, 1);
+		ldi->reg_to_load = get_reg(6, vm, cursor);
 	}
-	if (jump > 1 && reg_to_load)
+}
+
+static void	ldi_3(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
+{
+	if (cursor->encoding == IRR)
+	{
+		ldi->jump = 6;
+		if (long_ld)
+			ldi->location_info += get_ind_nomod(2, vm, cursor);
+		else
+			ldi->location_info += get_ind(2, vm, cursor);
+		if (!(ldi->reg = get_reg(4, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->reg_to_load = get_reg(5, vm, cursor);
+	}
+	else if (cursor->encoding == RDR)
+	{
+		ldi->jump = 6;
+		if (!(ldi->reg = get_reg(2, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->location_info += get_dir(3, vm, cursor, 1);
+		ldi->reg_to_load = get_reg(5, vm, cursor);
+	}
+	else
+		ldi_4(vm, cursor, long_ld, ldi);
+}
+
+static void	ldi_2(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
+{
+	if (cursor->encoding == RRR)
+	{
+		ldi->jump = 5;
+		if (!(ldi->reg = get_reg(2, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		if (!(ldi->reg = get_reg(3, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->reg_to_load = get_reg(4, vm, cursor);
+	}
+	if (cursor->encoding == DRR)
+	{
+		ldi->jump = 6;
+		ldi->location_info += get_dir(2, vm, cursor, 1);
+		if (!(ldi->reg = get_reg(4, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->reg_to_load = get_reg(5, vm, cursor);
+	}
+	else
+		ldi_3(vm, cursor, long_ld, ldi);
+}
+
+int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
+{
+	t_ldi	ldi;
+
+	ldi.jump = 1;
+	ldi.location_info = 0;
+	ldi_2(vm, cursor, long_ld, &ldi);
+	if (ldi.jump > 1 && ldi.reg_to_load)
 	{
 		if (!long_ld)
-			location_info = location_info % IDX_MOD;
-		info_to_load = get_core_int(PC_PLUS(location_info), vm);
-		*reg_to_load = info_to_load;
-		if (info_to_load)
-			cursor->carry = 0;
-		else
-			cursor->carry = 1;
+			ldi.location_info = ldi.location_info % IDX_MOD;
+		ldi.info_to_load = get_core_int(PC_PLUS(ldi.location_info), vm);
+		*(ldi.reg_to_load) = ldi.info_to_load;
+		cursor->carry = ldi.info_to_load == 0 ? 0 : 1;
 	}
-	return (jump);
+	return (ldi.jump);
 }

@@ -24,18 +24,9 @@
 **	This operation modifies the carry.
 */
 
-static void	ldi_3(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
+static void	ldi_4(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
 {
-	if (cursor->encoding == RDR)
-	{
-		ldi->jump = 6;
-		if (!(ldi->reg = get_reg(2, vm, cursor)))
-			return ;
-		ldi->location_info += *(ldi->reg);
-		ldi->location_info += get_dir(3, vm, cursor, 1);
-		ldi->reg_to_load = get_reg(5, vm, cursor);
-	}
-	else if (cursor->encoding == DDR)
+	if (cursor->encoding == DDR)
 	{
 		ldi->jump = 7;
 		ldi->location_info += get_dir(2, vm, cursor, 1);
@@ -54,24 +45,50 @@ static void	ldi_3(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
 	}
 }
 
-static void	ldi_2(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
+static void	ldi_3(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
 {
-	if (cursor->encoding == DRR)
-	{
-		ldi->jump = 6;
-		ldi->location_info += get_dir(2, vm, cursor, 1);
-		if (!(ldi->reg = get_reg(4, vm, cursor)))
-			return ;
-		ldi->location_info += *(ldi->reg);
-		ldi->reg_to_load = get_reg(5, vm, cursor);
-	}
-	else if (cursor->encoding == IRR)
+	if (cursor->encoding == IRR)
 	{
 		ldi->jump = 6;
 		if (long_ld)
 			ldi->location_info += get_ind_nomod(2, vm, cursor);
 		else
 			ldi->location_info += get_ind(2, vm, cursor);
+		if (!(ldi->reg = get_reg(4, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->reg_to_load = get_reg(5, vm, cursor);
+	}
+	else if (cursor->encoding == RDR)
+	{
+		ldi->jump = 6;
+		if (!(ldi->reg = get_reg(2, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->location_info += get_dir(3, vm, cursor, 1);
+		ldi->reg_to_load = get_reg(5, vm, cursor);
+	}
+	else
+		ldi_4(vm, cursor, long_ld, ldi);
+}
+
+static void	ldi_2(t_vm *vm, t_cursor *cursor, int long_ld, t_ldi *ldi)
+{
+	if (cursor->encoding == RRR)
+	{
+		ldi->jump = 5;
+		if (!(ldi->reg = get_reg(2, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		if (!(ldi->reg = get_reg(3, vm, cursor)))
+			return ;
+		ldi->location_info += *(ldi->reg);
+		ldi->reg_to_load = get_reg(4, vm, cursor);
+	}
+	if (cursor->encoding == DRR)
+	{
+		ldi->jump = 6;
+		ldi->location_info += get_dir(2, vm, cursor, 1);
 		if (!(ldi->reg = get_reg(4, vm, cursor)))
 			return ;
 		ldi->location_info += *(ldi->reg);
@@ -87,19 +104,7 @@ int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 
 	ldi.jump = 1;
 	ldi.location_info = 0;
-	if (cursor->encoding == RRR)
-	{
-		ldi.jump = 5;
-		if (!(ldi.reg = get_reg(2, vm, cursor)))
-			return (ldi.jump);
-		ldi.location_info += *(ldi.reg);
-		if (!(ldi.reg = get_reg(3, vm, cursor)))
-			return (ldi.jump);
-		ldi.location_info += *(ldi.reg);
-		ldi.reg_to_load = get_reg(4, vm, cursor);
-	}
-	else
-		ldi_2(vm, cursor, long_ld, &ldi);
+	ldi_2(vm, cursor, long_ld, &ldi);
 	if (ldi.jump > 1 && ldi.reg_to_load)
 	{
 		if (!long_ld)
@@ -110,8 +115,3 @@ int			cw_load_i(t_vm *vm, t_cursor *cursor, int long_ld)
 	}
 	return (ldi.jump);
 }
-
-// if (ldi.info_to_load)
-// 			cursor->carry = 0;
-// 		else
-// 			cursor->carry = 1;

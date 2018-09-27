@@ -22,66 +22,82 @@
 **	their contents are used as indexes.
 */
 
-int	cw_sti(t_vm *vm, t_cursor *cursor)
+static void	sti3(t_vm *vm, t_cursor *cursor, t_ldi *store)
 {
-	int		*reg;
-	int		*reg_info_toload;
-	int		dest;
-	int		jump;
+	if (cursor->encoding == RDD)
+	{
+		store->jump = 7;
+		store->location_info += get_dir(3, vm, cursor, 1);
+		store->location_info += get_dir(5, vm, cursor, 1);
+	}
+}
 
-	dest = 0;
-	jump = 1;
-	reg_info_toload = get_reg(2, vm, cursor);
-	if (cursor->encoding == RRR)
+static void	sti2(t_vm *vm, t_cursor *cursor, t_ldi *store)
+{
+	if (cursor->encoding == RIR)
 	{
-		jump = 5;
-		if (!(reg = get_reg(3, vm, cursor)))
-			return (jump);
-		dest += *(reg);
-		if (!(reg = get_reg(4, vm, cursor)))
-			return (jump);
-		dest += *(reg);
-	}
-	else if (cursor->encoding == RRD)
-	{
-		jump = 6;
-		if (!(reg = get_reg(3, vm, cursor)))
-			return (jump);
-		dest += *(reg);
-		dest += get_dir(4, vm, cursor, 1);
-	}
-	else if (cursor->encoding == RIR)
-	{
-		jump = 6;
-		dest += get_ind(3, vm, cursor);
-		if (!(reg = get_reg(5, vm, cursor)))
-			return (jump);
-		dest += *(reg);
+		store->jump = 6;
+		store->location_info += get_ind(3, vm, cursor);
+		if (!(store->reg = get_reg(5, vm, cursor)))
+			return ;
+		store->location_info += *(store->reg);
 	}
 	else if (cursor->encoding == RDR)
 	{
-		jump = 6;
-		dest += get_dir(3, vm, cursor, 1);
-		if (!(reg = get_reg(5, vm, cursor)))
-			return (jump);
-		dest += *(reg);
+		store->jump = 6;
+		store->location_info += get_dir(3, vm, cursor, 1);
+		if (!(store->reg = get_reg(5, vm, cursor)))
+			return ;
+		store->location_info += *(store->reg);
 	}
 	else if (cursor->encoding == RID)
 	{
-		jump = 7;
-		dest += get_ind(3, vm, cursor);
-		dest += get_dir(5, vm, cursor, 1);
+		store->jump = 7;
+		store->location_info += get_ind(3, vm, cursor);
+		store->location_info += get_dir(5, vm, cursor, 1);
 	}
-	else if (cursor->encoding == RDD)
+	else
+		sti3(vm, cursor, store);
+}
+
+static void	sti1(t_vm *vm, t_cursor *cursor, t_ldi *store)
+{
+	if (cursor->encoding == RRR)
 	{
-		jump = 7;
-		dest += get_dir(3, vm, cursor, 1);
-		dest += get_dir(5, vm, cursor, 1);
+		store->jump = 5;
+		if (!(store->reg = get_reg(3, vm, cursor)))
+			return ;
+		store->location_info += *(store->reg);
+		if (!(store->reg = get_reg(4, vm, cursor)))
+			return ;
+		store->location_info += *(store->reg);
 	}
-	if (jump > 1 && reg_info_toload)
+	else if (cursor->encoding == RRD)
 	{
-		store_core_int(*reg_info_toload, PC_PLUS(dest % IDX_MOD),
+		store->jump = 6;
+		if (!(store->reg = get_reg(3, vm, cursor)))
+			return ;
+		store->location_info += *(store->reg);
+		store->location_info += get_dir(4, vm, cursor, 1);
+	}
+	else
+		sti2(vm, cursor, store);
+}
+
+int			cw_sti(t_vm *vm, t_cursor *cursor)
+{
+	int		*reg_info_toload;
+	t_ldi	store;
+
+	store.location_info = 0;
+	store.jump = 1;
+	sti1(vm, cursor, &store);
+	reg_info_toload = get_reg(2, vm, cursor);
+	if (store.jump > 1 && reg_info_toload)
+	{
+		store_core_int(*reg_info_toload,
+						PC_PLUS(store.location_info % IDX_MOD),
 							vm, cursor->player_num);
 	}
-	return (jump);
+	return (store.jump);
 }
