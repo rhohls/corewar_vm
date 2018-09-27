@@ -62,7 +62,7 @@ void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
 	cursor->op_code = CORE_PC_PLUS(0);
 	cursor->encoding = CORE_PC_PLUS(1);
-	if (cursor->op_code >= 16) // or more errors
+	if (cursor->op_code >= 16 || cursor->op_code < 0)
 		cursor->curr_cycle = 1;
 	else
 		cursor->curr_cycle = (vm->op_table[cursor->op_code]).cycles;

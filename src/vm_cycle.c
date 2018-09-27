@@ -128,7 +128,7 @@ void	vm_loop(t_vm *vm)
 		}
 		print_update = 0;
 		if (!vm->flags.visual)
-			printf("Total cycles: %ld Curr cycles: %d\n", vm->total_cycle, vm->curr_cycle);
+			printf("Total cycles: %ld Curr cycles: %d Cycle to die: %d\n", vm->total_cycle, vm->curr_cycle, vm->cycle_to_die);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		vm->total_cycle++;

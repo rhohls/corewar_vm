@@ -41,10 +41,10 @@
 
 #define REG_NUMBER				16
 
-#define CYCLE_TO_DIE			1500
+#define CYCLE_TO_DIE			1536
 #define CYCLE_DELTA				50
 #define NBR_LIVE				21
-#define MAX_CHECKS				900
+#define MAX_CHECKS				10
 
 /*
 **
