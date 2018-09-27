@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-void		kill_players(t_vm *vm)
+void	kill_players(t_vm *vm)
 {
 	t_player	*player;
 	t_list		*node;
@@ -55,7 +55,7 @@ void	remove_cursor_from_list(t_cursor *cursor, t_vm *vm)
 	}
 }
 
-void		kill_cursors(t_vm *vm)
+void	kill_cursors(t_vm *vm)
 {
 	t_list		*cursor_node;
 	t_cursor	*cursor;

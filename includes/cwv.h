@@ -23,7 +23,7 @@
 # define SECTION(x) vm->cwv.section[x]
 # define OCTET		64
 
-typedef struct 	s_section
+typedef struct	s_section
 {
 	int			start_x;
 	int			start_y;

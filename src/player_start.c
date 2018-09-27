@@ -15,7 +15,7 @@
 /*
 **	Sorry for the terrible function name following this comment.
 **	This function uses a cursors owner number to find
-** the appropriate colour index to print in ncurses
+** 	the appropriate colour index to print in ncurses
 */
 
 #include <unistd.h>
@@ -25,11 +25,11 @@ int		get_colour_ref(t_vm *vm, int byte_index)
 	return (vm->cwv.colour_ref[byte_index]);
 }
 
-void    player(t_vm *vm)
+void	player(t_vm *vm)
 {
-	t_player    *player;
-	t_list      *player_node;
-	u_int		start;
+	t_player	*player;
+	t_list		*player_node;
+	U_INT		start;
 
 	player_node = vm->player_list->start;
 	start = 1;

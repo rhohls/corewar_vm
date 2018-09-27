@@ -1,5 +1,14 @@
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace_live.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ppreez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/27 15:45:06 by ppreez            #+#    #+#             */
+/*   Updated: 2018/09/27 15:45:07 by ppreez           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -12,8 +21,8 @@ static int (*g_jump_func_ptr[17])(char *program) =
 
 int		jump_function(int op_code, t_list *player, int index)
 {
-	int ret;
-	t_player *temp;
+	int			ret;
+	t_player	*temp;
 
 	temp = ((t_player *)(player->content));
 	ret = (*g_jump_func_ptr[op_code])(temp->program + index);
@@ -22,8 +31,8 @@ int		jump_function(int op_code, t_list *player, int index)
 
 void	replace_player_num(t_list *player, int prog_index)
 {
-	char *num;
-	t_player *temp;
+	char		*num;
+	t_player	*temp;
 
 	temp = ((t_player *)(player->content));
 	num = (char *)(&temp->player_num);

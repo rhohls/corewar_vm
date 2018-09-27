@@ -43,8 +43,10 @@ void	print_usage(void)
 	ft_putstr(" -v: Verbose, will dump extra info about the game state   |\n");
 	ft_putstr("|\t\t\t\t\t\t\t    |\n|");
 	ft_putstr(" ---------------------Player Settings:--------------------- \n");
-	ft_putstr("|  -n N: Sets the number of the next program. By default,   |\n");
-	ft_putstr("| it will be the next available number, in parameter order. |\n");
+	ft_putstr(
+		"|  -n N: Sets the number of the next program. By default,   |\n");
+	ft_putstr(
+		"| it will be the next available number, in parameter order. |\n");
 	ft_putstr(" ---------------------------------------------------------- \n");
 	exit(0);
 }

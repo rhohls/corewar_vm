@@ -22,7 +22,7 @@ int	live_jump(char *program)
 	return (5);
 }
 
-int ld_jump(char *program)
+int	ld_jump(char *program)
 {
 	if (EBYTE(program[1]) == DR)
 		return (7);
@@ -30,7 +30,7 @@ int ld_jump(char *program)
 		return (5);
 }
 
-int st_jump(char *program)
+int	st_jump(char *program)
 {
 	if (EBYTE(program[1]) == RI)
 		return (5);

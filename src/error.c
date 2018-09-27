@@ -16,7 +16,7 @@ void	exit_errnostr(char *str)
 {
 	ft_putstr_fd(str, 2);
 	ft_putendl(strerror(errno));
-	exit (0);
+	exit(0);
 }
 
 void	exit_errno(void)
@@ -28,5 +28,5 @@ void	exit_errno(void)
 void	exit_str(char *str)
 {
 	ft_putstr_fd(str, 2);
-	exit (0);
+	exit(0);
 }

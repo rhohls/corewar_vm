@@ -58,13 +58,12 @@ void	n_print_cursor(t_vm *vm)
 
 int		get_colour(t_vm *vm, int core_index)
 {
-	int 		i;
+	int			i;
 	t_list		*player_node;
 	t_player	*player;
 
 	player_node = vm->player_list->start;
 	i = 1;
-
 	while (player_node)
 	{
 		player = player_node->content;
@@ -77,12 +76,17 @@ int		get_colour(t_vm *vm, int core_index)
 	return (99);
 }
 
+/*
+** The below declaration format of WINDOW * display is
+** according to Norminette and not the Norme
+*/
+
 void	n_display_winner(t_vm *vm, t_player *player)
 {
 	int		x;
 	int		y;
-	WINDOW	*display;
 
+	WINDOW * display;
 	getmaxyx(stdscr, y, x);
 	y /= 2;
 	x /= 2;

@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-void	swap_bits(int *num)
+void		swap_bits(int *num)
 {
 	int b0;
 	int b1;
@@ -23,7 +23,6 @@ void	swap_bits(int *num)
 	b1 = (*num & 0x0000ff00) << 8;
 	b2 = (*num & 0x00ff0000) >> 8;
 	b3 = (*num & 0xff000000) >> 24;
-
 	*num = b0 | b1 | b2 | b3;
 }
 
