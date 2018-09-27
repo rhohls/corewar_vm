@@ -45,7 +45,7 @@ void	dump_to_file(int cycle_number, t_vm *vm)
 	if (vm->flags.verbose)
 		print_game_state(vm, fd);
 	else
-		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
+		print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
 	free(file_name);
 }
 
@@ -80,7 +80,7 @@ void	n_dump_popup(t_vm *vm)
 		if (vm->flags.verbose)
 			print_game_state(vm, 0);
 		else
-			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
+			print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
 		exit(0);
 	}
 }
@@ -100,7 +100,7 @@ void	cycle_dump(t_vm *vm)
 		if (vm->flags.verbose)
 			print_game_state(vm, 0);
 		else
-			print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
+			print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
 		if (vm->flags.contin)
 		{
 			ft_putendl("Please enter the next cycle to dump at, or 0 to continue to game end");
@@ -124,19 +124,17 @@ void	vm_loop(t_vm *vm)
 			n_print_game_state(vm);
 		}
 		print_update = 0;
-		if (!vm->flags.visual)
+		if (vm->flags.update)
 			printf("Total cycles: %ld Curr cycles: %d Cycle to die: %d\n", vm->total_cycle, vm->curr_cycle, vm->cycle_to_die);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		vm->total_cycle++;
-		// curr_cycle gets set to 0 during checkup
-		// for dump count absolute cycles?
-		if (vm->flags.dump == vm->total_cycle)	//do this before cycle to die or it breaks 
+		if (vm->flags.dump == vm->total_cycle)
 			cycle_dump(vm);
-		if (vm->curr_cycle >= vm->cycle_to_die) // at start or at end?!?!
+		if (vm->curr_cycle >= vm->cycle_to_die)
 			if (cycle_checkup(vm))
 				break ;
-		if (print_update && !vm->flags.visual)// && vm->flags.verbose)
+		if (print_update && vm->flags.update)
 			print_game_state(vm, 0);
 	}
 	display_winner(vm);

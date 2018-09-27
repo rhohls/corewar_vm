@@ -46,63 +46,7 @@ int		check_line(unsigned char const *addr)
 	}
 	return (ret == 0 ? 1 : 0);
 }
-/*
-// delete this
-void	print_memory(const void *addr, size_t size, int printable, int location)
-{
-	size_t	ind;
-	size_t	a;
-	int		skip;
-	int		skip_prev;
-	unsigned char const *ptr = addr;
 
-	ind = 0;
-	skip_prev = 0;
-	while (ind < size)
-	{
-		skip = check_line(&(ptr[ind]));
-		if (skip && !skip_prev)
-		{
-			skip_prev = 1;
-			write(fd, "*\n", 2);
-		}
-		else if (!skip)
-		{
-			skip_prev = 0;
-			if (location)
-			{
-				putnbr_hex(ind, 7);
-				write(fd, " ", 1);
-			}
-			a = 0;
-			while (a < 16 && a + ind < size)
-			{
-				putnbr_hex(*(ptr + ind + a), 2);
-				write(fd, " ", 1);
-				a++;
-			}
-			while (a < 16)
-			{
-				write(fd, "  ", 2);
-				if (a % 2)
-					write(fd, " ", 1);
-				a++;
-			}
-			if (printable)
-			{
-				a = 0;
-				while (a < 16 && a + ind < size)
-				{
-					mem_putchar(ptr + a + ind);
-					a++;
-				}
-			}
-			write(fd, "\n", 1);
-		}
-		ind += 16;
-	}
-}
-*/
 void	print_board_location(unsigned char const *core, size_t size, int fd)
 {
 	size_t	ind;
@@ -110,18 +54,19 @@ void	print_board_location(unsigned char const *core, size_t size, int fd)
 	size_t	stop;
 	size_t location;
 	
-	stop = 64; // 4096 ^ 0.5
+	stop = 64;
 	ind = 0;
 	while (ind < size)
 	{
 		a = 0;
 		location = ind + 1;
-		while (location < 1000)
+		write(fd, "0x", 2);		
+		while (location < 4096)
 		{
 			write(fd, "0", 1);
-			location *= 10;
+			location *= 16;
 		}
-		ft_putnbr_fd(ind, fd);
+		ft_puthex_fd(ind, fd);
 		write(fd, ": ", 3);
 		while (a < stop && a + ind < size)
 		{
@@ -234,7 +179,7 @@ void	print_cursor_info(t_vm *vm, int fd)
 void	print_game_state(t_vm *vm, int fd)
 {
 	printf("\n");
-	print_board((unsigned const char *)(&(vm->core[0])), MEM_SIZE, fd);
+	print_board_location((unsigned const char *)(&(vm->core[0])), MEM_SIZE, fd);
 	print_cycle_info(vm, fd);
 	print_player_live(vm, fd);
 	print_cursor_info(vm, fd);
