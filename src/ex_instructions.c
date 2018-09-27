@@ -35,13 +35,16 @@ void	excute_instruction(t_cursor *cursor, t_vm *vm)
 	int	colour;
 	int y;
 	int x;
+	int x_y[2];
 
 	y = cursor->pc / 64;
 	x = cursor->pc % 64;
 	if (vm->flags.visual && vm->cwv.mode)
 	{
 		colour = get_colour(vm, cursor->pc);
-		n_putnbr_hex(vm, CORE_PC_PLUS(0), (x * 3) + 1, y + 1, colour);
+		x_y[0] = (x * 3) + 1;
+		x_y[1] = y + 1;
+		n_putnbr_hex(vm, CORE_PC_PLUS(0), x_y, colour);
 	}
 	if (verify_cursor(cursor, vm))
 		cursor_jump = (*(g_func_ptr[cursor->op_code]))(vm, cursor);

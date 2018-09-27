@@ -18,8 +18,8 @@
 */
 
 char	*n_get_player_name(t_vm *vm, t_cursor *cursor)
-{	
-	int 		i;
+{
+	int			i;
 	t_list		*player_node;
 	t_player	*player;
 
@@ -38,7 +38,7 @@ void	n_print_aff(t_vm *vm, t_cursor *cur, int *r_i, unsigned char c)
 {
 	static int	i = 3;
 	int			line;
-	char 		*name;
+	char		*name;
 
 	name = n_get_player_name(vm, cur);
 	mvwprintw(DISPLAY(2), i++, 1, "%s says: %c", name, c, *r_i);

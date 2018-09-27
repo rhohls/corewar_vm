@@ -15,26 +15,26 @@
 void	n_print_core(t_vm *vm)
 {
 	int i;
-	int x;
-	int y;
 	int	count;
 	int colour;
+	int x_y[2];
 
-	y = 1;
+	x_y[1] = 1;
 	i = 0;
-	while (y <= OCTET)
+	while (x_y[1] <= OCTET)
 	{
-		x = 1;
+		x_y[0] = 1;
 		count = 0;
 		while (count < OCTET)
 		{
 			colour = get_colour_ref(vm, i);
-			n_putnbr_hex(vm, (unsigned char)vm->core[i++], x, y, colour);
-			x += 2;
-			mvwprintw(DISPLAY(0), y, x++, "%c", ' ');
+			n_putnbr_hex(vm, (unsigned char)vm->core[i++], x_y, colour);
+			x_y[0] += 2;
+			mvwprintw(DISPLAY(0), x_y[1], x_y[0], "%c", ' ');
+			x_y[0]++;
 			count++;
 		}
-		y++;
+		x_y[1]++;
 	}
 	n_refresh_all(vm);
 }

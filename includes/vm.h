@@ -23,7 +23,7 @@
 # include <errno.h>
 # include <unistd.h>
 
-# define  u_int unsigned int
+# define u_int unsigned int
 # define EBYTE(x)	(x & 0xff)
 
 #define REG_BYTE	1
@@ -53,7 +53,7 @@
 # define CORE_PC_PLUS(x)	EBYTE(vm->core[WRAP(cursor->pc + x)])
 # define PC_PLUS(x)			WRAP(cursor->pc + x)
 # define ABS(x)				x >= 0 ? x : x * -1
-# define STR_CMP(x)			ft_strcmp(args->argv[args->index] + 1, (x)) == 0
+# define STR_CMP(x)			ft_strcmp(args->argv[args->index] + 1, (x))
 
 typedef struct	s_args
 {
@@ -256,7 +256,8 @@ void	n_print_core(t_vm *vm);
 void	n_print_game_state(t_vm *vm);
 void	n_print_cursor(t_vm *vm);
 void	n_refresh_all(t_vm *vm);
-void	n_putnbr_hex(t_vm *vm, int octet, int x, int y, int col);
+// void	n_putnbr_hex(t_vm *vm, int octet, int x, int y, int col);
+void	n_putnbr_hex(t_vm *vm, int byte, int *x_y, int col);
 void	n_display_winner(t_vm *vm, t_player *player);
 void	n_reset_cursor(t_vm *vm);
 void	n_print_one_cursor(t_vm *vm, t_cursor *cursor);

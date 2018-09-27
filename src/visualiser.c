@@ -17,13 +17,16 @@ void	n_print_one_cursor(t_vm *vm, t_cursor *cursor)
 	int col;
 	int y;
 	int x;
+	int x_y[2];
 
 	col = get_colour_ref(vm, cursor->pc);
 	if (col)
 		wattron(DISPLAY(0), A_REVERSE);
 	y = cursor->pc / 64;
 	x = cursor->pc % 64;
-	n_putnbr_hex(vm, cursor->op_code, (x * 3) + 1, y + 1, col);
+	x_y[0] = (x * 3) + 1;
+	x_y[1] = y + 1;
+	n_putnbr_hex(vm, cursor->op_code, x_y, col);
 	if (col)
 		wattroff(DISPLAY(0), A_REVERSE);
 }

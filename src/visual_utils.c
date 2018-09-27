@@ -12,13 +12,13 @@
 
 #include "../includes/vm.h"
 
-void	n_putnbr_hex(t_vm *vm, int byte, int x, int y, int col)
+void	n_putnbr_hex(t_vm *vm, int byte, int *x_y, int col)
 {
 	if (col)
 		wattron(DISPLAY(0), COLOR_PAIR(col));
-	mvwprintw(DISPLAY(0), y, x, "%c", BASE[((byte / 16) % 16)]);
-	x += 1;
-	mvwprintw(DISPLAY(0), y, x, "%c", BASE[(byte % 16)]);
+	mvwprintw(DISPLAY(0), x_y[1], x_y[0], "%c", BASE[((byte / 16) % 16)]);
+	// x_y[0] += 1;
+	mvwprintw(DISPLAY(0), x_y[1], x_y[0] + 1, "%c", BASE[(byte % 16)]);
 	if (col)
 		wattroff(DISPLAY(0), COLOR_PAIR(col));
 }
