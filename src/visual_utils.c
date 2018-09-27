@@ -23,51 +23,52 @@ void	n_putnbr_hex(t_vm *vm, int byte, int x, int y, int col)
 		wattroff(DISPLAY(0), COLOR_PAIR(col));
 }
 
-void	n_init_windows(t_vm *vm, int win)
+void	n_pause(t_vm *vm)
 {
-	int a[4];
-	
-	a[0] = vm->cwv.section[win].start_x;
-	a[1] = vm->cwv.section[win].start_y;
-	a[2] = vm->cwv.section[win].size_x;
-	a[3] = vm->cwv.section[win].size_y;
-	vm->cwv.window[win] = newwin(a[2], a[3], a[0], a[1]);
+	mvwprintw(DISPLAY(1), 2, 1, "Game state: paused ");
+	refresh();
+	wrefresh(DISPLAY(1));
+	timeout(-1);
+	getch();
+	mvwprintw(DISPLAY(1), 2, 1, "Game state: running");
 }
 
-void	n_init_sizes(t_vm *vm)
+void	n_key_get(t_vm *vm)
 {
-	int		octet;
-
-	vm->cwv.section[0].start_x = 0;
-	vm->cwv.section[0].start_y = 0;
-	vm->cwv.section[0].size_y = (OCTET * 3) + 2;
-	vm->cwv.section[0].size_x = (OCTET + 4);
-
-	vm->cwv.section[1].start_x = 0;
-	vm->cwv.section[1].start_y = (OCTET * 3) + 3;
-	vm->cwv.section[1].size_x = (OCTET / 2 + (OCTET / 6)) + 4;
-	vm->cwv.section[1].size_y = 48;
-
-	vm->cwv.section[2].start_x = (OCTET / 2 + (OCTET / 6)) + 4;
-	vm->cwv.section[2].start_y = (OCTET * 3) + 3;
-	vm->cwv.section[2].size_x = (OCTET - (OCTET / 2 + (OCTET / 6)));
-	vm->cwv.section[2].size_y = 48;
-
-	n_init_windows(vm, 0);
-	n_init_windows(vm, 1);
-	n_init_windows(vm, 2);
+    int c;
+    int    mult;
+    
+    timeout(0);
+    c = getch();
+    if (c == ' ')
+    {
+		n_pause(vm);
+    }
+    mult = vm->cwv.speed < 100000 ? 5000 : 10000;
+    if (c == KEY_LEFT)
+        vm->cwv.speed += mult;
+    else if (c == KEY_RIGHT && vm->cwv.speed - mult >= 0)
+        vm->cwv.speed -= mult;
+    else if (c == KEY_DOWN)
+        vm->cwv.speed = 0;
+    flushinp();
+    wmove(DISPLAY(1), 4, 1);
+    wclrtoeol(DISPLAY(1));
+    mvwprintw(DISPLAY(1), 4, 1, "Game speed delay: %dms", vm->cwv.speed / 1000);
+    box(DISPLAY(1), 0, 0);
 }
 
-void	n_init_color_pairs()
+void	n_print_game_state(t_vm *vm)
 {
-	start_color();
-	init_color(99, 180, 180, 180);
-	init_pair(99, 99, COLOR_BLACK);
-	init_pair(1, COLOR_BLUE, COLOR_BLACK);
-	init_pair(2, COLOR_RED, COLOR_BLACK);
-	init_pair(3, COLOR_GREEN, COLOR_BLACK);
-	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+	char c;
+
+	n_print_core(vm);
+	n_print_cycles(vm);
+	n_print_names(vm);
+	n_print_life_info(vm);
+	n_print_cursor(vm);
+	n_refresh_all(vm);
+	usleep(vm->cwv.speed);
 }
 
 void	n_refresh_all(t_vm *vm)

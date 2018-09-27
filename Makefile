@@ -37,6 +37,8 @@ SRC_FILE =	op.c	\
 			store_int.c	\
 			visualiser.c \
 			visual_utils.c \
+			visual_init.c \
+			visual_print.c \
 			player_start.c \
 
 FUNC_FILE = cw_add.c	\

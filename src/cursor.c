@@ -54,8 +54,11 @@ void		add_initial_player_cursor(t_vm *vm, int pc, t_player *player)
 
 void		update_cursor_info(t_cursor *cursor, t_vm *vm, int cursor_jump)
 {
-	refresh();
-	wrefresh(DISPLAY(0));
+	if (vm->flags.visual)
+	{
+		refresh();
+		wrefresh(DISPLAY(0));
+	}
 	cursor->pc = WRAP(cursor->pc + cursor_jump);
 	cursor->op_code = CORE_PC_PLUS(0);
 	cursor->encoding = CORE_PC_PLUS(1);

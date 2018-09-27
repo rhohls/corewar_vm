@@ -16,7 +16,7 @@ void marco_saftey(void)
 {
 	if (REG_SIZE != 4)
 		exit_str("Please reset REG_SIZE to 4\n");
-	if (MEM_SIZE != 4)
+	if (MEM_SIZE != 4096)
 		exit_str("Please reset MEM_SIZE to 4096\n");
 }
 

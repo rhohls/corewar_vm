@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <unistd.h>
 
 # define  u_int unsigned int
 # define EBYTE(x)	(x & 0xff)
@@ -257,5 +258,8 @@ void	n_reset_cursor(t_vm *vm);
 void	n_print_one_cursor(t_vm *vm, t_cursor *cursor);
 int		get_colour(t_vm *vm, int core_index);
 void	n_key_get(t_vm *vm);
+void	n_print_names(t_vm *vm);
+void	n_print_cycles(t_vm *vm);
+void	n_print_life_info(t_vm *vm);
 
 #endif

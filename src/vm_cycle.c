@@ -29,7 +29,7 @@ void	display_winner(t_vm *vm)
 		if (vm->cwv.mode)
 			n_display_winner(vm, player);
 		else
-			ft_printf("No one called any live comands\n");
+			ft_printf("Lord Geff wins\n");
 	}
 }
 
@@ -37,14 +37,16 @@ void	display_winner(t_vm *vm)
 void	dump_to_file(int cycle_number, t_vm *vm)
 {
 	int fd;
-	char *file_name;
+    char *file_name;
 
-	file_name = ft_itoa(cycle_number);
-	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
-	if (vm->flags.verbose)
-		print_game_state(vm, fd);
-	else
-		print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
+    file_name = ft_itoa(cycle_number);
+    file_name = ft_strjoinfree(file_name, ".dump");
+    fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
+    if (vm->flags.verbose)
+        print_game_state(vm, fd);
+    else
+        print_board((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
+    free(file_name);
 }
 
 void	n_dump_popup(t_vm *vm)
@@ -63,15 +65,14 @@ void	n_dump_popup(t_vm *vm)
 	if (vm->flags.contin)
 	{
 		mvwprintw(display, ((y / 2) / 2) + 1, (x / 2) / 2, "Please enter the next cycle to dump at, or press Enter to continue");
-		mvwprintw(display, ((y / 2) / 2) + 2, (x / 2) / 2, "Press spacebar to hide this popup");
 		wmove(display, ((y / 2) / 2) + 3, (x / 2) / 2);
 		wgetstr(display, str);
 		vm->flags.dump = ft_atoi(str);
 		refresh();
 		wrefresh(display);
+		n_print_game_state(vm);
 		timeout(-1);
 		getch();
-		n_print_game_state(vm);
 	}
 	else
 	{
@@ -91,6 +92,7 @@ void	cycle_dump(t_vm *vm)
 
 	if (vm->flags.visual)
 	{
+		dump_to_file(vm->flags.dump, vm);
 		n_dump_popup(vm);
 	}
 	else
