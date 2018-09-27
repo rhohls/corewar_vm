@@ -165,6 +165,7 @@ t_cursor	*create_cursor(t_vm *vm, int pc);
 void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
+void		add_flags(t_args *args, t_vm *vm);
 void 		replace_live(t_vm *vm, t_list *players);
 void		init_players(t_args *args, t_vm *vm);
 void		name_replacer(t_vm *vm, t_list *player);
@@ -190,6 +191,9 @@ void		print_memory(const void *addr, size_t size, int printable, int location);
 void		print_game_state(t_vm *vm, int fd);
 void		print_board_location(unsigned char const *core, size_t size, int fd);
 void		print_board(unsigned char const *core, size_t size, int fd);
+
+void		print_visu_help(void);
+void		print_usage(void);
 
 /*
 **	Functions

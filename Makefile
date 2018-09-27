@@ -33,6 +33,8 @@ SRC_FILE =	op.c	\
 			ex_instructions.c	\
 			get_par.c	\
 			replace_live.c \
+			flags.c		\
+			main_print.c		\
 			jump_function.c \
 			jump_functions2.c \
 			jump_functions3.c \
