@@ -13,7 +13,7 @@
 #include "../includes/vm.h"
 
 void	n_putnbr_hex(t_vm *vm, int byte, int x, int y, int col)
-{	
+{
 	if (col)
 		wattron(DISPLAY(0), COLOR_PAIR(col));
 	mvwprintw(DISPLAY(0), y, x, "%c", BASE[((byte / 16) % 16)]);
@@ -35,15 +35,13 @@ void	n_pause(t_vm *vm)
 
 void	n_key_get(t_vm *vm)
 {
-    int c;
-    int    mult;
-    
+    int	c;
+    int	mult;
+
     timeout(0);
     c = getch();
     if (c == ' ')
-    {
 		n_pause(vm);
-    }
     mult = vm->cwv.speed < 100000 ? 5000 : 10000;
     if (c == KEY_LEFT)
         vm->cwv.speed += mult;
@@ -54,7 +52,8 @@ void	n_key_get(t_vm *vm)
     flushinp();
     wmove(DISPLAY(1), 4, 1);
     wclrtoeol(DISPLAY(1));
-    mvwprintw(DISPLAY(1), 4, 1, "Game speed delay: %dms", vm->cwv.speed / 1000);
+	c = 1000;
+    mvwprintw(DISPLAY(1), 4, 1, "Game speed delay: %dms", vm->cwv.speed / c);
     box(DISPLAY(1), 0, 0);
 }
 

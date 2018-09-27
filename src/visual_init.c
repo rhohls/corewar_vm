@@ -15,7 +15,7 @@
 void	n_init_windows(t_vm *vm, int win)
 {
 	int a[4];
-	
+
 	a[0] = vm->cwv.section[win].start_x;
 	a[1] = vm->cwv.section[win].start_y;
 	a[2] = vm->cwv.section[win].size_x;
@@ -31,17 +31,14 @@ void	n_init_sizes(t_vm *vm)
 	vm->cwv.section[0].start_y = 0;
 	vm->cwv.section[0].size_y = (OCTET * 3) + 2;
 	vm->cwv.section[0].size_x = (OCTET + 4);
-
 	vm->cwv.section[1].start_x = 0;
 	vm->cwv.section[1].start_y = (OCTET * 3) + 3;
 	vm->cwv.section[1].size_x = (OCTET / 2 + (OCTET / 6)) + 4;
 	vm->cwv.section[1].size_y = 48;
-
 	vm->cwv.section[2].start_x = (OCTET / 2 + (OCTET / 6)) + 4;
 	vm->cwv.section[2].start_y = (OCTET * 3) + 3;
 	vm->cwv.section[2].size_x = (OCTET - (OCTET / 2 + (OCTET / 6)));
 	vm->cwv.section[2].size_y = 48;
-
 	n_init_windows(vm, 0);
 	n_init_windows(vm, 1);
 	n_init_windows(vm, 2);
@@ -78,7 +75,7 @@ void	n_init_curses(t_vm *vm)
 	if (vm->flags.visual)
 		vm->cwv.mode = 1;
 	else
-		vm->cwv.mode = 0;		
+		vm->cwv.mode = 0;
 	vm->cwv.speed = 0;
 	initscr();
 	cbreak();
