@@ -36,26 +36,32 @@ void	display_winner(t_vm *vm)
 
 void	dump_to_file(int cycle_number, t_vm *vm)
 {
-	int fd;
-	char *file_name;
+	int		fd;
+	char	*file_name;
 
 	file_name = ft_itoa(cycle_number);
 	file_name = ft_strjoinfree(file_name, ".dump");
-	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT,S_IRWXU);
+	fd = open(file_name, O_RDWR | O_CLOEXEC | O_CREAT, S_IRWXU);
 	if (vm->flags.verbose)
 		print_game_state(vm, fd);
 	else
-		print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
+		print_board_location(
+			(const unsigned char *)(&(vm->core[0])), MEM_SIZE, fd);
 	free(file_name);
 }
+
+/*
+** The following declaration of WINDOW * display is ugly but correct
+** according to Norminette
+*/
 
 void	n_dump_popup(t_vm *vm)
 {
 	int		y;
 	int		x;
-	char	str[128];
-	WINDOW *display;
 
+	WINDOW * display;
+	echo();
 	getmaxyx(stdscr, y, x);
 	y /= 2;
 	x /= 2;
@@ -64,15 +70,7 @@ void	n_dump_popup(t_vm *vm)
 	box(display, 0, 0);
 	if (vm->flags.contin)
 	{
-		mvwprintw(display, ((y / 2) / 2) + 1, (x / 2) / 2, "Please enter the next cycle to dump at, or press Enter to continue");
-		wmove(display, ((y / 2) / 2) + 3, (x / 2) / 2);
-		wgetstr(display, str);
-		vm->flags.dump = ft_atoi(str);
-		refresh();
-		wrefresh(display);
-		n_print_game_state(vm);
-		timeout(-1);
-		getch();
+		vm->flags.dump = n_dump(vm, display, x, y);
 	}
 	else
 	{
@@ -80,9 +78,11 @@ void	n_dump_popup(t_vm *vm)
 		if (vm->flags.verbose)
 			print_game_state(vm, 0);
 		else
-			print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
+			print_board_location(
+				(const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
 		exit(0);
 	}
+	noecho();
 }
 
 void	cycle_dump(t_vm *vm)
@@ -100,10 +100,12 @@ void	cycle_dump(t_vm *vm)
 		if (vm->flags.verbose)
 			print_game_state(vm, 0);
 		else
-			print_board_location((const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
+			print_board_location(
+				(const unsigned char *)(&(vm->core[0])), MEM_SIZE, 0);
 		if (vm->flags.contin)
 		{
-			ft_putendl("Please enter the next cycle to dump at, or 0 to continue to game end");
+			ft_putstr("Please enter the next cycle to dump");
+			ft_putendl(" at, or 0 to continue to game end");
 			get_next_line(0, &line);
 			vm->flags.dump = ft_atoi_long(line);
 		}
@@ -125,7 +127,8 @@ void	vm_loop(t_vm *vm)
 		}
 		print_update = 0;
 		if (vm->flags.update)
-			printf("Total cycles: %ld Curr cycles: %d Cycle to die: %d\n", vm->total_cycle, vm->curr_cycle, vm->cycle_to_die);
+			printf("Total cycles: %ld Curr cycles: %d Cycle to die: %d\n",
+			vm->total_cycle, vm->curr_cycle, vm->cycle_to_die);
 		incr_all_cursor(vm, &print_update);
 		vm->curr_cycle++;
 		vm->total_cycle++;

@@ -12,14 +12,6 @@
 
 #include "../includes/vm.h"
 
-int			reg_check(t_cursor *cursor, int reg_num)
-{
-	if ((reg_num < REG_NUMBER || reg_num >= 0) && cursor)
-		return (1);
-	else
-		return (0);
-}
-
 int			*get_reg(int relative_pc, t_vm *vm, t_cursor *cursor)
 {
 	int reg_num;

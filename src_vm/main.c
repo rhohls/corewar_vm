@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-void marco_saftey(void)
+void			marco_saftey(void)
 {
 	if (REG_SIZE != 4)
 		exit_str("Please reset REG_SIZE to 4\n");
@@ -22,8 +22,15 @@ void marco_saftey(void)
 		exit_str("Please reset REG_NUMBER to 16\n");
 }
 
+void			check_visual_flag(t_vm *vm)
+{
+	if (vm->flags.update)
+		exit_str("Please use either visual or update mode\n");
+	n_init_curses(vm);
+	n_print_core(vm);
+}
 
-int main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_vm		vm;
 	int			begin_players;
@@ -33,27 +40,17 @@ int main(int argc, char **argv)
 	marco_saftey();
 	if (argc < 2)
 		print_usage();
-
 	args.argv = argv;
 	args.argc = argc;
 	args.index = 1;
-
 	add_flags(&args, &vm);
 	init_players(&args, &vm);
-
 	ft_bzero(vm.core, MEM_SIZE);
 	load_players(&vm, vm.core, vm.player_list->start);
-
 	if (vm.player_list->length > MAX_PLAYERS)
 		exit_str("Error: Too many champions\n");
-
 	if (vm.flags.visual)
-	{
-		if (vm.flags.update)
-			exit_str("Please use either visual or update mode\n");
-		n_init_curses(&vm);
-		n_print_core(&vm);
-	}
+		check_visual_flag(&vm);
 	vm_loop(&vm);
 	endwin();
 	exit(0);

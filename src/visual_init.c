@@ -56,7 +56,6 @@ void	n_init_color_pairs(void)
 	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
 }
 
-
 void	n_init_colour_ref(t_vm *vm)
 {
 	int	x;
@@ -81,6 +80,7 @@ void	n_init_curses(t_vm *vm)
 	cbreak();
 	keypad(stdscr, TRUE);
 	curs_set(0);
+	noecho();
 	n_init_sizes(vm);
 	n_init_color_pairs();
 	n_init_colour_ref(vm);

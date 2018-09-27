@@ -23,7 +23,10 @@ FUNC_PATH = ./src_func/
 # Files
 SRC_FILE =	op.c	\
 			print.c	\
+			print2.c \
+			print3.c \
 			make_player.c	\
+			make_player2.c	\
 			error.c	\
 			get_int.c	\
 			init_vm.c	\
@@ -32,6 +35,7 @@ SRC_FILE =	op.c	\
 			death_cycle.c	\
 			ex_instructions.c	\
 			get_par.c	\
+			get_par2.c \
 			replace_live.c \
 			flags.c		\
 			main_print.c		\
@@ -46,6 +50,7 @@ SRC_FILE =	op.c	\
 			visual_print.c \
 			visual_print_2.c \
 			player_start.c \
+			dump.c
 
 FUNC_FILE = cw_add.c	\
 			cw_aff.c	\

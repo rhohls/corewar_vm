@@ -39,6 +39,11 @@ void	n_key_get(t_vm *vm)
 
 	timeout(0);
 	c = getch();
+	if (c == 27)
+	{
+		endwin();
+		exit(0);
+	}
 	if (c == ' ')
 		n_pause(vm);
 	mult = vm->cwv.speed < 100000 ? 5000 : 10000;

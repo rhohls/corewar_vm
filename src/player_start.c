@@ -29,7 +29,7 @@ void	player(t_vm *vm)
 {
 	t_player	*player;
 	t_list		*player_node;
-	u_int		start;
+	U_INT		start;
 
 	player_node = vm->player_list->start;
 	start = 1;
