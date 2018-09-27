@@ -35,7 +35,7 @@ void	n_print_cursor(t_vm *vm)
 	int			x;
 	t_cursor	*cursor;
 	t_list		*stack;
-	
+
 	stack = vm->cursor_stack->start;
 	while (stack)
 	{
@@ -48,7 +48,7 @@ void	n_print_cursor(t_vm *vm)
 /*
 ** get_colour seems to not have wrapping protection
 ** i.e. if a player's program will wrap around to the start of the core mem
-** However, without custom start locations, the first player will always start 
+** However, without custom start locations, the first player will always start
 ** at index 0, so wrap around will never be possible, and will error out
 ** beforehand if a player's program needs to wrap around
 */
@@ -65,7 +65,7 @@ int		get_colour(t_vm *vm, int core_index)
 	while (player_node)
 	{
 		player = player_node->content;
-		if ((core_index >= player->start_location) && 
+		if ((core_index >= player->start_location) &&
 			(core_index < (player->start_location + player->program_size)))
 			return (i);
 		player_node = player_node->next;

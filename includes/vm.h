@@ -30,30 +30,28 @@
 #define DIR_BYTE	4
 #define IND_BYTE	2
 
-# define RRR 0b01010100 //84	54		
-# define RIR 0b01110100 //116	74		
-# define RDR 0b01100100 //100	64		
-# define IRR 0b11010100 //212	d4		
-# define IIR 0b11110100 //244	f4		
-# define IDR 0b11100100 //228	e4		
-# define DRR 0b10010100 //148	94		
-# define DIR 0b10110100 //180	b4		
-# define DDR 0b10100100 //164	a4
-# define RRD 0b01011000 //88 	58
-# define RDD 0b01101000 //104	68
-# define RID 0b01111000 //120	78
-# define IR  0b11010000	//208	d0		
-# define DR  0b10010000	//144	90
-# define RR  0b01010000	//80	50		
-# define RI  0b01110000	//112	70
-# define R   0b01000000	//64	40
+# define RRR 0b01010100
+# define RIR 0b01110100
+# define RDR 0b01100100
+# define IRR 0b11010100
+# define IIR 0b11110100
+# define IDR 0b11100100
+# define DRR 0b10010100
+# define DIR 0b10110100
+# define DDR 0b10100100
+# define RRD 0b01011000
+# define RDD 0b01101000
+# define RID 0b01111000
+# define IR  0b11010000
+# define DR  0b10010000
+# define RR  0b01010000
+# define RI  0b01110000
+# define R   0b01000000
 
 
 # define WRAP(x)			((x) % MEM_SIZE < 0 ? (((x) % MEM_SIZE) + MEM_SIZE) : ((x) % MEM_SIZE))
-//input is index output is byte
-# define CORE_PC_PLUS(x)	EBYTE(vm->core[WRAP(cursor->pc + x)])	
-// just wraping from relative PC
-# define PC_PLUS(x)			WRAP(cursor->pc + x)					
+# define CORE_PC_PLUS(x)	EBYTE(vm->core[WRAP(cursor->pc + x)])
+# define PC_PLUS(x)			WRAP(cursor->pc + x)
 # define ABS(x)				x >= 0 ? x : x * -1
 
 
@@ -70,7 +68,7 @@ typedef struct	s_flags
 	int			contin;
 	int			verbose;
 	int			visual;
-	
+
 }				t_flags;
 
 typedef struct	s_life
@@ -167,7 +165,7 @@ t_cursor	*create_cursor(t_vm *vm, int pc);
 void		vm_loop(t_vm *vm);
 
 void		init_vm(t_vm *vm);
-void 		replace_live(t_vm *vm, t_list *players); 
+void 		replace_live(t_vm *vm, t_list *players);
 void		init_players(t_args *args, t_vm *vm);
 void		name_replacer(t_vm *vm, t_list *player);
 void		incr_all_cursor(t_vm *vm, int *print);
@@ -187,6 +185,7 @@ void		add_cursor_to_cursorlist(t_vm *vm, t_cursor *new_cursor);
 /*
 **	Printing
 */
+
 void		print_memory(const void *addr, size_t size, int printable, int location);
 void		print_game_state(t_vm *vm, int fd);
 void		print_board_location(unsigned char const *core, size_t size, int fd);
@@ -244,6 +243,7 @@ int			aff_jump(char *program);
 /*
 **	Visualiser functions
 */
+
 void	n_init_curses(t_vm *vm);
 void	n_init_windows(t_vm *vm, int win);
 void	n_init_sizes(t_vm *vm);

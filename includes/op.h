@@ -46,20 +46,12 @@
 #define NBR_LIVE				21
 #define MAX_CHECKS				900
 
-/*
-**
-*/
-
 typedef char	t_arg_type;
 
 #define T_REG					1
 #define T_DIR					2
 #define T_IND					4
 #define T_LAB					8
-
-/*
-**
-*/
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
@@ -81,8 +73,8 @@ typedef struct		s_op
 	int		id;
 	int		cycles;
 	char	description[50];
-	int		acb; // active cursor byte
-	int		encoding; /// ???
+	int		acb;
+	int		encoding;
 }					t_op;
 
 #endif

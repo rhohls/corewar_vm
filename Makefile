@@ -34,11 +34,15 @@ SRC_FILE =	op.c	\
 			get_par.c	\
 			replace_live.c \
 			jump_function.c \
+			jump_functions2.c \
+			jump_functions3.c \
+			jump_functions4.c \
 			store_int.c	\
 			visualiser.c \
 			visual_utils.c \
 			visual_init.c \
 			visual_print.c \
+			visual_print_2.c \
 			player_start.c \
 
 FUNC_FILE = cw_add.c	\
