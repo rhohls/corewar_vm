@@ -84,6 +84,7 @@ void	n_init_curses(t_vm *vm)
 	n_init_sizes(vm);
 	n_init_color_pairs();
 	n_init_colour_ref(vm);
+	n_assign_col(vm);
 	box(DISPLAY(0), 0, 0);
 	box(DISPLAY(1), 0, 0);
 	box(DISPLAY(2), 0, 0);
