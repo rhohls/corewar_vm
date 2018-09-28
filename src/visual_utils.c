@@ -76,6 +76,15 @@ void	n_print_game_state(t_vm *vm)
 
 void	n_refresh_all(t_vm *vm)
 {
+	box(DISPLAY(0), 0, 0);
+	box(DISPLAY(1), 0, 0);
+	box(DISPLAY(2), 0, 0);
+	wattron(DISPLAY(1), A_UNDERLINE);
+	mvwprintw(DISPLAY(1), 1, 14, "CORE WAR");
+	wattroff(DISPLAY(1), A_UNDERLINE);
+	mvwprintw(DISPLAY(2), 1, 14, "CORE CHAT");
+	mvwprintw(DISPLAY(1), 2, 1, "Game state: running");
+	mvwprintw(DISPLAY(1), 3, 1, "MEM_SIZE: %d bytes", MEM_SIZE);
 	refresh();
 	wrefresh(DISPLAY(0));
 	wrefresh(DISPLAY(1));

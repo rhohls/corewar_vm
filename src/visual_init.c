@@ -85,14 +85,5 @@ void	n_init_curses(t_vm *vm)
 	n_init_color_pairs();
 	n_init_colour_ref(vm);
 	n_assign_col(vm);
-	box(DISPLAY(0), 0, 0);
-	box(DISPLAY(1), 0, 0);
-	box(DISPLAY(2), 0, 0);
-	wattron(DISPLAY(1), A_UNDERLINE);
-	mvwprintw(DISPLAY(1), 1, 14, "CORE WAR");
-	wattroff(DISPLAY(1), A_UNDERLINE);
-	mvwprintw(DISPLAY(2), 1, 14, "CORE CHAT");
-	mvwprintw(DISPLAY(1), 2, 1, "Game state: running");
-	mvwprintw(DISPLAY(1), 3, 1, "MEM_SIZE: %d bytes", MEM_SIZE);
 	n_print_game_state(vm);
 }
