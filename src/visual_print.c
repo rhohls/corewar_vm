@@ -12,6 +12,24 @@
 
 #include "../includes/vm.h"
 
+void	n_assign_col(t_vm *vm)
+{
+	int			col;
+	t_list		*node;
+	t_player	*player;
+
+	col = 1;
+	node = vm->player_list->start;
+	while (node)
+	{
+		player = node->content;
+		player->col_num = col;
+		node = node->next;
+		col++;
+	}
+	box(DISPLAY(1), 0, 0);
+}
+
 void	n_print_life_info(t_vm *vm)
 {
 	t_life node;
