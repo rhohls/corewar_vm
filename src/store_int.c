@@ -12,18 +12,36 @@
 
 #include "../includes/vm.h"
 
+int		n_get_col(t_vm *vm, int num)
+{
+	t_list		*node;
+	t_player	*player;
+
+	node = vm->player_list->start;
+	while (node)
+	{
+		player = node->content;
+			if (player->player_num == num)
+				return (player->col_num);
+		node = node->next;
+	}
+	return (num);
+}
+
 void	n_print_stored_int(int core_dest_start, t_vm *vm, int player_num)
 {
 	int	i;
 	int	x;
-	int y;
+	t_list		*node;
+	t_player	*player;
 
 	i = 0;
-	y = core_dest_start / 64;
-	x = core_dest_start % 64;
+	node = vm->player_list->start;
+	player = node->content;
+	x = n_get_col(vm, player_num);
 	while (i < 4)
 	{
-		vm->cwv.colour_ref[core_dest_start + i] = player_num;
+		vm->cwv.colour_ref[core_dest_start + i] = x;
 		i++;
 	}
 	box(DISPLAY(0), 0, 0);

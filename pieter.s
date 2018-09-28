@@ -1,5 +1,5 @@
-.name "zork"
-.comment "I'M ALIIIIVE"
+.name "Pieter"
+.comment "I have no idea what I'm doing"
 
 l2:		sti r1, %:live, %1
 		and r1, %0, r1

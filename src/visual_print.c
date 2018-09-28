@@ -27,7 +27,6 @@ void	n_assign_col(t_vm *vm)
 		node = node->next;
 		col++;
 	}
-	box(DISPLAY(1), 0, 0);
 }
 
 void	n_print_life_info(t_vm *vm)

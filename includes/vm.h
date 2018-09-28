@@ -195,5 +195,6 @@ void		n_print_cycles(t_vm *vm);
 void		n_print_life_info(t_vm *vm);
 int			n_dump(t_vm *vm, WINDOW *display, int x, int y);
 void		n_assign_col(t_vm *vm);
+int			n_get_col(t_vm *vm, int num);
 
 #endif
