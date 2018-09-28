@@ -69,9 +69,7 @@ void	n_dump_popup(t_vm *vm)
 	getmaxyx(display, y, x);
 	box(display, 0, 0);
 	if (vm->flags.contin)
-	{
 		vm->flags.dump = n_dump(vm, display, x, y);
-	}
 	else
 	{
 		endwin();

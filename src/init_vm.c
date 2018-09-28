@@ -43,7 +43,7 @@ static void		insert_player(t_vm *vm, int player_start, t_player *player)
 		i++;
 	}
 	add_initial_player_cursor(vm, player_start, player);
-	player->start_location = player_start;
+	player->start_loc = player_start;
 }
 
 static void		size_balance(t_vm *vm, unsigned int size)

@@ -61,7 +61,7 @@ typedef struct	s_player
 	char		name[PROG_NAME_LENGTH + 1];
 	char		*program;
 	int			player_num;
-	int			start_location;
+	int			start_loc;
 	U_INT		program_size;
 	int			nbr_lives;
 	int			alive;

@@ -67,8 +67,8 @@ int		get_colour(t_vm *vm, int core_index)
 	while (player_node)
 	{
 		player = player_node->content;
-		if ((core_index >= player->start_location) &&
-			(core_index < (player->start_location + player->program_size)))
+		if ((core_index >= player->start_loc) &&
+			(core_index < (player->start_loc + player->program_size)))
 			return (i);
 		player_node = player_node->next;
 		i++;

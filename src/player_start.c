@@ -36,8 +36,8 @@ void	player(t_vm *vm)
 	while (player_node)
 	{
 		player = (t_player *)(player_node->content);
-		if (player->start_location < 0)
-			player->start_location = start++;
+		if (player->start_loc < 0)
+			player->start_loc = start++;
 		player_node = player_node->next;
 	}
 }

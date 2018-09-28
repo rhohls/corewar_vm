@@ -12,10 +12,15 @@
 
 #include "../includes/vm.h"
 
-char		*check_player_flags(t_args *args,
-				int *player_num, int *player_start, t_vm *vm)
+/*
+** Assigns player flag info
+** also returns the File name of the player
+*/
+
+char		*check_player_flags(t_args *args, t_player *player, t_vm *vm)
 {
-	*player_start = -1;
+	player->player_num = -1;
+	player->start_loc = -1;
 	while (args->index < args->argc)
 	{
 		if (args->argv[args->index][0] != '-')
@@ -23,59 +28,39 @@ char		*check_player_flags(t_args *args,
 		if (ft_strcmp(args->argv[args->index] + 1, "n") == 0)
 		{
 			args->index++;
-			*player_num = ft_atoi_long(args->argv[args->index]);
-			if (*player_num == 0 || is_duplicate_player_num(*player_num, vm))
+			player->player_num = ft_atoi_long(args->argv[args->index]);
+			if (player->player_num == 0 ||
+					is_duplicate_player_num(player->player_num, vm))
 				exit_str("Error:\nBad player number\n");
 		}
 		else if (ft_strcmp(args->argv[args->index] + 1, "a") == 0)
 		{
 			args->index++;
-			*player_start = ft_atoi_long(args->argv[args->index]);
+			player->start_loc = ft_atoi_long(args->argv[args->index]);
 		}
 		args->index++;
 	}
 	return (args->argv[args->index]);
 }
 
-t_player	*make_player(t_args *args, int *player_num, t_vm *vm)
+t_player	*make_player(t_args *args, t_vm *vm)
 {
-	int		fd;
-	U_INT	prog_size;
-	char	*program;
-	char	*file_name;
-	int		player_start;
-	char	header[HEADER_SIZE];
+	t_player	*player;
+	int			fd;
+	char		*file_name;
+	int			player_start;
 
-	file_name = check_player_flags(args, player_num, &player_start, vm);
+	player = ft_memalloc(sizeof(t_player));
+	file_name = check_player_flags(args, player, vm);
 	fd = open_file(file_name);
-	if (read(fd, header, HEADER_SIZE) < 1)
-		exit_errnostr("Error reading file\n");
-	prog_size = get_prog_size(&header[136]);
-	if (prog_size >= CHAMP_MAX_SIZE || prog_size <= 0)
-		exit_str("Error: Champ size incorrect\n");
-	program = (char *)ft_memalloc(prog_size);
-	if (read(fd, program, prog_size) < 1)
+	read_header(player, fd);
+	player->alive = 1;
+	player->nbr_lives = 0;
+	player->program = (char *)ft_memalloc(player->program_size);
+	if (read(fd, player->program, player->program_size) < 1)
 		exit_errnostr("Error reading file:\n");
-	if (get_point_int(header) != COREWAR_EXEC_MAGIC)
-		exit_str("Error: Magic numbers don't match\n");
-
-	t_player	*ret_player;
-	int			i;
-
-	ret_player = ft_memalloc(sizeof(t_player));
-	i = 0;
-	while (header[i + 4])
-	{
-		ret_player->name[i] = header[i + 4];
-		i++;
-	}
-	ret_player->program = program;
-	ret_player->player_num = *player_num;
-	ret_player->start_location = -1;
-	ret_player->program_size = prog_size;
-	ret_player->alive = 1;
-	ret_player->nbr_lives = 0;
-	return (ret_player);
+	close(fd);
+	return (player);
 }
 
 int			is_duplicate_player_num(int number, t_vm *vm)
@@ -115,17 +100,15 @@ void		reassign_player_number(t_vm *vm)
 
 void		init_players(t_args *args, t_vm *vm)
 {
-	int			player_num;
 	t_player	*new_player;
 	t_list		*node;
 
 	while (args->index < args->argc)
 	{
-		player_num = -1;
-		new_player = make_player(args, &player_num, vm);
+		new_player = make_player(args, vm);
 		node = ft_lstnew(NULL, 0);
 		node->content = new_player;
-		node->content_size = player_num;
+		node->content_size = new_player->player_num;
 		ft_stackpush(vm->player_list, node);
 		args->index++;
 	}

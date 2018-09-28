@@ -54,7 +54,7 @@ int			ft_printf(char *input, ...)
 		if (input[ind] == '%')
 		{
 			ind++;
-			if (input[ind] == 's' || input[ind] == 'i'  || input[ind] == 'x'
+			if (input[ind] == 's' || input[ind] == 'i' || input[ind] == 'x'
 			|| input[ind] == 'd' || input[ind] == 'c')
 				do_print(var_list, input, ind);
 			else

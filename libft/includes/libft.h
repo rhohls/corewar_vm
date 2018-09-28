@@ -85,8 +85,8 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *str, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int num, int fd);
-void			    ft_puthex(int num);
-void			    ft_puthex_fd(int num, int fd);
+void				ft_puthex(int num);
+void				ft_puthex_fd(int num, int fd);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));

@@ -35,14 +35,22 @@ int			open_file(char *file_name)
 	return (fd);
 }
 
-void		read_header(int fd, U_INT *prog_size, char **program)
+void		read_header(t_player *player, int fd)
 {
-	char	header[HEADER_SIZE];
+	char		header[HEADER_SIZE];
+	int			i;
 
 	if (read(fd, header, HEADER_SIZE) < 1)
 		exit_errnostr("Error reading file\n");
-	*prog_size = get_prog_size(&header[136]);
-	*program = (char *)ft_memalloc(*prog_size);
-	if (read(fd, program, *prog_size) < 1)
-		exit_errnostr("Error reading file\n");
+	if (get_point_int(header) != COREWAR_EXEC_MAGIC)
+		exit_str("Error: Magic numbers don't match\n");
+	i = 0;
+	while (header[i + 4])
+	{
+		player->name[i] = header[i + 4];
+		i++;
+	}
+	player->program_size = get_prog_size(&header[136]);
+	if (player->program_size >= CHAMP_MAX_SIZE || player->program_size <= 0)
+		exit_str("Error: Champ size incorrect\n");
 }
