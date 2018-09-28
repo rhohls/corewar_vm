@@ -76,6 +76,7 @@ void		cw_core_cpy(int core_dest, int core_start, int size, t_vm *vm);
 void		cw_reg_cpy(int core_dest, char *reg_pointer, int size, t_vm *vm);
 
 t_player	*make_player(t_args *args, t_vm *vm);
+void		check_progam(t_player *player);
 U_INT		get_prog_size(char *header_at_size);
 int			open_file(char *file_name);
 void		read_header(t_player *player, int fd);

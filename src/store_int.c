@@ -21,8 +21,8 @@ int		n_get_col(t_vm *vm, int num)
 	while (node)
 	{
 		player = node->content;
-			if (player->player_num == num)
-				return (player->col_num);
+		if (player->player_num == num)
+			return (player->col_num);
 		node = node->next;
 	}
 	return (num);
@@ -30,8 +30,8 @@ int		n_get_col(t_vm *vm, int num)
 
 void	n_print_stored_int(int core_dest_start, t_vm *vm, int player_num)
 {
-	int	i;
-	int	x;
+	int			i;
+	int			x;
 	t_list		*node;
 	t_player	*player;
 

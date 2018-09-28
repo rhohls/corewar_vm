@@ -25,7 +25,7 @@ int			open_file(char *file_name)
 {
 	int fd;
 	int name_length;
-	
+
 	name_length = ft_strlen(file_name);
 	if (ft_strcmp(file_name + (name_length - 4), ".cor") != 0)
 		exit_str("Please use only \".cor\" files\n");
@@ -43,8 +43,10 @@ void		read_header(t_player *player, int fd)
 {
 	char		header[HEADER_SIZE];
 	int			i;
+	int			read_ret;
 
-	if (read(fd, header, HEADER_SIZE) < 1)
+	read_ret = read(fd, header, HEADER_SIZE);
+	if (read_ret < HEADER_SIZE)
 		exit_errnostr("Error reading file\n");
 	if (get_point_int(header) != COREWAR_EXEC_MAGIC)
 		exit_str("Error: Magic numbers don't match\n");
@@ -57,4 +59,19 @@ void		read_header(t_player *player, int fd)
 	player->program_size = get_prog_size(&header[136]);
 	if (player->program_size >= CHAMP_MAX_SIZE || player->program_size <= 0)
 		exit_str("Error: Champ size incorrect\n");
+}
+
+void		check_progam(t_player *player)
+{
+	int i;
+
+	i = 0;
+	while (i < player->program_size)
+	{
+		if (player->program[i] != 0)
+			return ;
+		i++;
+	}
+	ft_dprintf(2, "Error with player \"%s\"\n", player->name);
+	exit(0);
 }

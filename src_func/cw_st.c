@@ -38,7 +38,7 @@ int	cw_st(t_vm *vm, t_cursor *cursor)
 	}
 	else if (cursor->encoding == RI)
 	{
-		dest = get_ind(3, vm, cursor);
+		dest = get_dir(3, vm, cursor, 1);
 		jump = 5;
 	}
 	if (jump > 1 && reg_info)

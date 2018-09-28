@@ -57,8 +57,9 @@ t_player	*make_player(t_args *args, t_vm *vm)
 	player->alive = 1;
 	player->nbr_lives = 0;
 	player->program = (char *)ft_memalloc(player->program_size);
-	if (read(fd, player->program, player->program_size) < 1)
+	if (read(fd, player->program, player->program_size) < player->program_size)
 		exit_errnostr("Error reading file:\n");
+	check_progam(player);
 	close(fd);
 	return (player);
 }
