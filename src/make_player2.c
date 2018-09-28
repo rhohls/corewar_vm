@@ -24,11 +24,15 @@ U_INT		get_prog_size(char *header_at_size)
 int			open_file(char *file_name)
 {
 	int fd;
-
+	int name_length;
+	
+	name_length = ft_strlen(file_name);
+	if (ft_strcmp(file_name + (name_length - 4), ".cor") != 0)
+		exit_str("Please use only \".cor\" files\n");
 	fd = open(file_name, O_RDONLY);
 	if (fd < 3)
 	{
-		printf("Error: There was an error opening file \"%s\"\nReason: ",
+		ft_printf("Error: There was an error opening file \"%s\"\nReason: ",
 			file_name);
 		exit_errno();
 	}

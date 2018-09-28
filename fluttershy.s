@@ -4,7 +4,7 @@
 #init
 entry:
 	fork	%:coregeni
-	st	r1,6 as
+	st	r1,6
 	live	%42
 	fork	%:torpgeni
 	st	r1,	6
